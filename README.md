@@ -77,12 +77,6 @@ This is a living document. As I pick up new skills, work on new projects, or go 
 
 Because building this was half the fun, and maybe it'll inspire someone else to visualize their own journey in a creative way. Feel free to fork it, remix it, make it your own. The code is here to be explored and learned from - just like the skills in the tree. Vibes were not off with this development so why not start now...Hoping someone out there got the joke.
 
-## Browser Requirements
-
-Modern browsers that support WebGL:
-- Chrome/Edge 80+
-- Firefox 75+
-- Safari 13+
 
 **Mobile Optimized** 📱
 - Touch-friendly controls (pinch to zoom, swipe to rotate)
@@ -90,24 +84,6 @@ Modern browsers that support WebGL:
 - Auto-callouts disabled (tap nodes to explore)
 - Respects `prefers-reduced-motion` accessibility setting
 
-## Running It Locally
-
-```bash
-# Clone it
-git clone https://github.com/TahriT/Tahri.Tech.git
-
-# Serve it (any HTTP server works)
-cd Tahri.Tech
-python -m http.server 8080
-
-# Open http://localhost:8080
-```
-
-## Deployment
-
-The site automatically deploys to GitHub Pages when you push to `master`. See [DEPLOYMENT.md](DEPLOYMENT.md) for setup instructions.
-
----
 
 **This tree is still growing.** 🌱→🌳
 
