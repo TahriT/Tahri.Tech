@@ -86,10 +86,14 @@
             transform: translateX(-50%) translateY(0);
         }
         
-        #legend-toggle {
+        #legend-toggle-container {
             position: fixed;
             top: 10px;
             left: 20px;
+            z-index: 160;
+        }
+        
+        #legend-toggle {
             background: rgba(0, 255, 255, 0.2);
             border: 2px solid rgba(0, 255, 255, 0.6);
             color: #00ffff;
@@ -97,7 +101,6 @@
             height: 50px;
             border-radius: 50%;
             cursor: pointer;
-            z-index: 160;
             font-size: 28px;
             line-height: 1;
             display: flex;
@@ -295,8 +298,8 @@
         }
         
         #trunk-ui.collapsed {
-            bottom: 0;
-            opacity: 0;
+            bottom: 60px; /* Position above the collapsed roots section */
+            opacity: 1; /* Keep visible when collapsed */
         }
         
         #roots-panel {
@@ -332,8 +335,9 @@
         }
         
         #roots-panel.collapsed {
-            max-height: 0;
-            opacity: 0;
+            max-height: 60px; /* Show only the header title area */
+            opacity: 1; /* Keep visible but collapsed */
+            transform: translateX(-50%) translateY(0); /* Stay at bottom */
         }
         
         /* Expand toggle button for mobile */
@@ -369,10 +373,15 @@
             #roots-panel {
                 width: 500px;
                 max-width: 95%;
+                max-height: 60px; /* Default collapsed state on mobile */
             }
             
             #roots-panel:hover {
-                max-height: 280px; /* Disable hover expand on mobile */
+                max-height: 60px; /* Disable hover expand on mobile */
+            }
+            
+            #roots-panel.expanded {
+                max-height: 280px !important; /* Full height when expanded */
             }
             
             #roots-toggle {
@@ -480,60 +489,88 @@
             }
             
             /* Legend toggle mobile adjustments */
+            #legend-toggle-container {
+                top: 15px;
+                left: 15px;
+            }
+            
             #legend-toggle {
                 width: 45px;
                 height: 45px;
                 font-size: 24px;
-                top: 15px;
-                left: 15px;
                 animation: mapGlow 4s ease-in-out infinite; /* Slower glow */
             }
             
-            /* Legend hidden by default on mobile */
+            /* Legend positioned relative to button on mobile */
             #legend {
-                top: 65px;
-                left: 15px;
-                max-width: 200px;
-                padding: 12px;
-                font-size: 10px;
-                opacity: 0;
-                transform: translateY(-20px) translateX(-100%);
-                pointer-events: none;
+                top: 55px; /* Closer to button on mobile */
+                left: 0; /* Align with button */
+                max-width: 280px; /* Allow full width on mobile */
+                min-width: 250px; /* Maintain good size */
+                padding: 15px; /* Keep full padding */
+                font-size: 11px; /* Slightly smaller font for mobile */
+                
+                /* Ensure it doesn't go off screen */
+                right: auto;
+                width: auto;
             }
             
+            /* Adjust if legend would go off right edge of screen */
+            @media (max-width: 320px) {
+                #legend {
+                    max-width: calc(100vw - 30px); /* Account for margins */
+                    min-width: auto;
+                    left: -10px; /* Shift left slightly on very small screens */
+                }
+            }
+            
+            /* Override any other classes when expanded on mobile */
             #legend.expanded {
-                opacity: 1;
-                transform: translateY(0) translateX(0);
-                pointer-events: auto;
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                pointer-events: auto !important;
             }
             
-            /* Optimize callout for mobile */
+            /* Optimize callout for mobile - top center positioning */
             #skill-callout {
-                max-width: 180px;
-                padding: 10px;
-                font-size: 11px;
-                border-radius: 12px;
-                box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
+                position: fixed;
+                top: 40px; /* Position at very top where title was */
+                left: 50%; /* Center horizontally */
+                transform: translateX(-50%) translateY(-20px); /* Center and start offset */
+                max-width: 150px;
+                padding: 8px 12px;
+                font-size: 12px;
+                border-radius: 20px;
+                box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+                width: auto;
+            }
+            
+            #skill-callout.visible {
+                transform: translateX(-50%) translateY(0); /* Slide down into view */
+            }
+            
+            /* Override left/right classes on mobile */
+            #skill-callout.left,
+            #skill-callout.right {
+                left: 50% !important;
+                right: auto !important;
+                transform: translateX(-50%) translateY(-20px) !important;
+            }
+            
+            #skill-callout.visible.left,
+            #skill-callout.visible.right {
+                transform: translateX(-50%) translateY(0) !important;
             }
             
             #skill-callout h3 {
-                font-size: 13px;
-                margin-bottom: 8px;
+                font-size: 14px;
+                margin: 0;
+                text-align: center;
             }
             
+            /* Hide all paragraphs on mobile for title-only display */
             #skill-callout p {
-                font-size: 10px;
-                margin: 3px 0;
-                line-height: 1.3;
-            }
-            
-            /* Adjust callout positioning on mobile */
-            #skill-callout.left {
-                left: 10px;
-            }
-            
-            #skill-callout.right {
-                right: 10px;
+                display: none;
             }
             
             /* Projects header mobile adjustments */
@@ -751,42 +788,44 @@
             50% { transform: scale(1.3); }
         }
         
-        /* Legend/Key in top left - now collapsible */
+        /* Legend/Key - dropdown from toggle button */
         #legend {
-            position: fixed;
-            top: 70px;
-            left: 20px;
+            position: absolute;
+            top: 60px; /* Below the button */
+            left: 0;
             background: rgba(10, 10, 20, 0.95);
             border: 2px solid rgba(0, 255, 255, 0.4);
             border-radius: 10px;
             padding: 15px;
-            z-index: 150;
             backdrop-filter: blur(10px);
             opacity: 0;
-            transform: translateY(-20px) translateX(-100%);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            transform: translateY(-10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
             font-size: 12px;
             color: #ccc;
             max-width: 250px;
+            min-width: 220px; /* Ensure consistent width */
             pointer-events: none;
+            z-index: 150;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
         }
         
         #legend.visible {
             opacity: 1;
-            transform: translateY(0) translateX(0);
+            transform: translateY(0);
             pointer-events: auto;
         }
         
         #legend.expanded {
             opacity: 1;
-            transform: translateY(0) translateX(0);
+            transform: translateY(0);
             pointer-events: auto;
         }
         
         /* Hidden state takes priority - allows toggling even when 'visible' class is present */
         #legend.hidden {
             opacity: 0 !important;
-            transform: translateY(-20px) translateX(-100%) !important;
+            transform: translateY(-10px) !important;
             pointer-events: none !important;
         }
         
@@ -1072,51 +1111,53 @@
     
     <div id="canvas-container"></div>
     
-    <!-- Legend/Key -->
-    <div id="legend">
-        <h4>🗺️ Skill Tree Key</h4>
-        <div class="legend-item">
-            <div class="legend-icon small"></div>
-            <div class="legend-text">Smaller nodes = Less experience</div>
-        </div>
-        <div class="legend-item">
-            <div class="legend-icon large"></div>
-            <div class="legend-text">Larger nodes = More experience</div>
-        </div>
-        <div class="legend-divider"></div>
-        <div class="legend-item">
-            <div class="legend-icon robotics"></div>
-            <div class="legend-text">Robotics & Automation</div>
-        </div>
-        <div class="legend-item">
-            <div class="legend-icon programming"></div>
-            <div class="legend-text">Programming & Development</div>
-        </div>
-        <div class="legend-item">
-            <div class="legend-icon data"></div>
-            <div class="legend-text">Data & Analytics</div>
-        </div>
-        <div class="legend-item">
-            <div class="legend-icon ai"></div>
-            <div class="legend-text">AI & Machine Learning</div>
-        </div>
-        <div class="legend-item">
-            <div class="legend-icon design"></div>
-            <div class="legend-text">Design & Visualization</div>
-        </div>
-        <div class="legend-item">
-            <div class="legend-icon devops"></div>
-            <div class="legend-text">DevOps & Infrastructure</div>
-        </div>
-        <div class="legend-divider"></div>
-        <div class="legend-text" style="font-size: 11px; font-style: italic; margin-top: 8px;">
-            ↑ Higher = More niche<br>
-            ↓ Lower = More foundational
+    <!-- Legend Toggle (Collapsible) with integrated dropdown -->
+    <div id="legend-toggle-container">
+        <button id="legend-toggle" aria-label="Toggle skill tree key" title="Skill Tree Key">🗺️</button>
+        
+        <!-- Legend/Key as child of toggle button -->
+        <div id="legend">
+            <h4>🗺️ Skill Tree Key</h4>
+            <div class="legend-item">
+                <div class="legend-icon small"></div>
+                <div class="legend-text">Smaller nodes = Less experience</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon large"></div>
+                <div class="legend-text">Larger nodes = More experience</div>
+            </div>
+            <div class="legend-divider"></div>
+            <div class="legend-item">
+                <div class="legend-icon robotics"></div>
+                <div class="legend-text">Robotics & Automation</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon programming"></div>
+                <div class="legend-text">Programming & Development</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon data"></div>
+                <div class="legend-text">Data & Analytics</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon ai"></div>
+                <div class="legend-text">AI & Machine Learning</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon design"></div>
+                <div class="legend-text">Design & Visualization</div>
+            </div>
+            <div class="legend-item">
+                <div class="legend-icon devops"></div>
+                <div class="legend-text">DevOps & Infrastructure</div>
+            </div>
+            <div class="legend-divider"></div>
+            <div class="legend-text" style="font-size: 11px; font-style: italic; margin-top: 8px;">
+                ↑ Higher = More niche<br>
+                ↓ Lower = More foundational
+            </div>
         </div>
     </div>
-    
-    <!-- Legend Toggle (Collapsible) -->
-    <button id="legend-toggle" aria-label="Toggle skill tree key" title="Skill Tree Key">🗺️</button>
     
     <!-- Projects Header (Collapsible) -->
     <button id="projects-toggle" aria-label="Toggle projects menu" title="Fruits of My Labor">🍎</button>
@@ -1909,6 +1950,7 @@
         });
         
         // ===== LEGEND TOGGLE =====
+        const legendToggleContainer = document.getElementById('legend-toggle-container');
         const legendToggle = document.getElementById('legend-toggle');
         const legend = document.getElementById('legend');
         
@@ -1927,9 +1969,9 @@
             }
         });
         
-        // Close legend when clicking outside
+        // Close legend when clicking outside the container
         document.addEventListener('click', (e) => {
-            if (!legend.contains(e.target) && !legendToggle.contains(e.target)) {
+            if (!legendToggleContainer.contains(e.target)) {
                 if (!legend.classList.contains('hidden')) {
                     legend.classList.add('hidden');
                     legendToggle.classList.remove('expanded');
@@ -2013,21 +2055,26 @@
                 return; // Node not visible
             }
             
-            // Determine left or right side - on mobile, prefer right to avoid legend conflict
-            const isLeft = isMobile ? (x < window.innerWidth * 0.3) : (x < window.innerWidth / 2);
+            // Determine left or right side - on mobile, always center
+            let className;
+            if (isMobile) {
+                className = 'center'; // New center class for mobile
+            } else {
+                const isLeft = x < window.innerWidth / 2;
+                className = isLeft ? 'left' : 'right';
+            }
+            
             const data = node.userData.skillData;
             
             // Update callout content
             document.getElementById('callout-title').textContent = data.name;
             
-            // Simplify content on mobile
+            // Simplify content on mobile - title only
             if (isMobile) {
-                document.getElementById('callout-category').innerHTML = 
-                    `<strong>${node.userData.category || 'N/A'}</strong>`;
-                document.getElementById('callout-level').innerHTML = 
-                    `${data.level || 'N/A'} • ${data.yearsExp || 0}yr`;
-                document.getElementById('callout-experience').innerHTML = 
-                    data.description ? `${data.description.substring(0, 60)}...` : '';
+                // Hide all paragraphs on mobile (handled by CSS)
+                document.getElementById('callout-category').innerHTML = '';
+                document.getElementById('callout-level').innerHTML = '';
+                document.getElementById('callout-experience').innerHTML = '';
             } else {
                 document.getElementById('callout-category').innerHTML = 
                     `<strong>Category:</strong> ${node.userData.category || 'N/A'}`;
@@ -2038,7 +2085,7 @@
             }
             
             // Position callout (start offset for fade-in animation)
-            calloutBalloon.className = isLeft ? 'left' : 'right';
+            calloutBalloon.className = className;
             
             // Reset and start line drawing animation
             lineDrawProgress = 0;
@@ -2110,19 +2157,6 @@
         }
         
         function drawSegmentedLine(startX, startY, endX, endY, isLeft, progress, fadeOpacity = 1) {
-            // Create L-shaped path: horizontal segment then vertical to node
-            const horizontalLength = isMobile ? 80 : 150; // Shorter on mobile
-            const cornerX = isLeft ? startX + horizontalLength : startX - horizontalLength;
-            const cornerY = startY;
-            
-            // Calculate total path length
-            const segment1Length = Math.abs(cornerX - startX); // Horizontal segment
-            const segment2Length = Math.sqrt(Math.pow(endX - cornerX, 2) + Math.pow(endY - cornerY, 2)); // Diagonal to node
-            const totalLength = segment1Length + segment2Length;
-            
-            // Calculate current draw distance
-            const currentLength = totalLength * progress;
-            
             calloutCtx.clearRect(0, 0, calloutLine.width, calloutLine.height);
             
             // Apply fade opacity to stroke color
@@ -2136,20 +2170,45 @@
             calloutCtx.beginPath();
             calloutCtx.moveTo(startX, startY);
             
-            if (currentLength <= segment1Length) {
-                // Drawing horizontal segment
-                const segmentProgress = currentLength / segment1Length;
-                const currentX = startX + (cornerX - startX) * segmentProgress;
-                calloutCtx.lineTo(currentX, startY);
-            } else {
-                // Horizontal segment complete, draw to corner then toward node
-                calloutCtx.lineTo(cornerX, cornerY);
+            if (isMobile) {
+                // Simple straight line from top center down to node
+                const totalLength = Math.sqrt(Math.pow(endX - startX, 2) + Math.pow(endY - startY, 2));
+                const currentLength = totalLength * progress;
                 
-                // Calculate progress on second segment
-                const segment2Progress = (currentLength - segment1Length) / segment2Length;
-                const currentX = cornerX + (endX - cornerX) * segment2Progress;
-                const currentY = cornerY + (endY - cornerY) * segment2Progress;
-                calloutCtx.lineTo(currentX, currentY);
+                if (currentLength > 0) {
+                    const currentX = startX + (endX - startX) * progress;
+                    const currentY = startY + (endY - startY) * progress;
+                    calloutCtx.lineTo(currentX, currentY);
+                }
+            } else {
+                // L-shaped path for desktop: horizontal segment then to node
+                const horizontalLength = 150;
+                const cornerX = isLeft ? startX + horizontalLength : startX - horizontalLength;
+                const cornerY = startY;
+                
+                // Calculate total path length
+                const segment1Length = Math.abs(cornerX - startX);
+                const segment2Length = Math.sqrt(Math.pow(endX - cornerX, 2) + Math.pow(endY - cornerY, 2));
+                const totalLength = segment1Length + segment2Length;
+                
+                // Calculate current draw distance
+                const currentLength = totalLength * progress;
+                
+                if (currentLength <= segment1Length) {
+                    // Drawing horizontal segment
+                    const segmentProgress = currentLength / segment1Length;
+                    const currentX = startX + (cornerX - startX) * segmentProgress;
+                    calloutCtx.lineTo(currentX, startY);
+                } else {
+                    // Horizontal segment complete, draw to corner then toward node
+                    calloutCtx.lineTo(cornerX, cornerY);
+                    
+                    // Calculate progress on second segment
+                    const segment2Progress = (currentLength - segment1Length) / segment2Length;
+                    const currentX = cornerX + (endX - cornerX) * segment2Progress;
+                    const currentY = cornerY + (endY - cornerY) * segment2Progress;
+                    calloutCtx.lineTo(currentX, currentY);
+                }
             }
             
             calloutCtx.stroke();
@@ -2186,12 +2245,16 @@
             
             // Determine which side the balloon is on
             const isLeft = calloutBalloon.classList.contains('left');
+            const isCenter = calloutBalloon.classList.contains('center');
             
             // Adjust balloon position for mobile
             let balloonX, balloonY;
-            if (isMobile) {
-                balloonX = isLeft ? 100 : window.innerWidth - 100;
-                balloonY = window.innerHeight / 2;
+            if (isMobile && isCenter) {
+                balloonX = window.innerWidth / 2; // Center horizontally
+                balloonY = 40; // Very top position (matching CSS)
+            } else if (isMobile) {
+                balloonX = window.innerWidth / 2; // Center horizontally even if left/right class
+                balloonY = 40;
             } else {
                 balloonX = isLeft ? 340 : window.innerWidth - 340;
                 balloonY = window.innerHeight / 2;
@@ -2523,22 +2586,21 @@
             }
         });
         
-        // Touch start for immediate hover detection (mobile)
-        window.addEventListener('touchstart', (event) => {
-            if (isMobile && event.touches[0]) {
-                updateHoverState(event.touches[0].clientX, event.touches[0].clientY);
-            }
-        });
-        
         // Touch/Click handling for node selection
         let touchStartTime = 0;
         let touchMoved = false;
         let touchStartPos = { x: 0, y: 0 };
         
-        // Touch start
+        // Touch start - combined handler for both hover and click detection
         window.addEventListener('touchstart', (event) => {
             if (isZoomedIn) return;
             
+            // Handle hover simulation first
+            if (isMobile && event.touches[0]) {
+                updateHoverState(event.touches[0].clientX, event.touches[0].clientY);
+            }
+            
+            // Setup for click detection
             touchStartTime = Date.now();
             touchMoved = false;
             
