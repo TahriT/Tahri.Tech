@@ -1,0 +1,121 @@
+{
+  "version": {
+    "major": 1,
+    "minor": 0,
+    "patch": 0,
+    "lastUpdated": "2025-10-23",
+    "changelog": [
+      "1.0.0 - Initial experience data structure"
+    ]
+  },
+  "categories": [
+    {
+      "category": "Work Experience",
+      "icon": "💼",
+      "items": [
+        {
+          "logo": "IDEXX_logo.png",
+          "logoUrl": "https://www.moneycontroller.fr/upload/aziende/idexx-laboratories-inc_20210325153836.png",
+          "title": "Senior Scada Engineer",
+          "organization": "IDEXX · Full-time",
+          "period": "Feb 2024 to Present · 1 yr 9 mos",
+          "location": "",
+          "skills": [
+            "Digital Transformation",
+            "Unified Name Space (UNS)",
+            "Ignition",
+            "Data Modeling",
+            "Artificial Intelligence (AI)",
+            "SCADA",
+            "Data Analysis",
+            "Digital Innovation",
+            "Data Warehousing",
+            "Snowflake Cloud",
+            "Amazon Web Services (AWS)",
+            "Continuous Integration (CI)",
+            "Large Language Model Operations (LLMOps)",
+            "Data Historian",
+            "MCP Server Integration",
+            "Mqtt"
+          ],
+          "description": "Leading SCADA engineering and digital transformation."
+        },
+        {
+          "logo": "BoldVu_logo.png",
+          "logoUrl": "https://media.licdn.com/dms/image/v2/D560BAQEExwPAj8qPJA/company-logo_200_200/B56ZT7Fw9jGQAM-/0/1739379380371/boldvu_logo?e=2147483647&v=beta&t=qZaTHM6IsGlaMwUuqjVZk15UCn_JWzv5PghaI6Erm8Y",
+          "title": "Controls and Data Engineer",
+          "organization": "LG-MRI · Full-time",
+          "period": "Mar 2021 to Oct 2023 · 2 yrs 8 mos",
+          "location": "United States",
+          "skills": [
+            "Python (Programming Language)",
+            "Robot Programming",
+            "Continuous Integration and Continuous Delivery (CI/CD)",
+            "C#",
+            "Ignition",
+            "Fanuc Robots",
+            "Robotics",
+            "Git",
+            "Mobile Robotics"
+          ],
+          "description": "Developed and integrated controls, data systems, and robotics."
+        },
+        {
+          "logo": "Freudenberg_logo.png",
+          "logoUrl": "https://www.fst.com/-/media/images/teaser/t04/t04_hydrogen_2000x850_v3.jpg",
+          "title": "Robotics/ Process Engineer",
+          "organization": "Freudenberg Sealing Technologies · Full-time",
+          "period": "Sep 2015 to May 2020 · 4 yrs 9 mos",
+          "location": "",
+          "skills": [
+            "Continuous Integration and Continuous Delivery (CI/CD)",
+            "Git"
+          ],
+          "description": "Automated robotics, vision systems, and process engineering."
+        }
+      ]
+    },
+    {
+      "category": "Leadership",
+      "icon": "👥",
+      "items": [
+        {
+          "logo": "FIRST_logo.png",
+          "logoUrl": "https://www.firstinspires.org/hs-fs/hubfs/logo-library/frc/FIRSTRobotics_iconHorz_RGB_82516.png?width=804&height=190&name=FIRSTRobotics_iconHorz_RGB_82516.png",
+          "title": "FIRST Mentor/Student",
+          "organization": "FIRST",
+          "period": "Jan 2005 to Jan 2020 · 15 yrs 1 mo",
+          "location": "",
+          "skills": ["Git"],
+          "description": "Mentored and participated in robotics and engineering education."
+        }
+      ]
+    },
+    {
+      "category": "Education",
+      "icon": "🎓",
+      "items": [
+        {
+          "logo": "SouthernPoly_logo.png",
+          "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9e/SPSUlogo.png",
+          "title": "Summer Research Assistant",
+          "organization": "Southern Polytechnic State University",
+          "period": "May 2013 to Aug 2014 · 1 yr 4 mos",
+          "location": "",
+          "skills": [],
+          "description": "Researched solar tracking and energy collection."
+        },
+        {
+          "logo": "SouthernPoly_logo.png",
+          "logoUrl": "https://upload.wikimedia.org/wikipedia/commons/9/9e/SPSUlogo.png",
+          "title": "Student Assistant",
+          "organization": "Southern Polytechnic State University Business Office",
+          "period": "Aug 2011 to Aug 2012 · 1 yr 1 mo",
+          "location": "",
+          "skills": [],
+          "description": "Supported university business operations and events."
+        }
+      ]
+    }
+  ]
+}

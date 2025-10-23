@@ -1,0 +1,911 @@
+{
+  "version": {
+    "major": 2,
+    "minor": 0,
+    "patch": 0,
+    "lastUpdated": "2025-10-05",
+    "changelog": [
+      "2.0.0 - Added robotics & automation, expanded programming skills, added design experience",
+      "1.0.0 - Initial hierarchical structure with basic technical skills"
+    ]
+  },
+  "skills": {
+    "name": "Technical Skills",
+    "type": "root",
+    "color": "0x8B4513",
+    "children": [
+      {
+        "name": "Robotics & Automation",
+        "type": "category",
+        "color": "0xFF4500",
+        "level": "Expert",
+        "yearsExp": 8,
+        "children": [
+          {
+            "name": "Industrial Robotics",
+            "type": "skill",
+            "color": "0xFF6347",
+            "level": "Expert",
+            "yearsExp": 8,
+            "description": "Professional robotics programming and integration",
+            "children": [
+              {
+                "name": "Kawasaki Robots",
+                "type": "platform",
+                "color": "0x32CD32",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Programming with Kawasaki AS language"
+              },
+              {
+                "name": "FANUC Robots",
+                "type": "platform",
+                "color": "0xFFD700",
+                "level": "Expert",
+                "yearsExp": 8,
+                "description": "Sensor and vision integration expertise"
+              }
+            ]
+          },
+          {
+            "name": "PLC Programming",
+            "type": "skill",
+            "color": "0x8B0000",
+            "level": "Expert",
+            "yearsExp": 8,
+            "description": "Programmable Logic Controller development",
+            "children": [
+              {
+                "name": "Siemens PLC",
+                "type": "platform",
+                "color": "0x0066CC",
+                "level": "Expert",
+                "yearsExp": 8,
+                "description": "Siemens automation systems"
+              },
+              {
+                "name": "Mitsubishi PLC",
+                "type": "platform",
+                "color": "0xDC143C",
+                "level": "Expert",
+                "yearsExp": 8,
+                "description": "Mitsubishi automation systems"
+              },
+              {
+                "name": "Ladder Logic",
+                "type": "language",
+                "color": "0x8B4513",
+                "level": "Expert",
+                "yearsExp": 8,
+                "description": "Visual PLC programming language"
+              },
+              {
+                "name": "Function Block Diagram",
+                "type": "language",
+                "color": "0x556B2F",
+                "level": "Expert",
+                "yearsExp": 8,
+                "description": "Graphical PLC programming"
+              },
+              {
+                "name": "Structured Text",
+                "type": "language",
+                "color": "0x483D8B",
+                "level": "Expert",
+                "yearsExp": 8,
+                "description": "High-level PLC programming"
+              }
+            ]
+          },
+          {
+            "name": "Control Systems",
+            "type": "skill",
+            "color": "0x9370DB",
+            "level": "Advanced",
+            "yearsExp": 6,
+            "description": "Academic and professional control system experience",
+            "children": [
+              {
+                "name": "PID Control",
+                "type": "technique",
+                "color": "0x9932CC",
+                "level": "Advanced",
+                "yearsExp": 6,
+                "description": "Proportional-Integral-Derivative control"
+              },
+              {
+                "name": "LabVIEW",
+                "type": "tool",
+                "color": "0xFFD700",
+                "level": "Intermediate",
+                "yearsExp": 3,
+                "description": "Graphical programming for measurement"
+              },
+              {
+                "name": "MATLAB",
+                "type": "tool",
+                "color": "0xFF7F50",
+                "level": "Intermediate",
+                "yearsExp": 3,
+                "description": "Mathematical computing platform"
+              },
+              {
+                "name": "Simulink",
+                "type": "tool",
+                "color": "0xFFA500",
+                "level": "Intermediate",
+                "yearsExp": 3,
+                "description": "Model-based design environment"
+              }
+            ]
+          },
+          {
+            "name": "Vision & Sensors",
+            "type": "skill",
+            "color": "0x20B2AA",
+            "level": "Advanced",
+            "yearsExp": 5,
+            "description": "Machine vision and sensor integration",
+            "children": [
+              {
+                "name": "OpenCV",
+                "type": "library",
+                "color": "0x5C85D6",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Computer vision and image processing"
+              },
+              {
+                "name": "Automated Vision Control",
+                "type": "technique",
+                "color": "0x4682B4",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Vision-guided automation systems"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Programming Languages",
+        "type": "category",
+        "color": "0x4169E1",
+        "level": "Expert",
+        "yearsExp": 8,
+        "children": [
+          {
+            "name": "Python",
+            "type": "skill",
+            "color": "0x3776AB",
+            "level": "Expert",
+            "yearsExp": 8,
+            "description": "Primary language for automation, data analysis, and AI/ML",
+            "children": [
+              {
+                "name": "Django",
+                "type": "framework",
+                "color": "0x092E20",
+                "level": "Advanced",
+                "yearsExp": 3,
+                "description": "Web framework for rapid development"
+              },
+              {
+                "name": "Flask",
+                "type": "framework",
+                "color": "0x000000",
+                "level": "Advanced",
+                "yearsExp": 4,
+                "description": "Micro web framework"
+              },
+              {
+                "name": "Pandas",
+                "type": "library",
+                "color": "0x150458",
+                "level": "Expert",
+                "yearsExp": 6,
+                "description": "Data manipulation and analysis"
+              }
+            ]
+          },
+          {
+            "name": "JavaScript",
+            "type": "skill",
+            "color": "0xF7DF1E",
+            "level": "Expert",
+            "yearsExp": 7,
+            "description": "Frontend and backend development",
+            "children": [
+              {
+                "name": "React",
+                "type": "framework",
+                "color": "0x61DAFB",
+                "level": "Advanced",
+                "yearsExp": 4,
+                "description": "UI library for building user interfaces"
+              },
+              {
+                "name": "Node.js",
+                "type": "runtime",
+                "color": "0x339933",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Server-side JavaScript runtime"
+              },
+              {
+                "name": "Three.js",
+                "type": "library",
+                "color": "0x000000",
+                "level": "Intermediate",
+                "yearsExp": 2,
+                "description": "3D graphics library"
+              }
+            ]
+          },
+          {
+            "name": "C#",
+            "type": "skill",
+            "color": "0x512BD4",
+            "level": "Advanced",
+            "yearsExp": 5,
+            "description": "Enterprise applications and Unity development",
+            "children": [
+              {
+                "name": ".NET Framework",
+                "type": "framework",
+                "color": "0x512BD4",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Microsoft development platform"
+              },
+              {
+                "name": "Unity",
+                "type": "engine",
+                "color": "0x000000",
+                "level": "Intermediate",
+                "yearsExp": 2,
+                "description": "Game engine and VR/AR development"
+              }
+            ]
+          },
+          {
+            "name": "C++",
+            "type": "skill",
+            "color": "0x00599C",
+            "level": "Advanced",
+            "yearsExp": 7,
+            "description": "System programming in Linux and Windows environments",
+            "children": [
+              {
+                "name": "Linux Development",
+                "type": "environment",
+                "color": "0xFCC624",
+                "level": "Advanced",
+                "yearsExp": 7,
+                "description": "Linux/Unix environment development"
+              },
+              {
+                "name": "CMake",
+                "type": "tool",
+                "color": "0x064F8C",
+                "level": "Intermediate",
+                "yearsExp": 4,
+                "description": "Cross-platform build system"
+              }
+            ]
+          },
+          {
+            "name": "Java",
+            "type": "skill",
+            "color": "0xED8B00",
+            "level": "Advanced",
+            "yearsExp": 5,
+            "description": "Android development and cloud deployment",
+            "children": [
+              {
+                "name": "Android Development",
+                "type": "platform",
+                "color": "0x3DDC84",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Mobile application development"
+              },
+              {
+                "name": "Heroku Deployment",
+                "type": "platform",
+                "color": "0x430098",
+                "level": "Intermediate",
+                "yearsExp": 3,
+                "description": "Cloud platform deployment"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Data & Analytics",
+        "type": "category",
+        "color": "0xFF6347",
+        "level": "Expert",
+        "yearsExp": 6,
+        "children": [
+          {
+            "name": "SQL",
+            "type": "skill",
+            "color": "0x336791",
+            "level": "Expert",
+            "yearsExp": 8,
+            "description": "Database querying and management",
+            "children": [
+              {
+                "name": "PostgreSQL",
+                "type": "database",
+                "color": "0x336791",
+                "level": "Advanced",
+                "yearsExp": 4,
+                "description": "Advanced relational database"
+              },
+              {
+                "name": "SQL Server",
+                "type": "database",
+                "color": "0xCC2927",
+                "level": "Expert",
+                "yearsExp": 6,
+                "description": "Microsoft database platform"
+              }
+            ]
+          },
+          {
+            "name": "Business Intelligence",
+            "type": "skill",
+            "color": "0xF2C811",
+            "level": "Expert",
+            "yearsExp": 5,
+            "description": "Data visualization and reporting",
+            "children": [
+              {
+                "name": "Power BI",
+                "type": "tool",
+                "color": "0xF2C811",
+                "level": "Expert",
+                "yearsExp": 5,
+                "description": "Microsoft business analytics"
+              },
+              {
+                "name": "Tableau",
+                "type": "tool",
+                "color": "0xE97627",
+                "level": "Intermediate",
+                "yearsExp": 2,
+                "description": "Data visualization platform"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Mobile Robotics",
+        "type": "category",
+        "color": "0xFF1493",
+        "level": "Advanced",
+        "yearsExp": 4,
+        "children": [
+          {
+            "name": "ROS (Robot Operating System)",
+            "type": "framework",
+            "color": "0x22314E",
+            "level": "Advanced",
+            "yearsExp": 4,
+            "description": "Robotics middleware for distributed computing",
+            "children": [
+              {
+                "name": "Path Planning",
+                "type": "technique",
+                "color": "0x1E90FF",
+                "level": "Advanced",
+                "yearsExp": 4,
+                "description": "Robot navigation and trajectory planning"
+              },
+              {
+                "name": "Odometry",
+                "type": "technique",
+                "color": "0x32CD32",
+                "level": "Advanced",
+                "yearsExp": 4,
+                "description": "Position estimation using sensor data"
+              },
+              {
+                "name": "Autonomous Control",
+                "type": "technique",
+                "color": "0xFF6347",
+                "level": "Advanced",
+                "yearsExp": 4,
+                "description": "Self-directed robot behavior systems"
+              }
+            ]
+          },
+          {
+            "name": "SLAM Navigation",
+            "type": "skill",
+            "color": "0x8A2BE2",
+            "level": "Advanced",
+            "yearsExp": 3,
+            "description": "Simultaneous Localization and Mapping",
+            "children": [
+              {
+                "name": "Kalman Filters",
+                "type": "algorithm",
+                "color": "0x9370DB",
+                "level": "Advanced",
+                "yearsExp": 3,
+                "description": "State estimation for sensor fusion"
+              },
+              {
+                "name": "Particle Filters",
+                "type": "algorithm",
+                "color": "0x8B008B",
+                "level": "Advanced",
+                "yearsExp": 3,
+                "description": "Monte Carlo localization methods"
+              }
+            ]
+          },
+          {
+            "name": "Hardware Integration",
+            "type": "skill",
+            "color": "0xFF4500",
+            "level": "Advanced",
+            "yearsExp": 5,
+            "description": "Microcontroller and sensor integration",
+            "children": [
+              {
+                "name": "Arduino",
+                "type": "platform",
+                "color": "0x00979D",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Microcontroller programming and prototyping"
+              },
+              {
+                "name": "Raspberry Pi",
+                "type": "platform",
+                "color": "0xC51A4A",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Single-board computer development"
+              },
+              {
+                "name": "I2C/SPI",
+                "type": "protocol",
+                "color": "0x4682B4",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Serial communication protocols"
+              },
+              {
+                "name": "PWM Control",
+                "type": "technique",
+                "color": "0x228B22",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Pulse Width Modulation for motor control"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "AI & Machine Learning",
+        "type": "category",
+        "color": "0x9370DB",
+        "level": "Advanced",
+        "yearsExp": 4,
+        "children": [
+          {
+            "name": "Machine Learning",
+            "type": "skill",
+            "color": "0x9370DB",
+            "level": "Advanced",
+            "yearsExp": 4,
+            "description": "Predictive modeling and algorithms",
+            "children": [
+              {
+                "name": "Scikit-learn",
+                "type": "library",
+                "color": "0xF7931E",
+                "level": "Advanced",
+                "yearsExp": 4,
+                "description": "Machine learning library for Python"
+              },
+              {
+                "name": "TensorFlow",
+                "type": "framework",
+                "color": "0xFF6F00",
+                "level": "Intermediate",
+                "yearsExp": 2,
+                "description": "Deep learning framework"
+              }
+            ]
+          },
+          {
+            "name": "Natural Language Processing",
+            "type": "skill",
+            "color": "0x8A2BE2",
+            "level": "Intermediate",
+            "yearsExp": 2,
+            "description": "Text analysis and language understanding",
+            "children": [
+              {
+                "name": "NLTK",
+                "type": "library",
+                "color": "0x8FBC8F",
+                "level": "Intermediate",
+                "yearsExp": 2,
+                "description": "Natural language toolkit"
+              },
+              {
+                "name": "spaCy",
+                "type": "library",
+                "color": "0x09A3D5",
+                "level": "Beginner",
+                "yearsExp": 1,
+                "description": "Industrial-strength NLP"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Industrial Systems",
+        "type": "category",
+        "color": "0xFF4500",
+        "level": "Expert",
+        "yearsExp": 10,
+        "children": [
+          {
+            "name": "SCADA & MES",
+            "type": "skill",
+            "color": "0xFF4500",
+            "level": "Expert",
+            "yearsExp": 8,
+            "description": "Supervisory control and manufacturing execution systems",
+            "children": [
+              {
+                "name": "Ignition",
+                "type": "platform",
+                "color": "0xFF4500",
+                "level": "Expert",
+                "yearsExp": 8,
+                "description": "Industrial application platform"
+              },
+              {
+                "name": "Wonderware",
+                "type": "platform",
+                "color": "0x0066CC",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Industrial software solutions"
+              },
+              {
+                "name": "MES Integration",
+                "type": "system",
+                "color": "0x8B4513",
+                "level": "Expert",
+                "yearsExp": 6,
+                "description": "Manufacturing Execution System with ERP validation"
+              },
+              {
+                "name": "KPI Dashboards",
+                "type": "application",
+                "color": "0xF2C811",
+                "level": "Expert",
+                "yearsExp": 8,
+                "description": "Performance monitoring and analytics"
+              }
+            ]
+          },
+          {
+            "name": "Material Handling",
+            "type": "skill",
+            "color": "0x8B0000",
+            "level": "Expert",
+            "yearsExp": 8,
+            "description": "Automated material handling systems",
+            "children": [
+              {
+                "name": "Conveyor Systems",
+                "type": "system",
+                "color": "0x696969",
+                "level": "Expert",
+                "yearsExp": 8,
+                "description": "Automated conveyor control and integration"
+              },
+              {
+                "name": "Pneumatic Systems",
+                "type": "system",
+                "color": "0x4169E1",
+                "level": "Expert",
+                "yearsExp": 8,
+                "description": "Pneumatic control and schematics"
+              }
+            ]
+          },
+          {
+            "name": "PLC Programming",
+            "type": "skill",
+            "color": "0x8B0000",
+            "level": "Advanced",
+            "yearsExp": 7,
+            "description": "Programmable logic controller development",
+            "children": [
+              {
+                "name": "Ladder Logic",
+                "type": "language",
+                "color": "0x8B0000",
+                "level": "Advanced",
+                "yearsExp": 7,
+                "description": "Visual programming language"
+              },
+              {
+                "name": "Structured Text",
+                "type": "language",
+                "color": "0x4B0000",
+                "level": "Intermediate",
+                "yearsExp": 4,
+                "description": "High-level programming language"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Design & Engineering",
+        "type": "category",
+        "color": "0x32CD32",
+        "level": "Expert",
+        "yearsExp": 8,
+        "children": [
+          {
+            "name": "CAD & Design",
+            "type": "skill",
+            "color": "0x228B22",
+            "level": "Expert",
+            "yearsExp": 8,
+            "description": "Computer-aided design and engineering",
+            "children": [
+              {
+                "name": "Autodesk Inventor",
+                "type": "software",
+                "color": "0xFF7F00",
+                "level": "Expert",
+                "yearsExp": 8,
+                "description": "3D mechanical design and simulation"
+              },
+              {
+                "name": "SolidWorks",
+                "type": "software",
+                "color": "0xDC143C",
+                "level": "Advanced",
+                "yearsExp": 6,
+                "description": "Professional 3D CAD software"
+              },
+              {
+                "name": "FEA Analysis",
+                "type": "technique",
+                "color": "0x4169E1",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Finite Element Analysis for real-world applications"
+              }
+            ]
+          },
+          {
+            "name": "Manufacturing",
+            "type": "skill",
+            "color": "0x8B4513",
+            "level": "Expert",
+            "yearsExp": 8,
+            "description": "Product development and manufacturing processes",
+            "children": [
+              {
+                "name": "3D Printing",
+                "type": "technique",
+                "color": "0xFF6347",
+                "level": "Expert",
+                "yearsExp": 6,
+                "description": "Rapid prototyping with multiple approaches"
+              },
+              {
+                "name": "Machining Process",
+                "type": "technique",
+                "color": "0x708090",
+                "level": "Advanced",
+                "yearsExp": 8,
+                "description": "Understanding of machining and supplier management"
+              },
+              {
+                "name": "Product Launch",
+                "type": "process",
+                "color": "0x9370DB",
+                "level": "Expert",
+                "yearsExp": 5,
+                "description": "New product launch and manufacturing step definition"
+              }
+            ]
+          },
+          {
+            "name": "Process Improvement",
+            "type": "skill",
+            "color": "0xFFD700",
+            "level": "Advanced",
+            "yearsExp": 6,
+            "description": "Lean manufacturing and efficiency methodologies",
+            "children": [
+              {
+                "name": "Kaizen",
+                "type": "methodology",
+                "color": "0xFFA500",
+                "level": "Advanced",
+                "yearsExp": 6,
+                "description": "Continuous improvement methodology"
+              },
+              {
+                "name": "Six Sigma",
+                "type": "methodology",
+                "color": "0x32CD32",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "Quality management and process improvement"
+              },
+              {
+                "name": "Lean Systems",
+                "type": "methodology",
+                "color": "0x20B2AA",
+                "level": "Advanced",
+                "yearsExp": 6,
+                "description": "Waste reduction and efficiency optimization"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "DevOps & Tools",
+        "type": "category",
+        "color": "0x20B2AA",
+        "level": "Advanced",
+        "yearsExp": 7,
+        "children": [
+          {
+            "name": "Version Control",
+            "type": "skill",
+            "color": "0xF05032",
+            "level": "Expert",
+            "yearsExp": 8,
+            "description": "Source code management and collaboration",
+            "children": [
+              {
+                "name": "Git",
+                "type": "tool",
+                "color": "0xF05032",
+                "level": "Expert",
+                "yearsExp": 8,
+                "description": "Distributed version control"
+              },
+              {
+                "name": "GitHub",
+                "type": "platform",
+                "color": "0x181717",
+                "level": "Expert",
+                "yearsExp": 7,
+                "description": "Code hosting platform"
+              },
+              {
+                "name": "GitLab",
+                "type": "platform",
+                "color": "0xFC6D26",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "DevOps lifecycle platform"
+              },
+              {
+                "name": "SVN",
+                "type": "tool",
+                "color": "0x809CC9",
+                "level": "Intermediate",
+                "yearsExp": 3,
+                "description": "Subversion version control"
+              },
+              {
+                "name": "Mercurial",
+                "type": "tool",
+                "color": "0x999999",
+                "level": "Intermediate",
+                "yearsExp": 2,
+                "description": "Distributed source control management"
+              }
+            ]
+          },
+          {
+            "name": "IoT & Integration",
+            "type": "skill",
+            "color": "0x00CED1",
+            "level": "Advanced",
+            "yearsExp": 5,
+            "description": "Internet of Things and web integration",
+            "children": [
+              {
+                "name": "HTTP Web Requests",
+                "type": "protocol",
+                "color": "0x4682B4",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "RESTful API communication"
+              },
+              {
+                "name": "JSON",
+                "type": "format",
+                "color": "0xFFD700",
+                "level": "Expert",
+                "yearsExp": 6,
+                "description": "JavaScript Object Notation data exchange"
+              },
+              {
+                "name": "GET/POST Operations",
+                "type": "protocol",
+                "color": "0x32CD32",
+                "level": "Advanced",
+                "yearsExp": 5,
+                "description": "HTTP request methods and data handling"
+              }
+            ]
+          },
+          {
+            "name": "Development Methodologies",
+            "type": "skill",
+            "color": "0x9370DB",
+            "level": "Advanced",
+            "yearsExp": 6,
+            "description": "Software engineering principles and practices",
+            "children": [
+              {
+                "name": "Scrum",
+                "type": "methodology",
+                "color": "0x8A2BE2",
+                "level": "Advanced",
+                "yearsExp": 6,
+                "description": "Agile framework for project management"
+              },
+              {
+                "name": "Agile Development",
+                "type": "methodology",
+                "color": "0x9932CC",
+                "level": "Advanced",
+                "yearsExp": 6,
+                "description": "Iterative and incremental development"
+              }
+            ]
+          },
+          {
+            "name": "Containerization",
+            "type": "skill",
+            "color": "0x2496ED",
+            "level": "Intermediate",
+            "yearsExp": 3,
+            "description": "Application packaging and deployment",
+            "children": [
+              {
+                "name": "Docker",
+                "type": "tool",
+                "color": "0x2496ED",
+                "level": "Intermediate",
+                "yearsExp": 3,
+                "description": "Container platform"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

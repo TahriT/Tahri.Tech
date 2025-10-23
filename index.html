@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skill Tree - TahriTech</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: radial-gradient(circle at 50% 50%, #0a3d0a 0%, #1a5e1a 40%, #0a0a0a 100%);
+            color: #fff;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #canvas-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            background: radial-gradient(circle at 50% 50%, #b6ffb6 0%, #1a5e1a 60%, #0a3d0a 100%);
+        }
+        
+        /* Title page header */
+        #header-title {
+            position: fixed;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 100;
+            color: white;
+            opacity: 0;
+            transition: opacity 0.8s ease 0.5s;
+        }
+        
+        #header-title.visible {
+            opacity: 1;
+        }
+        
+        #header-title h1 {
+            font-size: 48px;
+            margin: 0 0 10px 0;
+            font-weight: 700;
+            color: #00ffff;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.6),
+                         0 0 40px rgba(0, 255, 255, 0.4);
+            letter-spacing: 2px;
+        }
+        
+        #header-title p {
+            font-size: 16px;
+            margin: 0;
+            color: #88ddff;
+            opacity: 0.9;
+        }
+        
+        /* Projects Header - Collapsible */
+        #projects-header {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100%);
+            width: 100%;
+            max-width: 800px;
+            background: linear-gradient(180deg, rgba(0, 20, 40, 0.98), rgba(0, 40, 60, 0.95));
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            border-top: none;
+            border-radius: 0 0 20px 20px;
+            padding: 20px 30px;
+            z-index: 150;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 40px rgba(0, 255, 255, 0.4);
+        }
+        
+        #projects-header.expanded {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        #projects-toggle {
+            position: fixed;
+            top: 10px;
+            right: 20px;
+            background: rgba(0, 255, 255, 0.2);
+            border: 2px solid rgba(0, 255, 255, 0.6);
+            color: #00ffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 160;
+            font-size: 28px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            animation: fruitSwing 2s ease-in-out infinite, fruitGlow 3s ease-in-out infinite;
+            transform-origin: top center;
+        }
+        
+        @keyframes fruitSwing {
+            0%, 100% { 
+                transform: rotate(-10deg) scale(1);
+            }
+            25% {
+                transform: rotate(10deg) scale(1.05);
+            }
+            50% {
+                transform: rotate(-10deg) scale(1);
+            }
+            75% {
+                transform: rotate(10deg) scale(1.05);
+            }
+        }
+        
+        @keyframes fruitGlow {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(0, 255, 255, 0.6), 0 0 15px rgba(0, 255, 255, 0.4);
+            }
+        }
+        
+        #projects-toggle:hover {
+            background: rgba(0, 255, 255, 0.4);
+            transform: scale(1.2) rotate(15deg);
+            box-shadow: 0 6px 25px rgba(0, 255, 255, 0.5);
+            animation: none; /* Pause animation on hover */
+        }
+        
+        #projects-toggle.expanded {
+            animation: fruitBounce 0.6s ease-out, fruitGlow 3s ease-in-out infinite;
+            transform: scale(1.1);
+        }
+        
+        @keyframes fruitBounce {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+        
+        #projects-header h2 {
+            margin: 0 0 15px 0;
+            color: #00ffff;
+            font-size: 24px;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        #projects-links {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .project-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background: rgba(0, 255, 255, 0.1);
+            border: 2px solid rgba(0, 255, 255, 0.4);
+            border-radius: 25px;
+            color: #00ffff;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .project-link:hover {
+            background: rgba(0, 255, 255, 0.3);
+            border-color: rgba(0, 255, 255, 0.8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4);
+        }
+        
+        .project-link svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+        
+        #info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            max-width: 300px;
+            z-index: 100;
+            display: none; /* Hidden by default, shown on hover */
+        }
+        
+        h1 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        /* Seamless trunk extension UI */
+        #trunk-ui {
+            position: fixed;
+            bottom: 280px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 200px;
+            background: linear-gradient(to top, rgba(0, 255, 255, 0.8), transparent);
+            pointer-events: none;
+            z-index: 45;
+            opacity: 0;
+            transition: bottom 0.5s ease, 
+                        opacity 0.8s ease 0.3s;
+        }
+        
+        #trunk-ui.loaded {
+            opacity: 1;
+        }
+        
+        #trunk-ui.collapsed {
+            bottom: 0;
+            opacity: 0;
+        }
+        
+        #roots-panel {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(100%);
+            width: 90%;
+            max-width: 1400px;
+            max-height: 280px;
+            background: rgba(10, 10, 20, 0.95);
+            border: 2px solid rgba(0, 255, 255, 0.6);
+            border-bottom: none;
+            border-radius: 15px 15px 0 0;
+            overflow: hidden;
+            z-index: 50;
+            box-shadow: 0 -10px 40px rgba(0, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.8s ease,
+                        max-height 0.3s ease;
+            cursor: pointer;
+        }
+        
+        #roots-panel:hover {
+            max-height: 500px;
+        }
+        
+        #roots-panel.loaded {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        #roots-panel.collapsed {
+            max-height: 0;
+            opacity: 0;
+        }
+        
+        /* Expand toggle button for mobile */
+        #roots-toggle {
+            display: none;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: rgba(0, 255, 255, 0.2);
+            border: 2px solid rgba(0, 255, 255, 0.6);
+            color: #00ffff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 60;
+            font-size: 24px;
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+        
+        #roots-toggle:hover {
+            background: rgba(0, 255, 255, 0.4);
+            transform: scale(1.1);
+        }
+        
+        #roots-panel.expanded {
+            max-height: 500px !important;
+        }
+        
+        /* Mobile: single column */
+        @media (max-width: 768px) {
+            #roots-panel {
+                width: 500px;
+                max-width: 95%;
+            }
+            
+            #roots-panel:hover {
+                max-height: 280px; /* Disable hover expand on mobile */
+            }
+            
+            #roots-toggle {
+                display: block;
+            }
+        }
+        
+        #roots-content {
+            padding: 25px 30px;
+            color: white;
+        }
+        
+        #experience-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding-right: 10px;
+            position: relative;
+            background: 
+                /* Horizontal lines connecting rows */
+                repeating-linear-gradient(
+                    180deg,
+                    transparent,
+                    transparent 110px,
+                    rgba(0, 255, 255, 0.2) 110px,
+                    rgba(0, 255, 255, 0.2) 111px,
+                    transparent 111px
+                ),
+                /* Vertical lines connecting columns */
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent calc(25% - 1px),
+                    rgba(0, 255, 255, 0.2) calc(25% - 1px),
+                    rgba(0, 255, 255, 0.2) calc(25%),
+                    transparent calc(25%)
+                ),
+                /* Root-like branching pattern */
+                radial-gradient(
+                    ellipse at 50% 0%,
+                    rgba(0, 255, 255, 0.05) 0%,
+                    transparent 70%
+                );
+        }
+        
+        /* Responsive grid */
+        @media (max-width: 1200px) {
+            #experience-list {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            #experience-list {
+                grid-template-columns: 1fr;
+            }
+            
+            #legend {
+                top: 10px;
+                left: 10px;
+                padding: 10px;
+                font-size: 10px;
+                max-width: 180px;
+            }
+            
+            #legend h4 {
+                font-size: 12px;
+                margin-bottom: 8px;
+                padding-bottom: 6px;
+            }
+            
+            .legend-item {
+                margin: 6px 0;
+                gap: 8px;
+            }
+            
+            .legend-icon.small {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .legend-icon.medium {
+                width: 14px;
+                height: 14px;
+            }
+            
+            .legend-icon.large {
+                width: 18px;
+                height: 18px;
+            }
+            
+            .legend-text {
+                font-size: 10px;
+            }
+            
+            .legend-divider {
+                margin: 6px 0;
+            }
+            
+            /* Reduce animations on mobile for better performance */
+            #projects-toggle {
+                animation: fruitSwing 3s ease-in-out infinite; /* Slower swing, no glow */
+            }
+            
+            /* Simplify callout on mobile */
+            #skill-callout {
+                max-width: 200px;
+                padding: 12px;
+                font-size: 12px;
+            }
+            
+            #skill-callout h3 {
+                font-size: 14px;
+            }
+            
+            #skill-callout p {
+                font-size: 11px;
+            }
+            
+            /* Projects header mobile adjustments */
+            #projects-header {
+                max-width: 90%;
+                padding: 15px;
+            }
+            
+            #projects-links {
+                gap: 10px;
+            }
+            
+            .project-link {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+        }
+        
+        /* Reduce motion for users who prefer it */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+            
+            #projects-toggle {
+                animation: none !important;
+            }
+            
+            .seed {
+                animation: none !important;
+            }
+        }
+        
+        /* Custom scrollbar */
+        #experience-list::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        #experience-list::-webkit-scrollbar-track {
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        
+        #experience-list::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 255, 0.5);
+            border-radius: 4px;
+        }
+        
+        #experience-list::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 255, 0.7);
+        }
+        
+        #roots-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(0, 255, 255, 0.4);
+        }
+        
+        #roots-header h2 {
+            margin: 0;
+            color: #00ffff;
+            font-size: 22px;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        .experience-item {
+            margin-bottom: 0;
+            padding: 12px 15px;
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.08), rgba(0, 255, 255, 0.18));
+            border-left: 4px solid #00ffff;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            height: fit-content;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(5px);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Stagger animation for items */
+        .experience-item:nth-child(1) { animation-delay: 0.1s; }
+        .experience-item:nth-child(2) { animation-delay: 0.15s; }
+        .experience-item:nth-child(3) { animation-delay: 0.2s; }
+        .experience-item:nth-child(4) { animation-delay: 0.25s; }
+        .experience-item:nth-child(5) { animation-delay: 0.3s; }
+        .experience-item:nth-child(6) { animation-delay: 0.35s; }
+        .experience-item:nth-child(7) { animation-delay: 0.4s; }
+        .experience-item:nth-child(8) { animation-delay: 0.45s; }
+        .experience-item:nth-child(9) { animation-delay: 0.5s; }
+        .experience-item:nth-child(10) { animation-delay: 0.55s; }
+        .experience-item:nth-child(11) { animation-delay: 0.6s; }
+        .experience-item:nth-child(12) { animation-delay: 0.65s; }
+        
+        .experience-item:hover {
+            background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 255, 0.3));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4);
+        }
+        
+        .experience-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+        
+        .experience-item h4 {
+            margin: 0 0 6px 0;
+            color: #00ffff;
+            font-size: 15px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+        
+        .experience-org {
+            margin: 2px 0;
+            font-size: 12px;
+            color: #88ddff !important;
+            font-weight: 500;
+        }
+        
+        .experience-period {
+            margin: 4px 0;
+            font-size: 11px;
+            color: #00ffff !important;
+        }
+        
+        .experience-desc {
+            margin: 6px 0 0 0;
+            font-size: 12px;
+            color: #aaa !important;
+            line-height: 1.4;
+        }
+        
+        .experience-item p {
+            margin: 4px 0;
+            font-size: 13px;
+            color: #bbb;
+        }
+        
+        .experience-item p strong {
+            color: #00ffff;
+        }
+        
+        /* Callout balloon */
+        #skill-callout {
+            position: fixed;
+            top: 50%;
+            background: linear-gradient(135deg, rgba(0, 20, 40, 0.95), rgba(0, 40, 60, 0.95));
+            border: 2px solid rgba(0, 255, 255, 0.5);
+            border-radius: 15px;
+            padding: 20px;
+            width: 280px;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+            transform: translateY(-50%);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease, transform 0.8s ease;
+            z-index: 900;
+        }
+        
+        #skill-callout.left {
+            left: 40px;
+            transform: translateY(-50%) translateX(-30px);
+        }
+        
+        #skill-callout.right {
+            right: 40px;
+            transform: translateY(-50%) translateX(30px);
+        }
+        
+        #skill-callout.visible.left {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+        }
+        
+        #skill-callout.visible.right {
+            opacity: 1;
+            transform: translateY(-50%) translateX(0);
+        }
+        
+        #skill-callout h3 {
+            margin: 0 0 10px 0;
+            color: #00ffff;
+            font-size: 18px;
+        }
+        
+        #skill-callout p {
+            margin: 5px 0;
+            font-size: 13px;
+            color: #ccc;
+        }
+        
+        #callout-line {
+            position: fixed;
+            z-index: 75;
+            pointer-events: none;
+        }
+        
+        /* Node throb animation */
+        @keyframes nodeThrob {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        
+        /* Legend/Key in top left */
+        #legend {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(10, 10, 20, 0.9);
+            border: 2px solid rgba(0, 255, 255, 0.4);
+            border-radius: 10px;
+            padding: 15px;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.8s ease 4.5s, transform 0.8s ease 4.5s;
+            font-size: 12px;
+            color: #ccc;
+            max-width: 250px;
+        }
+        
+        #legend.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        #legend h4 {
+            margin: 0 0 10px 0;
+            color: #00ffff;
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+            padding-bottom: 8px;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 8px 0;
+            gap: 10px;
+        }
+        
+        .legend-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .legend-icon.small {
+            width: 12px;
+            height: 12px;
+        }
+        
+        .legend-icon.medium {
+            width: 16px;
+            height: 16px;
+        }
+        
+        .legend-icon.large {
+            width: 20px;
+            height: 20px;
+        }
+        
+        .legend-icon.robotics {
+            background: #FF4500;
+            box-shadow: 0 0 10px #FF4500;
+        }
+        
+        .legend-icon.programming {
+            background: #4169E1;
+            box-shadow: 0 0 10px #4169E1;
+        }
+        
+        .legend-icon.data {
+            background: #32CD32;
+            box-shadow: 0 0 10px #32CD32;
+        }
+        
+        .legend-icon.mobile-robotics {
+            background: #FF8C00;
+            box-shadow: 0 0 10px #FF8C00;
+        }
+        
+        .legend-icon.ai {
+            background: #9370DB;
+            box-shadow: 0 0 10px #9370DB;
+        }
+        
+        .legend-icon.industrial {
+            background: #DC143C;
+            box-shadow: 0 0 10px #DC143C;
+        }
+        
+        .legend-icon.design {
+            background: #FF1493;
+            box-shadow: 0 0 10px #FF1493;
+        }
+        
+        .legend-icon.devops {
+            background: #20B2AA;
+            box-shadow: 0 0 10px #20B2AA;
+        }
+        
+        .legend-text {
+            flex: 1;
+            line-height: 1.4;
+        }
+        
+        .legend-divider {
+            height: 1px;
+            background: rgba(0, 255, 255, 0.2);
+            margin: 10px 0;
+        }
+        
+        /* Seed of Knowledge Loading Animation */
+        #seed-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #0a0a0a;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            opacity: 1;
+            transition: opacity 0.8s ease;
+        }
+        
+        #seed-animation.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .seed-container {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .seed {
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 80px;
+            animation: seedFall 2s cubic-bezier(0.4, 0, 0.6, 1) forwards,
+                       seedRotate 2s ease-in-out;
+        }
+        
+        @keyframes seedFall {
+            0% {
+                top: -100px;
+                opacity: 0;
+                transform: translateX(-50%) scale(1);
+            }
+            10% {
+                opacity: 1;
+            }
+            85% {
+                top: calc(100vh - 350px);
+                transform: translateX(-50%) scale(1);
+            }
+            90% {
+                top: calc(100vh - 380px);
+                transform: translateX(-50%) scale(1);
+            }
+            95% {
+                top: calc(100vh - 360px);
+                transform: translateX(-50%) scale(1);
+            }
+            100% {
+                top: calc(100vh - 370px);
+                transform: translateX(-50%) scale(4);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes seedRotate {
+            0% {
+                transform: translateX(-50%) rotate(0deg);
+            }
+            100% {
+                transform: translateX(-50%) rotate(720deg);
+            }
+        }
+        
+        @keyframes seedGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.6))
+                        drop-shadow(0 0 20px rgba(0, 255, 255, 0.4));
+            }
+            50% {
+                filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8))
+                        drop-shadow(0 0 40px rgba(0, 255, 255, 0.6));
+            }
+        }
+        
+        .seed svg {
+            width: 100%;
+            height: 100%;
+            animation: seedGlow 1.5s ease-in-out infinite;
+        }
+        
+        .seed-impact {
+            position: absolute;
+            bottom: 370px;
+            left: 50%;
+            transform: translateX(-50%) scale(0);
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 255, 0.6), transparent);
+            animation: impactWave 0.8s ease-out 2s forwards;
+        }
+        
+        @keyframes impactWave {
+            0% {
+                transform: translateX(-50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateX(-50%) scale(3);
+                opacity: 0;
+            }
+        }
+        
+        .seed-text {
+            position: absolute;
+            bottom: 250px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #00ffff;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            opacity: 0;
+            animation: textFadeIn 0.8s ease-out 2.5s forwards,
+                       textFadeOut 0.5s ease-out 3.2s forwards;
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+        
+        @keyframes textFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+        
+        @keyframes textFadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Seed of Knowledge Loading Animation -->
+    <div id="seed-animation">
+        <div class="seed-container">
+            <div class="seed">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Seed shape -->
+                    <ellipse cx="50" cy="55" rx="25" ry="35" fill="#00ffff" opacity="0.9"/>
+                    <ellipse cx="50" cy="55" rx="20" ry="30" fill="#1a5e1a"/>
+                    <ellipse cx="50" cy="55" rx="15" ry="25" fill="#00ffff" opacity="0.3"/>
+                    
+                    <!-- Sprout coming out -->
+                    <path d="M 50 20 Q 45 15 40 18 Q 38 20 40 22 Q 42 24 45 22 Q 48 20 50 20" 
+                          fill="#4ade80" opacity="0.8"/>
+                    <path d="M 50 20 Q 55 15 60 18 Q 62 20 60 22 Q 58 24 55 22 Q 52 20 50 20" 
+                          fill="#4ade80" opacity="0.8"/>
+                    
+                    <!-- Center highlight -->
+                    <ellipse cx="45" cy="50" rx="8" ry="12" fill="#88ffff" opacity="0.6"/>
+                    
+                    <!-- Sparkles -->
+                    <circle cx="35" cy="45" r="2" fill="#ffffff" opacity="0.9">
+                        <animate attributeName="opacity" values="0.9;0.3;0.9" dur="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="65" cy="50" r="2" fill="#ffffff" opacity="0.9">
+                        <animate attributeName="opacity" values="0.3;0.9;0.3" dur="1.5s" repeatCount="indefinite"/>
+                    </circle>
+                    <circle cx="50" cy="70" r="2" fill="#ffffff" opacity="0.9">
+                        <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/>
+                    </circle>
+                </svg>
+            </div>
+            <div class="seed-impact"></div>
+            <div class="seed-text">🌱 Seed of Knowledge 🌱</div>
+        </div>
+    </div>
+    
+    <div id="canvas-container"></div>
+    
+    <!-- Legend/Key -->
+    <div id="legend">
+        <h4>🗺️ Skill Tree Key</h4>
+        <div class="legend-item">
+            <div class="legend-icon small"></div>
+            <div class="legend-text">Smaller nodes = Less experience</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon large"></div>
+            <div class="legend-text">Larger nodes = More experience</div>
+        </div>
+        <div class="legend-divider"></div>
+        <div class="legend-item">
+            <div class="legend-icon robotics"></div>
+            <div class="legend-text">Robotics & Automation</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon programming"></div>
+            <div class="legend-text">Programming & Development</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon data"></div>
+            <div class="legend-text">Data & Analytics</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon ai"></div>
+            <div class="legend-text">AI & Machine Learning</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon design"></div>
+            <div class="legend-text">Design & Visualization</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-icon devops"></div>
+            <div class="legend-text">DevOps & Infrastructure</div>
+        </div>
+        <div class="legend-divider"></div>
+        <div class="legend-text" style="font-size: 11px; font-style: italic; margin-top: 8px;">
+            ↑ Higher = More niche<br>
+            ↓ Lower = More foundational
+        </div>
+    </div>
+    
+    <!-- Projects Header (Collapsible) -->
+    <button id="projects-toggle" aria-label="Toggle projects menu" title="Fruits of My Labor">🍎</button>
+    <div id="projects-header">
+        <h2>🌟 Fruits of My Labor</h2>
+        <div id="projects-links">
+            <a href="https://github.com/TahriT" target="_blank" rel="noopener" class="project-link">
+                <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                </svg>
+                GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/tahriturner" target="_blank" rel="noopener" class="project-link">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                </svg>
+                LinkedIn
+            </a>
+            <a href="https://plantalytics.net" target="_blank" rel="noopener" class="project-link">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 00-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/>
+                </svg>
+                PlantProjects
+            </a>
+            <a href="mailto:tahri.tech@protonmail.com" class="project-link">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                Email
+            </a>
+        </div>
+    </div>
+    
+    <!-- Title Header -->
+    <div id="header-title">
+        <h1>Tahri's Skill Tree</h1>
+        <p>Drag to rotate • Click nodes to explore</p>
+    </div>
+    
+    <div id="info">
+        <h1>🌳 3D Skill Tree</h1>
+        <p>Drag to rotate • Click nodes to explore</p>
+        <p id="skill-count">Loading skills...</p>
+    </div>
+    
+    <!-- Trunk extension line -->
+    <div id="trunk-ui"></div>
+    
+    <!-- Skill Callout Balloon -->
+    <canvas id="callout-line"></canvas>
+    <div id="skill-callout">
+        <h3 id="callout-title"></h3>
+        <p id="callout-category"></p>
+        <p id="callout-level"></p>
+        <p id="callout-experience"></p>
+    </div>
+    
+    <!-- Roots/Experience Panel -->
+    <div id="roots-panel">
+        <button id="roots-toggle" aria-label="Toggle experience panel">↕</button>
+        <div id="roots-content">
+            <div id="roots-header">
+                <h2 style="margin: 0; color: #00ffff;">My Roots: Experience & Background</h2>
+            </div>
+            <div id="experience-list"></div>
+        </div>
+    </div>
+    
+    <!-- Skill Detail Panel -->
+    <div id="skill-detail" style="
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(0, 0, 0, 0.9);
+        padding: 30px;
+        border-radius: 12px;
+        border: 2px solid #00ffff;
+        max-width: 500px;
+        display: none;
+        z-index: 1000;
+        color: white;
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    ">
+        <button id="close-detail" style="
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: 2px solid #00ffff;
+            color: #00ffff;
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            line-height: 1;
+        ">&times;</button>
+        <h2 id="detail-name" style="margin-top: 0; color: #00ffff;"></h2>
+        <div id="detail-breadcrumb" style="color: #88ddff; font-size: 14px; margin-bottom: 15px; font-style: italic;"></div>
+        <p id="detail-category" style="color: #aaa; margin-bottom: 10px;"></p>
+        <p id="detail-level" style="margin-bottom: 5px;"></p>
+        <p id="detail-experience" style="margin-bottom: 15px;"></p>
+        <p id="detail-description" style="margin-top: 15px; line-height: 1.6;"></p>
+        <div id="detail-additional" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(0, 255, 255, 0.3);"></div>
+    </div>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- OrbitControls -->
+    <script src="js/OrbitControls.js"></script>
+    
+    <script>
+        // ===== SCENE SETUP =====
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x0a0a0a);
+        
+        const camera = new THREE.PerspectiveCamera(
+            60, // Narrower FOV for better framing
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camera.position.set(0, 0, 20); // View centered on tree origin
+        
+        // Detect mobile device
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+        
+        const renderer = new THREE.WebGLRenderer({ 
+            antialias: !isMobile, // Disable antialiasing on mobile for performance
+            powerPreference: isMobile ? 'low-power' : 'high-performance'
+        });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2)); // Limit pixel ratio on mobile
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+        
+        // Camera controls - orbit around center of visible area
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.target.set(0, 0, 0); // Look at origin where tree starts
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.15;
+        
+        // Zoom/Dolly settings (enable scrolling in both directions)
+        controls.enableZoom = true; // Enable mouse wheel zoom
+        controls.zoomSpeed = 1.0;
+        controls.minDistance = 5; // Closest zoom (scroll in)
+        controls.maxDistance = 35; // Farthest zoom (scroll out)
+        
+        // Vertical rotation limits
+        controls.minPolarAngle = Math.PI / 4; // Lower vertical limit (45 degrees)
+        controls.maxPolarAngle = Math.PI / 2; // Upper vertical limit (90 degrees)
+        
+        // Rotation speed (slower on mobile for better control)
+        controls.rotateSpeed = isMobile ? 0.3 : 0.5;
+        
+        // Touch settings for mobile
+        if (isMobile) {
+            controls.touches = {
+                ONE: THREE.TOUCH.ROTATE,
+                TWO: THREE.TOUCH.DOLLY_PAN
+            };
+        }
+        
+        controls.update();
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        scene.add(ambientLight);
+        
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+        directionalLight.position.set(5, 10, 5);
+        scene.add(directionalLight);
+        
+        // ===== 3D TREE BUILDER =====
+        class SkillTree3D {
+            constructor() {
+                this.tree = new THREE.Group();
+                this.branchRadius = 0.1;
+                this.branchColor = 0x4a3728;
+                this.nodeSize = 0.2;
+                
+                // Category base colors - will be darkened/brightened based on depth
+                this.categoryColors = {
+                    'Robotics & Automation': 0xFF4500,      // Orange-Red
+                    'Programming & Development': 0x4169E1,  // Royal Blue
+                    'Data & Analytics': 0x32CD32,           // Lime Green
+                    'Mobile Robotics': 0xFF8C00,            // Dark Orange
+                    'AI & Machine Learning': 0x9370DB,      // Medium Purple
+                    'Industrial Systems': 0xDC143C,         // Crimson
+                    'Design & Visualization': 0xFF1493,     // Deep Pink
+                    'DevOps & Infrastructure': 0x20B2AA     // Light Sea Green
+                };
+                
+                this.categoryIndex = 0; // Track which category we're in
+                this.connectionLines = []; // Store connections for trace animation
+                this.traceMaterials = []; // Store materials for animation
+                
+                // Animation system
+                this.animationQueue = []; // Queue of objects to animate in
+                this.isAnimating = false;
+                this.animationProgress = 0;
+            }
+            
+            // Count skills in a branch to determine trunk height
+            countBranchSkills(node) {
+                let count = node.type !== 'root' ? 1 : 0;
+                if (node.children) {
+                    node.children.forEach(child => {
+                        count += this.countBranchSkills(child);
+                    });
+                }
+                return count;
+            }
+            
+            // Adjust color brightness based on depth (darker = shallow, brighter = deep)
+            adjustColorBrightness(hexColor, depth) {
+                const r = (hexColor >> 16) & 0xFF;
+                const g = (hexColor >> 8) & 0xFF;
+                const b = hexColor & 0xFF;
+                
+                // Start darker (0.4), get brighter with depth (up to 1.2)
+                const brightness = 0.4 + (depth * 0.15);
+                
+                const newR = Math.min(255, Math.floor(r * brightness));
+                const newG = Math.min(255, Math.floor(g * brightness));
+                const newB = Math.min(255, Math.floor(b * brightness));
+                
+                return (newR << 16) | (newG << 8) | newB;
+            }
+            
+            // Get color for a node based on its category and depth
+            getNodeColor(skillData, level, categoryName) {
+                // If skill has explicit color in JSON, use it directly (no brightness adjustment)
+                if (skillData.color) {
+                    const baseColor = typeof skillData.color === 'string' 
+                        ? parseInt(skillData.color.replace('#', '0x'), 16)
+                        : skillData.color;
+                    return baseColor; // No brightness adjustment
+                }
+                
+                // Use category color directly (no depth-based brightness)
+                const baseColor = this.categoryColors[categoryName] || 0x888888;
+                return baseColor; // No brightness adjustment
+            }
+            
+            async build() {
+                // Load skills.json
+                console.log('📂 Loading skills.json...');
+                const response = await fetch('data/skills.json');
+                const data = await response.json();
+                console.log('✅ Loaded data:', data);
+                
+                const root = data.skills;
+                console.log('🌱 Root node:', root);
+                
+                // Update UI
+                const count = this.countSkills(root);
+                document.getElementById('skill-count').textContent = `${count} skills loaded`;
+                console.log(`📊 Total skills: ${count}`);
+                
+                // Build tree from root starting lower to be visible above experience panel
+                const startPos = new THREE.Vector3(0, -14, 0); // Start much lower
+                const upDir = new THREE.Vector3(0, 1, 0);
+                
+                // Scale to fit approximately half screen height
+                const treeHeight = 8; // Target height
+                this.buildBranch(root, startPos, upDir, 0, treeHeight, null);
+                
+                scene.add(this.tree);
+                console.log('🌳 Tree built successfully!');
+                
+                // Don't start animation yet - wait for roots panel to load
+                
+                // Generate experience data for roots panel (await since it's now async)
+                await this.generateExperiencePanel();
+            }
+            
+            async generateExperiencePanel() {
+                const experienceList = document.getElementById('experience-list');
+                experienceList.innerHTML = '';
+
+                try {
+                    // Load experience data from JSON
+                    const response = await fetch('data/experience.json');
+                    const data = await response.json();
+                    const experiences = data.categories;
+
+                    // Generate HTML for each category
+                    experiences.forEach(category => {
+                        category.items.forEach(item => {
+                            const itemDiv = document.createElement('div');
+                            itemDiv.className = 'experience-item';
+                            itemDiv.setAttribute('data-category', category.category);
+                            
+                            let logoHtml = '';
+                            if (item.logoUrl) {
+                                logoHtml = `<img src="${item.logoUrl}" alt="${item.organization} logo" style="height:28px;vertical-align:middle;margin-bottom:6px;">`;
+                            }
+                            
+                            itemDiv.innerHTML = `
+                                <div class="experience-icon">${category.icon}</div>
+                                ${logoHtml}
+                                <h4>${item.title}</h4>
+                                <p class="experience-org">${item.organization}</p>
+                                <p class="experience-period"><strong>${item.period}</strong></p>
+                                ${item.location ? `<p class="experience-location">${item.location}</p>` : ''}
+                                <p class="experience-desc">${item.description.replace(/\n/g, '<br>')}</p>
+                            `;
+                            experienceList.appendChild(itemDiv);
+                        });
+                    });
+                } catch (error) {
+                    console.error('Error loading experience data:', error);
+                    experienceList.innerHTML = '<p style="color: #ff6b6b; padding: 20px;">Failed to load experience data.</p>';
+                }
+            }
+            
+            buildBranch(node, startPos, direction, level, length, categoryName, parentChain = []) {
+                // Track category name for color grouping
+                let currentCategory = categoryName;
+                if (node.type === 'category') {
+                    currentCategory = node.name;
+                }
+                
+                // Build parent chain for breadcrumb navigation
+                const newParentChain = [...parentChain];
+                if (node.type !== 'root' && node.name) {
+                    newParentChain.push(node.name);
+                }
+                
+                // Add vertical trunk segment before branching (except for root)
+                let branchStartPos = startPos.clone();
+                
+                if (node.type !== 'root') {
+                    // Scale trunk height based on number of skills in this branch
+                    const skillCount = this.countBranchSkills(node);
+                    const heightMultiplier = 0.5 + (Math.min(skillCount, 20) / 20) * 1.0; // 0.5 to 1.5 (increased from 0.3-1.0)
+                    const trunkHeight = length * 0.8 * heightMultiplier; // Increased from 0.5 to 0.8
+                    
+                    const trunkEnd = startPos.clone().add(new THREE.Vector3(0, trunkHeight, 0));
+                    
+                    const trunk = this.createBranch(startPos, trunkEnd, level, currentCategory);
+                    trunk.visible = false; // Start hidden for animation
+                    trunk.userData.animationDelay = this.animationQueue.length * 0.02; // Stagger timing
+                    this.animationQueue.push(trunk);
+                    this.tree.add(trunk);
+                    
+                    // Update start position for actual branch
+                    branchStartPos = trunkEnd;
+                }
+                
+                // Calculate end position from trunk end
+                const endPos = branchStartPos.clone().add(
+                    direction.clone().multiplyScalar(length)
+                );
+                
+                // Create branch and node (skip for root container)
+                if (node.type !== 'root') {
+                    // Branch cylinder from trunk to end
+                    const branch = this.createBranch(branchStartPos, endPos, level, currentCategory);
+                    branch.visible = false; // Start hidden for animation
+                    branch.userData.animationDelay = this.animationQueue.length * 0.02; // Stagger timing
+                    this.animationQueue.push(branch);
+                    this.tree.add(branch);
+                    
+                    // Node sphere at end
+                    const nodeMesh = this.createNode(node, endPos, level, currentCategory, newParentChain);
+                    nodeMesh.visible = false; // Start hidden for animation
+                    nodeMesh.userData.animationDelay = this.animationQueue.length * 0.02;
+                    nodeMesh.userData.targetScale = nodeMesh.scale.clone(); // Store target scale
+                    nodeMesh.scale.set(0, 0, 0); // Start at 0 scale
+                    this.animationQueue.push(nodeMesh);
+                    this.tree.add(nodeMesh);
+                }
+                
+                // Recursively build children from end position
+                if (node.children && node.children.length > 0) {
+                    const childCount = node.children.length;
+                    const baseLength = length * 0.7;
+                    const spreadAngle = Math.PI / 2.2; // ~82 degrees - more horizontal spread
+                    
+                    node.children.forEach((child, i) => {
+                        const newDir = this.getBranchDirection(
+                            direction, 
+                            childCount, 
+                            i, 
+                            spreadAngle
+                        );
+                        
+                        // Consistent length (remove random variation)
+                        const newLength = baseLength;
+                        
+                        this.buildBranch(
+                            child, 
+                            endPos.clone(), 
+                            newDir, 
+                            level + 1, 
+                            newLength,
+                            currentCategory,
+                            newParentChain
+                        );
+                    });
+                }
+            }
+            
+            getBranchDirection(parentDir, childCount, index, spreadAngle) {
+                if (childCount === 1) {
+                    // Single child - continue mostly upward
+                    return new THREE.Vector3(0, 1, 0);
+                }
+                
+                // Multiple children - radial spread (NO random variation)
+                const baseAngle = (index / childCount) * Math.PI * 2;
+                
+                // Consistent spread angle
+                const dir = new THREE.Vector3(
+                    Math.cos(baseAngle) * Math.sin(spreadAngle),
+                    Math.cos(spreadAngle), // This controls vertical component
+                    Math.sin(baseAngle) * Math.sin(spreadAngle)
+                );
+                
+                return dir.normalize();
+            }
+            
+            createBranch(start, end, level, categoryName) {
+                const direction = new THREE.Vector3().subVectors(end, start);
+                const length = direction.length();
+                
+                // Get category color for this connection
+                const baseColor = this.categoryColors[categoryName] || 0x00ffff;
+                const brightColor = this.adjustColorBrightness(baseColor, level);
+                
+                // Create digital connection line
+                const curve = new THREE.LineCurve3(start, end);
+                const tubeRadius = 0.02 + (0.01 / (level + 1)); // Thinner at deeper levels
+                const tubeGeometry = new THREE.TubeGeometry(curve, 8, tubeRadius, 6, false);
+                
+                // Main glowing tube
+                const material = new THREE.MeshPhongMaterial({
+                    color: brightColor,
+                    emissive: brightColor,
+                    emissiveIntensity: 0.6,
+                    transparent: true,
+                    opacity: 0.8,
+                    shininess: 100
+                });
+                
+                const mesh = new THREE.Mesh(tubeGeometry, material);
+                mesh.userData.isConnection = true;
+                mesh.userData.level = level;
+                mesh.userData.startPos = start.clone();
+                mesh.userData.endPos = end.clone();
+                mesh.userData.branchLength = length;
+                this.connectionLines.push(mesh);
+                
+                // Add animated trace line - thinner line that pulses along the connection
+                const traceMaterial = new THREE.MeshBasicMaterial({
+                    color: 0xffffff,
+                    transparent: true,
+                    opacity: 0
+                });
+                
+                const traceGeometry = new THREE.TubeGeometry(curve, 8, tubeRadius * 1.5, 6, false);
+                const traceMesh = new THREE.Mesh(traceGeometry, traceMaterial);
+                traceMesh.userData.isTrace = true;
+                traceMesh.userData.level = level;
+                traceMesh.userData.start = start.clone();
+                traceMesh.userData.end = end.clone();
+                
+                this.traceMaterials.push(traceMaterial);
+                this.tree.add(traceMesh);
+                
+                return mesh;
+            }
+            
+            createNode(skillData, position, level, categoryName, parentChain = []) {
+                // Base size decreases with depth
+                let baseSize = this.nodeSize * Math.pow(0.85, level);
+                
+                // Scale based on years of experience
+                let experienceMultiplier = 1.0;
+                if (skillData.yearsExp) {
+                    // More experience = bigger node (0.5x to 2x scale)
+                    experienceMultiplier = 0.5 + (skillData.yearsExp / 10) * 1.5;
+                    experienceMultiplier = Math.min(experienceMultiplier, 2.0); // Cap at 2x
+                }
+                
+                const size = baseSize * experienceMultiplier;
+                
+                // Get color based on category and depth (darker to brighter)
+                const color = this.getNodeColor(skillData, level, categoryName);
+                
+                const geometry = new THREE.SphereGeometry(size, 16, 16);
+                const material = new THREE.MeshPhongMaterial({
+                    color: color,
+                    emissive: color,
+                    emissiveIntensity: 0.3 + (experienceMultiplier * 0.2) // More glow for more experience
+                });
+                
+                const mesh = new THREE.Mesh(geometry, material);
+                mesh.position.copy(position);
+                
+                // Store metadata for interaction
+                mesh.userData = {
+                    skillData: skillData,
+                    yearsExp: skillData.yearsExp || 0,
+                    level: skillData.level || 'Beginner',
+                    category: categoryName,
+                    parentChain: parentChain,
+                    isSkillNode: true,
+                    position: position.clone(),
+                    baseEmissive: 0.3 + (experienceMultiplier * 0.2),
+                    pathToRoot: [] // Will be populated with connections
+                };
+                
+                // Add text label
+                this.addLabel(skillData.name, mesh, size);
+                
+                return mesh;
+            }
+            
+            addLabel(text, parent, size) {
+                // Text labels disabled for cleaner visual
+                return;
+                
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 512;
+                canvas.height = 128;
+                
+                ctx.fillStyle = 'white';
+                ctx.font = 'bold 48px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText(text, 256, 80);
+                
+                const texture = new THREE.CanvasTexture(canvas);
+                const spriteMat = new THREE.SpriteMaterial({ 
+                    map: texture,
+                    transparent: true
+                });
+                
+                const sprite = new THREE.Sprite(spriteMat);
+                sprite.scale.set(size * 10, size * 2.5, 1);
+                sprite.position.y = size * 1.8;
+                
+                parent.add(sprite);
+            }
+            
+            countSkills(node) {
+                let count = node.type !== 'root' ? 1 : 0;
+                if (node.children) {
+                    node.children.forEach(child => {
+                        count += this.countSkills(child);
+                    });
+                }
+                return count;
+            }
+            
+            // Start the build animation
+            startBuildAnimation() {
+                this.isAnimating = true;
+                this.animationProgress = 0;
+                console.log(`🎬 Starting animation for ${this.animationQueue.length} objects`);
+            }
+            
+            // Update build animation
+            updateBuildAnimation(deltaTime) {
+                if (!this.isAnimating) return;
+                
+                this.animationProgress += deltaTime * 2; // Animation speed multiplier
+                
+                let allComplete = true;
+                
+                this.animationQueue.forEach((object) => {
+                    const delay = object.userData.animationDelay || 0;
+                    const progress = Math.max(0, Math.min(1, (this.animationProgress - delay) / 0.4)); // 0.4s per object
+                    
+                    if (progress < 1) {
+                        allComplete = false;
+                    }
+                    
+                    // Smooth easing function (ease-out cubic for natural growth)
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    
+                    if (object.userData.isSkillNode) {
+                        // Animate node scale - growing from center
+                        if (object.userData.targetScale && progress > 0) {
+                            object.visible = true;
+                            object.scale.lerpVectors(
+                                new THREE.Vector3(0, 0, 0),
+                                object.userData.targetScale,
+                                eased
+                            );
+                        }
+                    } else if (object.userData.isConnection) {
+                        // Animate branch growing along its length
+                        if (progress > 0) {
+                            object.visible = true;
+                            
+                            // Scale along the branch direction (Y-axis of local space)
+                            const direction = new THREE.Vector3()
+                                .subVectors(object.userData.endPos, object.userData.startPos)
+                                .normalize();
+                            
+                            // Determine which axis is most aligned with branch direction
+                            const absX = Math.abs(direction.x);
+                            const absY = Math.abs(direction.y);
+                            const absZ = Math.abs(direction.z);
+                            
+                            if (absY > absX && absY > absZ) {
+                                // Vertical branch - scale Y
+                                object.scale.set(1, eased, 1);
+                            } else if (absX > absZ) {
+                                // More horizontal (X) - scale X
+                                object.scale.set(eased, 1, 1);
+                            } else {
+                                // More horizontal (Z) - scale Z
+                                object.scale.set(1, 1, eased);
+                            }
+                            
+                            // Also fade in opacity
+                            object.material.opacity = eased * 0.8; // Target opacity
+                        }
+                    }
+                });
+                
+                if (allComplete) {
+                    this.isAnimating = false;
+                    console.log('✅ Build animation complete!');
+                    // Enable callouts after animation completes
+                    window.treeAnimationComplete = true;
+                }
+            }
+            
+            // Animate connections - pulsing glow effect and lightning trace
+            update(time) {
+                this.tree.traverse((object) => {
+                    if (object.userData.isConnection) {
+                        // Pulse the emissive intensity
+                        const pulse = Math.sin(time * 2 + object.userData.level) * 0.3 + 0.5;
+                        object.material.emissiveIntensity = pulse;
+                    }
+                    
+                    if (object.userData.isTrace) {
+                        // Lightning trace (only visible when node is selected)
+                        if (this.selectedNode && object.userData.isActive) {
+                            // Traveling orb effect
+                            const traceSpeed = 2;
+                            const progress = (time * traceSpeed) % 1;
+                            
+                            // Bright flash that travels along the path
+                            const distance = Math.abs(progress - 0.5) * 2; // 0 at center, 1 at edges
+                            object.material.opacity = 1 - distance;
+                        } else {
+                            object.material.opacity = 0;
+                        }
+                    }
+                    
+                    // Reset nodes to default state
+                    if (object.userData.isSkillNode && !object.userData.isHovered) {
+                        object.material.emissiveIntensity = object.userData.baseEmissive;
+                    }
+                });
+            }
+            
+            // Highlight a skill and its path to root
+            selectSkill(node) {
+                this.selectedNode = node;
+                
+                // Collapse the experience panel and trunk when selecting a node
+                const rootsPanel = document.getElementById('roots-panel');
+                const trunkUI = document.getElementById('trunk-ui');
+                
+                if (node) {
+                    rootsPanel.classList.add('collapsed');
+                    trunkUI.classList.add('collapsed');
+                } else {
+                    // Re-expand when deselecting
+                    rootsPanel.classList.remove('collapsed');
+                    trunkUI.classList.remove('collapsed');
+                }
+                
+                // Reset all traces
+                this.tree.traverse((object) => {
+                    if (object.userData.isTrace) {
+                        object.userData.isActive = false;
+                    }
+                });
+                
+                // Activate path to root
+                if (node && node.userData.pathToRoot) {
+                    node.userData.pathToRoot.forEach(connection => {
+                        connection.userData.isActive = true;
+                    });
+                    
+                    // Brighten the selected node
+                    node.material.emissiveIntensity = 1.5;
+                }
+            }
+            
+            // Get all skill nodes for raycasting
+            getSkillNodes() {
+                const nodes = [];
+                this.tree.traverse((object) => {
+                    if (object.userData.isSkillNode) {
+                        nodes.push(object);
+                    }
+                });
+                return nodes;
+            }
+        }
+        
+        // ===== BUILD & ANIMATE =====
+        const skillTree = new SkillTree3D();
+        const seedAnimation = document.getElementById('seed-animation');
+        
+        // Start building tree (hidden initially)
+        skillTree.build();
+        
+        // Seed animation sequence
+        setTimeout(() => {
+            // Hide seed animation after it lands (2s fall + 0.8s impact + 0.8s text)
+            seedAnimation.classList.add('hidden');
+            
+            // Show header title after seed animation
+            document.getElementById('header-title').classList.add('visible');
+            
+            // Show experience panel and trunk after seed disappears
+            setTimeout(() => {
+                document.getElementById('roots-panel').classList.add('loaded');
+                document.getElementById('trunk-ui').classList.add('loaded');
+                
+                // Show legend
+                document.getElementById('legend').classList.add('visible');
+                
+                // Start tree build animation after roots panel is visible
+                setTimeout(() => {
+                    skillTree.startBuildAnimation();
+                }, 500); // Additional 0.5s delay after panel loads
+            }, 800); // Wait for seed animation fade out
+        }, 3600); // 3.6 seconds total for seed animation
+        
+        // ===== ROOTS PANEL TOGGLE (Mobile) =====
+        const rootsToggle = document.getElementById('roots-toggle');
+        const rootsPanel = document.getElementById('roots-panel');
+        
+        rootsToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            rootsPanel.classList.toggle('expanded');
+            rootsToggle.textContent = rootsPanel.classList.contains('expanded') ? '↓' : '↕';
+        });
+        
+        // ===== PROJECTS HEADER TOGGLE =====
+        const projectsToggle = document.getElementById('projects-toggle');
+        const projectsHeader = document.getElementById('projects-header');
+        
+        projectsToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            projectsHeader.classList.toggle('expanded');
+            projectsToggle.classList.toggle('expanded');
+        });
+        
+        // Close projects header when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!projectsHeader.contains(e.target) && !projectsToggle.contains(e.target)) {
+                projectsHeader.classList.remove('expanded');
+                projectsToggle.classList.remove('expanded');
+            }
+        });
+        
+        // ===== CALLOUT BALLOON SYSTEM =====
+        const calloutBalloon = document.getElementById('skill-callout');
+        const calloutLine = document.getElementById('callout-line');
+        const calloutCtx = calloutLine.getContext('2d');
+        let currentCalloutNode = null;
+        let calloutInterval = null;
+        let isCalloutFading = false;
+        let calloutShowTime = null; // Track when callout was shown
+        let lineDrawProgress = 0; // Track line drawing animation
+        let lineFadeProgress = 1; // Track line fade out (1 = fully visible, 0 = invisible)
+        let isLineFading = false; // Track if line is fading out
+        const CALLOUT_DISPLAY_DURATION = isMobile ? 4000 : 3000; // Longer display on mobile
+        const LINE_FADE_DURATION = 800; // Line fade out duration
+        let isHoverCallout = false; // Track if current callout is from hover
+        let lastInteractionTime = Date.now(); // Track last user interaction
+        let autoResumeTimeout = null; // Timeout for auto-resuming callouts
+        window.treeAnimationComplete = false; // Track when tree animation is done
+        let calloutTimeouts = []; // Track all active callout timeouts
+        
+        // Disable auto-callouts on mobile (only show on hover/tap)
+        const enableAutoCallouts = !isMobile;
+        
+        // Setup canvas for line drawing
+        calloutLine.width = window.innerWidth;
+        calloutLine.height = window.innerHeight;
+        calloutLine.style.width = '100%';
+        calloutLine.style.height = '100%';
+        
+        function showCalloutForNode(node, isFromHover = false) {
+            // Don't show callouts until tree animation is complete
+            if (!window.treeAnimationComplete) return;
+            
+            // If already showing a callout, prevent race condition
+            if (currentCalloutNode && currentCalloutNode !== node) {
+                // Clear all pending timeouts for the previous callout
+                calloutTimeouts.forEach(timeout => clearTimeout(timeout));
+                calloutTimeouts = [];
+                // Reset the previous callout state immediately
+                currentCalloutNode = null;
+                isCalloutFading = false;
+                isLineFading = false;
+                calloutBalloon.classList.remove('visible');
+                calloutCtx.clearRect(0, 0, calloutLine.width, calloutLine.height);
+            }
+            
+            // Get node position
+            const worldPos = new THREE.Vector3();
+            node.getWorldPosition(worldPos);
+            
+            const screenPos = worldPos.clone().project(camera);
+            const x = (screenPos.x * 0.5 + 0.5) * window.innerWidth;
+            const y = (-(screenPos.y * 0.5) + 0.5) * window.innerHeight;
+            
+            // Check if node is visible
+            if (screenPos.z > 1 || x < 0 || x > window.innerWidth || y < 0 || y > window.innerHeight) {
+                return; // Node not visible
+            }
+            
+            // Determine left or right side
+            const isLeft = x < window.innerWidth / 2;
+            const data = node.userData.skillData;
+            
+            // Update callout content
+            document.getElementById('callout-title').textContent = data.name;
+            document.getElementById('callout-category').innerHTML = 
+                `<strong>Category:</strong> ${node.userData.category || 'N/A'}`;
+            document.getElementById('callout-level').innerHTML = 
+                `<strong>Level:</strong> ${data.level || 'N/A'}`;
+            document.getElementById('callout-experience').innerHTML = 
+                `<strong>Experience:</strong> ${data.yearsExp || 0} years`;
+            
+            // Position callout (start offset for fade-in animation)
+            calloutBalloon.className = isLeft ? 'left' : 'right';
+            
+            // Reset and start line drawing animation
+            lineDrawProgress = 0;
+            lineFadeProgress = 1;
+            isLineFading = false;
+            calloutShowTime = Date.now();
+            isHoverCallout = isFromHover;
+            
+            // Fade in after a brief delay
+            const fadeTimeout = setTimeout(() => {
+                calloutBalloon.classList.add('visible');
+            }, 50);
+            calloutTimeouts.push(fadeTimeout);
+            
+            currentCalloutNode = node;
+            
+            // Only auto-hide if not from hover
+            if (!isFromHover) {
+                // Start line fade 500ms before balloon fade
+                const lineFadeTimeout = setTimeout(() => {
+                    isLineFading = true;
+                    lineFadeProgress = 1;
+                }, CALLOUT_DISPLAY_DURATION - LINE_FADE_DURATION - 500);
+                calloutTimeouts.push(lineFadeTimeout);
+                
+                // Hide balloon after duration
+                const hideTimeout = setTimeout(() => {
+                    hideCallout(true); // true = immediately show next one
+                }, CALLOUT_DISPLAY_DURATION);
+                calloutTimeouts.push(hideTimeout);
+            }
+        }
+        
+        function showRandomCallout() {
+            // Don't show if user is interacting, if we're already fading, or if already showing a callout
+            if (isZoomedIn || hoveredNode || isCalloutFading || currentCalloutNode) return;
+            
+            const allNodes = skillTree.getSkillNodes();
+            if (allNodes.length === 0) return;
+            
+            // Try up to 10 times to find a visible node
+            let attempts = 0;
+            let randomNode = null;
+            let worldPos = new THREE.Vector3();
+            let screenPos = null;
+            let x, y;
+            
+            while (attempts < 10) {
+                randomNode = allNodes[Math.floor(Math.random() * allNodes.length)];
+                randomNode.getWorldPosition(worldPos);
+                
+                // Project to screen space
+                screenPos = worldPos.clone().project(camera);
+                x = (screenPos.x * 0.5 + 0.5) * window.innerWidth;
+                y = (-(screenPos.y * 0.5) + 0.5) * window.innerHeight;
+                
+                // Check if node is visible and in front of camera
+                if (screenPos.z <= 1 && x >= 0 && x <= window.innerWidth && y >= 0 && y <= window.innerHeight) {
+                    break; // Found a good node
+                }
+                
+                attempts++;
+                randomNode = null;
+            }
+            
+            if (!randomNode) return; // Couldn't find a visible node
+            
+            showCalloutForNode(randomNode, false);
+        }
+        
+        function drawSegmentedLine(startX, startY, endX, endY, isLeft, progress, fadeOpacity = 1) {
+            // Create L-shaped path: horizontal segment then vertical to node
+            const horizontalLength = 150; // Fixed horizontal segment length
+            const cornerX = isLeft ? startX + horizontalLength : startX - horizontalLength;
+            const cornerY = startY;
+            
+            // Calculate total path length
+            const segment1Length = Math.abs(cornerX - startX); // Horizontal segment
+            const segment2Length = Math.sqrt(Math.pow(endX - cornerX, 2) + Math.pow(endY - cornerY, 2)); // Diagonal to node
+            const totalLength = segment1Length + segment2Length;
+            
+            // Calculate current draw distance
+            const currentLength = totalLength * progress;
+            
+            calloutCtx.clearRect(0, 0, calloutLine.width, calloutLine.height);
+            
+            // Apply fade opacity to stroke color
+            const opacity = 0.6 * fadeOpacity;
+            calloutCtx.strokeStyle = `rgba(0, 255, 255, ${opacity})`;
+            calloutCtx.lineWidth = 2;
+            calloutCtx.setLineDash([5, 5]);
+            calloutCtx.lineCap = 'round';
+            calloutCtx.lineJoin = 'round';
+            
+            calloutCtx.beginPath();
+            calloutCtx.moveTo(startX, startY);
+            
+            if (currentLength <= segment1Length) {
+                // Drawing horizontal segment
+                const segmentProgress = currentLength / segment1Length;
+                const currentX = startX + (cornerX - startX) * segmentProgress;
+                calloutCtx.lineTo(currentX, startY);
+            } else {
+                // Horizontal segment complete, draw to corner then toward node
+                calloutCtx.lineTo(cornerX, cornerY);
+                
+                // Calculate progress on second segment
+                const segment2Progress = (currentLength - segment1Length) / segment2Length;
+                const currentX = cornerX + (endX - cornerX) * segment2Progress;
+                const currentY = cornerY + (endY - cornerY) * segment2Progress;
+                calloutCtx.lineTo(currentX, currentY);
+            }
+            
+            calloutCtx.stroke();
+        }
+        
+        function updateCalloutLine() {
+            if (!currentCalloutNode || isZoomedIn) {
+                calloutCtx.clearRect(0, 0, calloutLine.width, calloutLine.height);
+                lineDrawProgress = 0;
+                return;
+            }
+            
+            // Don't show line if hovering a different node
+            if (hoveredNode && hoveredNode !== currentCalloutNode) {
+                calloutCtx.clearRect(0, 0, calloutLine.width, calloutLine.height);
+                return;
+            }
+            
+            // Get current world position (accounts for rotation)
+            const worldPos = new THREE.Vector3();
+            currentCalloutNode.getWorldPosition(worldPos);
+            
+            // Project to screen space
+            const screenPos = worldPos.clone().project(camera);
+            const nodeX = (screenPos.x * 0.5 + 0.5) * window.innerWidth;
+            const nodeY = (-(screenPos.y * 0.5) + 0.5) * window.innerHeight;
+            
+            // Check if still visible
+            if (screenPos.z > 1 || nodeX < 0 || nodeX > window.innerWidth || nodeY < 0 || nodeY > window.innerHeight) {
+                // Node rotated out of view, hide callout
+                hideCallout(!isHoverCallout);
+                return;
+            }
+            
+            // Determine which side the balloon is on
+            const isLeft = calloutBalloon.classList.contains('left');
+            const balloonX = isLeft ? 340 : window.innerWidth - 340;
+            const balloonY = window.innerHeight / 2;
+            
+            // Animate line drawing (complete in 0.5 seconds)
+            const elapsed = Date.now() - calloutShowTime;
+            const drawDuration = 500; // 0.5 seconds to draw line
+            lineDrawProgress = Math.min(1, elapsed / drawDuration);
+            
+            // Handle line fade out
+            if (isLineFading) {
+                const fadeDuration = LINE_FADE_DURATION;
+                lineFadeProgress = Math.max(0, 1 - (elapsed - (CALLOUT_DISPLAY_DURATION - LINE_FADE_DURATION - 500)) / fadeDuration);
+            }
+            
+            // Draw the segmented line with animation and fade
+            drawSegmentedLine(balloonX, balloonY, nodeX, nodeY, isLeft, lineDrawProgress, lineFadeProgress);
+        }
+        
+        function hideCallout(showNext = false) {
+            if (!currentCalloutNode) return; // Already hidden
+            
+            // Clear all pending timeouts to prevent race conditions
+            calloutTimeouts.forEach(timeout => clearTimeout(timeout));
+            calloutTimeouts = [];
+            
+            isCalloutFading = true;
+            isLineFading = false;
+            calloutBalloon.classList.remove('visible');
+            
+            setTimeout(() => {
+                calloutCtx.clearRect(0, 0, calloutLine.width, calloutLine.height);
+                currentCalloutNode = null;
+                lineDrawProgress = 0;
+                lineFadeProgress = 1;
+                isCalloutFading = false;
+                isHoverCallout = false;
+                
+                // Immediately show next callout if requested (maintain continuous display)
+                if (showNext && !isZoomedIn && !hoveredNode) {
+                    setTimeout(() => showRandomCallout(), 100);
+                }
+            }, 800); // Match CSS transition time
+        }
+        
+        // Schedule auto-resume of callouts after idle period
+        function scheduleAutoResume() {
+            // Clear any existing timeout
+            if (autoResumeTimeout) {
+                clearTimeout(autoResumeTimeout);
+            }
+            
+            // Set new timeout to resume after 3 seconds of no interaction
+            autoResumeTimeout = setTimeout(() => {
+                if (!hoveredNode && !isZoomedIn && !currentCalloutNode && !isCalloutFading) {
+                    showRandomCallout();
+                }
+            }, 3000);
+        }
+        
+        // Start random callouts after animation completes (only if not mobile)
+        if (enableAutoCallouts) {
+            setTimeout(() => {
+                // Show first callout immediately
+                if (!skillTree.isAnimating) {
+                    showRandomCallout();
+                }
+                
+                // Then continue with interval (only needed as backup)
+                calloutInterval = setInterval(() => {
+                    // Only trigger if no callout is currently showing
+                    if (!currentCalloutNode && !isCalloutFading && !skillTree.isAnimating) {
+                        showRandomCallout();
+                    }
+                }, CALLOUT_DISPLAY_DURATION + 1000); // Check based on display duration
+            }, 7000); // Start after 7 seconds (seed animation + tree growth)
+        }
+        
+        // Raycaster for interaction
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        let hoveredNode = null;
+        let isZoomedIn = false;
+        
+        // Camera animation state
+        let cameraAnimation = null;
+        const savedCameraPosition = new THREE.Vector3();
+        const savedCameraTarget = new THREE.Vector3();
+        
+        // Animate camera smoothly
+        function animateCamera(fromPos, toPos, fromTarget, toTarget, duration, onComplete) {
+            const startTime = Date.now();
+            
+            cameraAnimation = setInterval(() => {
+                const elapsed = Date.now() - startTime;
+                const progress = Math.min(elapsed / duration, 1);
+                
+                // Smooth easing
+                const eased = progress < 0.5 
+                    ? 2 * progress * progress 
+                    : -1 + (4 - 2 * progress) * progress;
+                
+                // Interpolate position
+                camera.position.lerpVectors(fromPos, toPos, eased);
+                controls.target.lerpVectors(fromTarget, toTarget, eased);
+                controls.update();
+                
+                if (progress >= 1) {
+                    clearInterval(cameraAnimation);
+                    cameraAnimation = null;
+                    if (onComplete) onComplete();
+                }
+            }, 16); // ~60fps
+        }
+        
+        // Show skill details
+        function showSkillDetail(node) {
+            const data = node.userData.skillData;
+            const parentChain = node.userData.parentChain || [];
+            
+            // Set skill name
+            document.getElementById('detail-name').textContent = data.name;
+            
+            // Build breadcrumb navigation
+            const breadcrumb = parentChain.slice(0, -1).join(' → ');
+            document.getElementById('detail-breadcrumb').innerHTML = breadcrumb ? 
+                `<span style="opacity: 0.7;">Path:</span> ${breadcrumb}` : '';
+            
+            // Set category
+            document.getElementById('detail-category').innerHTML = 
+                `<strong>Category:</strong> ${node.userData.category || 'N/A'}`;
+            
+            // Set level and experience
+            document.getElementById('detail-level').innerHTML = 
+                `<strong>Level:</strong> ${data.level || 'N/A'}`;
+            document.getElementById('detail-experience').innerHTML = 
+                `<strong>Experience:</strong> ${data.yearsExp || 0} years`;
+            
+            // Set description
+            document.getElementById('detail-description').textContent = 
+                data.description || 'No description available.';
+            
+            // Build additional information section
+            const additionalDiv = document.getElementById('detail-additional');
+            additionalDiv.innerHTML = '';
+            
+            // Show any additional properties
+            const additionalProps = [];
+            if (data.projects) additionalProps.push(`<strong>Projects:</strong> ${data.projects}`);
+            if (data.tools) additionalProps.push(`<strong>Tools:</strong> ${Array.isArray(data.tools) ? data.tools.join(', ') : data.tools}`);
+            if (data.certifications) additionalProps.push(`<strong>Certifications:</strong> ${data.certifications}`);
+            if (data.lastUsed) additionalProps.push(`<strong>Last Used:</strong> ${data.lastUsed}`);
+            
+            if (additionalProps.length > 0) {
+                additionalDiv.innerHTML = additionalProps.map(prop => 
+                    `<p style="margin: 8px 0; color: #ccc; font-size: 14px;">${prop}</p>`
+                ).join('');
+            }
+            
+            document.getElementById('skill-detail').style.display = 'block';
+        }
+        
+        // Hide skill details
+        function hideSkillDetail() {
+            document.getElementById('skill-detail').style.display = 'none';
+        }
+        
+        // Zoom in to node
+        function zoomToNode(node) {
+            if (isZoomedIn || cameraAnimation) return;
+            
+            isZoomedIn = true;
+            
+            // Save current camera state
+            savedCameraPosition.copy(camera.position);
+            savedCameraTarget.copy(controls.target);
+            
+            // Get node's world position (accounts for tree rotation)
+            const worldPos = new THREE.Vector3();
+            node.getWorldPosition(worldPos);
+            
+            // Calculate zoom position
+            const offset = new THREE.Vector3(1, 0.5, 2); // Close-up offset
+            const targetCameraPos = worldPos.clone().add(offset);
+            
+            // Animate camera
+            animateCamera(
+                savedCameraPosition,
+                targetCameraPos,
+                savedCameraTarget,
+                worldPos,
+                1000, // 1 second
+                () => {
+                    showSkillDetail(node);
+                    controls.enabled = false; // Disable controls while zoomed
+                }
+            );
+            
+            skillTree.selectSkill(node);
+        }
+        
+        // Zoom out to orbit view
+        function zoomOut() {
+            if (!isZoomedIn || cameraAnimation) return;
+            
+            isZoomedIn = false;
+            hideSkillDetail();
+            
+            // Expand the experience panel and trunk when zooming out
+            document.getElementById('roots-panel').classList.remove('collapsed');
+            document.getElementById('trunk-ui').classList.remove('collapsed');
+            
+            // Animate back to saved position
+            animateCamera(
+                camera.position.clone(),
+                savedCameraPosition,
+                controls.target.clone(),
+                savedCameraTarget,
+                1000, // 1 second
+                () => {
+                    controls.enabled = true; // Re-enable controls
+                    skillTree.selectSkill(null); // Deselect
+                    
+                    // Resume callouts after zoom out
+                    scheduleAutoResume();
+                }
+            );
+        }
+        
+        // Close button handler
+        document.getElementById('close-detail').addEventListener('click', (e) => {
+            e.stopPropagation();
+            zoomOut();
+        });
+        
+        // Click outside detail panel to close
+        document.getElementById('skill-detail').addEventListener('click', (e) => {
+            // Only close if clicking the background (not the content)
+            if (e.target.id === 'skill-detail') {
+                zoomOut();
+            }
+        });
+        
+        // Also allow clicking anywhere on canvas when zoomed in
+        window.addEventListener('click', (e) => {
+            if (isZoomedIn && !e.target.closest('#skill-detail')) {
+                zoomOut();
+            }
+        }, true);
+        
+        // Mouse move for hover
+        window.addEventListener('mousemove', (event) => {
+            if (isZoomedIn) return; // Disable hover when zoomed in
+            
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            
+            raycaster.setFromCamera(mouse, camera);
+            
+            // Update tree world matrix to account for rotation
+            if (skillTree.tree) {
+                skillTree.tree.updateMatrixWorld(true);
+            }
+            
+            const nodes = skillTree.getSkillNodes();
+            const intersects = raycaster.intersectObjects(nodes);
+            
+            // Reset previous hover
+            if (hoveredNode) {
+                hoveredNode.userData.isHovered = false;
+                hoveredNode.material.emissiveIntensity = hoveredNode.userData.baseEmissive;
+                document.body.style.cursor = 'default';
+            }
+            
+            if (intersects.length > 0) {
+                hoveredNode = intersects[0].object;
+                hoveredNode.userData.isHovered = true;
+                hoveredNode.material.emissiveIntensity = 1.0;
+                document.body.style.cursor = 'pointer';
+                
+                // Show callout for hovered node
+                if (currentCalloutNode !== hoveredNode) {
+                    // Hide previous callout without showing next random one
+                    if (currentCalloutNode) {
+                        hideCallout(false);
+                    }
+                    // Show callout for this node after brief delay to prevent flicker
+                    const showDelay = currentCalloutNode ? 100 : 0;
+                    const hoverTimeout = setTimeout(() => {
+                        if (hoveredNode) { // Check if still hovering
+                            showCalloutForNode(hoveredNode, true);
+                        }
+                    }, showDelay);
+                    // Don't add to calloutTimeouts since this is hover-triggered
+                }
+                
+                // Update info display
+                const data = hoveredNode.userData.skillData;
+                document.getElementById('skill-count').innerHTML = 
+                    `<strong>${data.name}</strong><br>` +
+                    `${data.level || 'N/A'} | ${data.yearsExp || 0} years`;
+            } else {
+                const wasHovering = hoveredNode !== null;
+                hoveredNode = null;
+                const root = skillTree.tree.userData.root || {};
+                document.getElementById('skill-count').textContent = 'Hover over skills to learn more';
+                
+                // Resume callouts after user stops hovering
+                if (wasHovering) {
+                    lastInteractionTime = Date.now();
+                    scheduleAutoResume();
+                }
+            }
+        });
+        
+        // Click to select and focus camera
+        window.addEventListener('click', (event) => {
+            if (isZoomedIn) return; // Prevent clicks when already zoomed
+            
+            if (hoveredNode) {
+                lastInteractionTime = Date.now(); // Update interaction time
+                zoomToNode(hoveredNode);
+            }
+        });
+        
+        // ===== ANIMATION LOOP =====
+        let time = 0;
+        let lastTime = 0;
+        
+        function animate(currentTime) {
+            requestAnimationFrame(animate);
+            
+            // Calculate delta time in seconds
+            const deltaTime = (currentTime - lastTime) / 1000;
+            lastTime = currentTime;
+            
+            controls.update();
+            
+            time += 0.01;
+            
+            // Update build animation
+            skillTree.updateBuildAnimation(deltaTime);
+            
+            // Apply throb animation to hovered node (disable on mobile for performance)
+            if (hoveredNode && !isZoomedIn && !isMobile) {
+                const throbScale = 1 + Math.sin(time * 5) * 0.15; // Pulse between 0.85x and 1.15x
+                const targetScale = hoveredNode.userData.targetScale;
+                if (targetScale) {
+                    hoveredNode.scale.set(
+                        targetScale.x * throbScale,
+                        targetScale.y * throbScale,
+                        targetScale.z * throbScale
+                    );
+                }
+            } else if (hoveredNode && hoveredNode.userData.targetScale) {
+                // Reset to normal scale when not hovering
+                hoveredNode.scale.copy(hoveredNode.userData.targetScale);
+            }
+            
+            // Update callout line to follow rotation
+            updateCalloutLine();
+            
+            // Check if we should auto-resume callouts (after 3 seconds of idle) - only on desktop
+            if (enableAutoCallouts && window.treeAnimationComplete && !hoveredNode && !isZoomedIn && !currentCalloutNode && !isCalloutFading) {
+                const timeSinceInteraction = Date.now() - lastInteractionTime;
+                if (timeSinceInteraction > 3000) {
+                    // Reset timer and show callout
+                    lastInteractionTime = Date.now();
+                    showRandomCallout();
+                }
+            }
+            
+            // Slow rotation (pause when node selected, hovered, or during build animation)
+            if (skillTree.tree && !skillTree.selectedNode && !skillTree.isAnimating && !hoveredNode) {
+                skillTree.tree.rotation.y += isMobile ? 0.001 : 0.002; // Slower rotation on mobile
+            }
+            
+            skillTree.update(time);
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate(0);
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            
+            // Update callout line canvas size
+            calloutLine.width = window.innerWidth;
+            calloutLine.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
