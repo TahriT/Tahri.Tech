@@ -86,6 +86,62 @@
             transform: translateX(-50%) translateY(0);
         }
         
+        #legend-toggle {
+            position: fixed;
+            top: 10px;
+            left: 20px;
+            background: rgba(0, 255, 255, 0.2);
+            border: 2px solid rgba(0, 255, 255, 0.6);
+            color: #00ffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 160;
+            font-size: 28px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            animation: mapGlow 3s ease-in-out infinite;
+            transform-origin: center center;
+        }
+        
+        @keyframes mapGlow {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(0, 255, 255, 0.6), 0 0 15px rgba(0, 255, 255, 0.4);
+            }
+        }
+        
+        #legend-toggle:hover {
+            background: rgba(0, 255, 255, 0.4);
+            transform: scale(1.1);
+            box-shadow: 0 6px 25px rgba(0, 255, 255, 0.5);
+            animation: none;
+        }
+        
+        #legend-toggle.expanded {
+            animation: mapBounce 0.6s ease-out, mapGlow 3s ease-in-out infinite;
+            transform: scale(1.1);
+        }
+        
+        @keyframes mapBounce {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+
         #projects-toggle {
             position: fixed;
             top: 10px;
@@ -423,19 +479,61 @@
                 animation: fruitSwing 3s ease-in-out infinite; /* Slower swing, no glow */
             }
             
-            /* Simplify callout on mobile */
-            #skill-callout {
+            /* Legend toggle mobile adjustments */
+            #legend-toggle {
+                width: 45px;
+                height: 45px;
+                font-size: 24px;
+                top: 15px;
+                left: 15px;
+                animation: mapGlow 4s ease-in-out infinite; /* Slower glow */
+            }
+            
+            /* Legend hidden by default on mobile */
+            #legend {
+                top: 65px;
+                left: 15px;
                 max-width: 200px;
                 padding: 12px;
-                font-size: 12px;
+                font-size: 10px;
+                opacity: 0;
+                transform: translateY(-20px) translateX(-100%);
+                pointer-events: none;
+            }
+            
+            #legend.expanded {
+                opacity: 1;
+                transform: translateY(0) translateX(0);
+                pointer-events: auto;
+            }
+            
+            /* Optimize callout for mobile */
+            #skill-callout {
+                max-width: 180px;
+                padding: 10px;
+                font-size: 11px;
+                border-radius: 12px;
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
             }
             
             #skill-callout h3 {
-                font-size: 14px;
+                font-size: 13px;
+                margin-bottom: 8px;
             }
             
             #skill-callout p {
-                font-size: 11px;
+                font-size: 10px;
+                margin: 3px 0;
+                line-height: 1.3;
+            }
+            
+            /* Adjust callout positioning on mobile */
+            #skill-callout.left {
+                left: 10px;
+            }
+            
+            #skill-callout.right {
+                right: 10px;
             }
             
             /* Projects header mobile adjustments */
@@ -653,28 +751,43 @@
             50% { transform: scale(1.3); }
         }
         
-        /* Legend/Key in top left */
+        /* Legend/Key in top left - now collapsible */
         #legend {
             position: fixed;
-            top: 20px;
+            top: 70px;
             left: 20px;
-            background: rgba(10, 10, 20, 0.9);
+            background: rgba(10, 10, 20, 0.95);
             border: 2px solid rgba(0, 255, 255, 0.4);
             border-radius: 10px;
             padding: 15px;
-            z-index: 100;
+            z-index: 150;
             backdrop-filter: blur(10px);
             opacity: 0;
-            transform: translateY(-20px);
-            transition: opacity 0.8s ease 4.5s, transform 0.8s ease 4.5s;
+            transform: translateY(-20px) translateX(-100%);
+            transition: opacity 0.5s ease, transform 0.5s ease;
             font-size: 12px;
             color: #ccc;
             max-width: 250px;
+            pointer-events: none;
         }
         
         #legend.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) translateX(0);
+            pointer-events: auto;
+        }
+        
+        #legend.expanded {
+            opacity: 1;
+            transform: translateY(0) translateX(0);
+            pointer-events: auto;
+        }
+        
+        /* Hidden state takes priority - allows toggling even when 'visible' class is present */
+        #legend.hidden {
+            opacity: 0 !important;
+            transform: translateY(-20px) translateX(-100%) !important;
+            pointer-events: none !important;
         }
         
         #legend h4 {
@@ -1002,6 +1115,9 @@
         </div>
     </div>
     
+    <!-- Legend Toggle (Collapsible) -->
+    <button id="legend-toggle" aria-label="Toggle skill tree key" title="Skill Tree Key">🗺️</button>
+    
     <!-- Projects Header (Collapsible) -->
     <button id="projects-toggle" aria-label="Toggle projects menu" title="Fruits of My Labor">🍎</button>
     <div id="projects-header">
@@ -1063,7 +1179,7 @@
         <button id="roots-toggle" aria-label="Toggle experience panel">↕</button>
         <div id="roots-content">
             <div id="roots-header">
-                <h2 style="margin: 0; color: #00ffff;">My Roots: Experience & Background</h2>
+                <h2 style="margin: 0; color: #00ffff;">Tahri's Roots: Experience & Background</h2>
             </div>
             <div id="experience-list"></div>
         </div>
@@ -1130,6 +1246,25 @@
         // Detect mobile device
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
         
+        // Track first interaction to hide title
+        let hasInteracted = false;
+        
+        // Function to hide title on first interaction
+        function hideHeaderTitle() {
+            if (!hasInteracted) {
+                hasInteracted = true;
+                const headerTitle = document.getElementById('header-title');
+                headerTitle.style.transition = 'opacity 1s ease-out, transform 1s ease-out';
+                headerTitle.style.opacity = '0';
+                headerTitle.style.transform = 'translateX(-50%) translateY(-20px)';
+                
+                // Remove from DOM after fade completes
+                setTimeout(() => {
+                    headerTitle.style.display = 'none';
+                }, 1000);
+            }
+        }
+        
         const renderer = new THREE.WebGLRenderer({ 
             antialias: !isMobile, // Disable antialiasing on mobile for performance
             powerPreference: isMobile ? 'low-power' : 'high-performance'
@@ -1166,6 +1301,24 @@
         }
         
         controls.update();
+        
+        // Add interaction event listeners for hiding title
+        const canvas = renderer.domElement;
+        
+        // Mouse events
+        canvas.addEventListener('mousedown', hideHeaderTitle);
+        canvas.addEventListener('mousemove', function(e) {
+            // Only hide on mousemove if mouse button is pressed (dragging)
+            if (e.buttons > 0) {
+                hideHeaderTitle();
+            }
+        });
+        canvas.addEventListener('wheel', hideHeaderTitle);
+        
+        // Touch events
+        canvas.addEventListener('touchstart', hideHeaderTitle);
+        canvas.addEventListener('touchmove', hideHeaderTitle);
+        
         // Lighting
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
         scene.add(ambientLight);
@@ -1733,8 +1886,10 @@
                 document.getElementById('roots-panel').classList.add('loaded');
                 document.getElementById('trunk-ui').classList.add('loaded');
                 
-                // Show legend
-                document.getElementById('legend').classList.add('visible');
+                // Show legend automatically on desktop only
+                if (!isMobile) {
+                    document.getElementById('legend').classList.add('visible');
+                }
                 
                 // Start tree build animation after roots panel is visible
                 setTimeout(() => {
@@ -1751,6 +1906,35 @@
             e.stopPropagation();
             rootsPanel.classList.toggle('expanded');
             rootsToggle.textContent = rootsPanel.classList.contains('expanded') ? '↓' : '↕';
+        });
+        
+        // ===== LEGEND TOGGLE =====
+        const legendToggle = document.getElementById('legend-toggle');
+        const legend = document.getElementById('legend');
+        
+        legendToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            // Toggle the hidden class to show/hide legend
+            if (legend.classList.contains('hidden')) {
+                // Show the legend
+                legend.classList.remove('hidden');
+                legendToggle.classList.add('expanded');
+            } else {
+                // Hide the legend
+                legend.classList.add('hidden');
+                legendToggle.classList.remove('expanded');
+            }
+        });
+        
+        // Close legend when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!legend.contains(e.target) && !legendToggle.contains(e.target)) {
+                if (!legend.classList.contains('hidden')) {
+                    legend.classList.add('hidden');
+                    legendToggle.classList.remove('expanded');
+                }
+            }
         });
         
         // ===== PROJECTS HEADER TOGGLE =====
@@ -1829,18 +2013,29 @@
                 return; // Node not visible
             }
             
-            // Determine left or right side
-            const isLeft = x < window.innerWidth / 2;
+            // Determine left or right side - on mobile, prefer right to avoid legend conflict
+            const isLeft = isMobile ? (x < window.innerWidth * 0.3) : (x < window.innerWidth / 2);
             const data = node.userData.skillData;
             
             // Update callout content
             document.getElementById('callout-title').textContent = data.name;
-            document.getElementById('callout-category').innerHTML = 
-                `<strong>Category:</strong> ${node.userData.category || 'N/A'}`;
-            document.getElementById('callout-level').innerHTML = 
-                `<strong>Level:</strong> ${data.level || 'N/A'}`;
-            document.getElementById('callout-experience').innerHTML = 
-                `<strong>Experience:</strong> ${data.yearsExp || 0} years`;
+            
+            // Simplify content on mobile
+            if (isMobile) {
+                document.getElementById('callout-category').innerHTML = 
+                    `<strong>${node.userData.category || 'N/A'}</strong>`;
+                document.getElementById('callout-level').innerHTML = 
+                    `${data.level || 'N/A'} • ${data.yearsExp || 0}yr`;
+                document.getElementById('callout-experience').innerHTML = 
+                    data.description ? `${data.description.substring(0, 60)}...` : '';
+            } else {
+                document.getElementById('callout-category').innerHTML = 
+                    `<strong>Category:</strong> ${node.userData.category || 'N/A'}`;
+                document.getElementById('callout-level').innerHTML = 
+                    `<strong>Level:</strong> ${data.level || 'N/A'}`;
+                document.getElementById('callout-experience').innerHTML = 
+                    `<strong>Experience:</strong> ${data.yearsExp || 0} years`;
+            }
             
             // Position callout (start offset for fade-in animation)
             calloutBalloon.className = isLeft ? 'left' : 'right';
@@ -1916,7 +2111,7 @@
         
         function drawSegmentedLine(startX, startY, endX, endY, isLeft, progress, fadeOpacity = 1) {
             // Create L-shaped path: horizontal segment then vertical to node
-            const horizontalLength = 150; // Fixed horizontal segment length
+            const horizontalLength = isMobile ? 80 : 150; // Shorter on mobile
             const cornerX = isLeft ? startX + horizontalLength : startX - horizontalLength;
             const cornerY = startY;
             
@@ -1931,10 +2126,10 @@
             calloutCtx.clearRect(0, 0, calloutLine.width, calloutLine.height);
             
             // Apply fade opacity to stroke color
-            const opacity = 0.6 * fadeOpacity;
+            const opacity = (isMobile ? 0.4 : 0.6) * fadeOpacity;
             calloutCtx.strokeStyle = `rgba(0, 255, 255, ${opacity})`;
-            calloutCtx.lineWidth = 2;
-            calloutCtx.setLineDash([5, 5]);
+            calloutCtx.lineWidth = isMobile ? 1 : 2;
+            calloutCtx.setLineDash(isMobile ? [3, 3] : [5, 5]);
             calloutCtx.lineCap = 'round';
             calloutCtx.lineJoin = 'round';
             
@@ -1991,8 +2186,16 @@
             
             // Determine which side the balloon is on
             const isLeft = calloutBalloon.classList.contains('left');
-            const balloonX = isLeft ? 340 : window.innerWidth - 340;
-            const balloonY = window.innerHeight / 2;
+            
+            // Adjust balloon position for mobile
+            let balloonX, balloonY;
+            if (isMobile) {
+                balloonX = isLeft ? 100 : window.innerWidth - 100;
+                balloonY = window.innerHeight / 2;
+            } else {
+                balloonX = isLeft ? 340 : window.innerWidth - 340;
+                balloonY = window.innerHeight / 2;
+            }
             
             // Animate line drawing (complete in 0.5 seconds)
             const elapsed = Date.now() - calloutShowTime;
@@ -2240,12 +2443,12 @@
             }
         }, true);
         
-        // Mouse move for hover
-        window.addEventListener('mousemove', (event) => {
+        // Shared function to update hover state
+        function updateHoverState(clientX, clientY) {
             if (isZoomedIn) return; // Disable hover when zoomed in
             
-            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+            mouse.x = (clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(clientY / window.innerHeight) * 2 + 1;
             
             raycaster.setFromCamera(mouse, camera);
             
@@ -2295,7 +2498,7 @@
                 const wasHovering = hoveredNode !== null;
                 hoveredNode = null;
                 const root = skillTree.tree.userData.root || {};
-                document.getElementById('skill-count').textContent = 'Hover over skills to learn more';
+                document.getElementById('skill-count').textContent = isMobile ? 'Tap skills to explore' : 'Hover over skills to learn more';
                 
                 // Resume callouts after user stops hovering
                 if (wasHovering) {
@@ -2303,11 +2506,85 @@
                     scheduleAutoResume();
                 }
             }
+        }
+        
+        // Mouse move for hover (desktop)
+        window.addEventListener('mousemove', (event) => {
+            if (!isMobile) {
+                updateHoverState(event.clientX, event.clientY);
+            }
         });
         
-        // Click to select and focus camera
+        // Touch move for hover simulation (mobile)
+        window.addEventListener('touchmove', (event) => {
+            if (isMobile && event.touches[0] && !touchMoved) {
+                // Only simulate hover if we haven't moved much (not dragging)
+                updateHoverState(event.touches[0].clientX, event.touches[0].clientY);
+            }
+        });
+        
+        // Touch start for immediate hover detection (mobile)
+        window.addEventListener('touchstart', (event) => {
+            if (isMobile && event.touches[0]) {
+                updateHoverState(event.touches[0].clientX, event.touches[0].clientY);
+            }
+        });
+        
+        // Touch/Click handling for node selection
+        let touchStartTime = 0;
+        let touchMoved = false;
+        let touchStartPos = { x: 0, y: 0 };
+        
+        // Touch start
+        window.addEventListener('touchstart', (event) => {
+            if (isZoomedIn) return;
+            
+            touchStartTime = Date.now();
+            touchMoved = false;
+            
+            if (event.touches[0]) {
+                touchStartPos.x = event.touches[0].clientX;
+                touchStartPos.y = event.touches[0].clientY;
+            }
+        });
+        
+        // Touch move - track if user is dragging
+        window.addEventListener('touchmove', (event) => {
+            if (event.touches[0]) {
+                const moveDistance = Math.sqrt(
+                    Math.pow(event.touches[0].clientX - touchStartPos.x, 2) + 
+                    Math.pow(event.touches[0].clientY - touchStartPos.y, 2)
+                );
+                
+                // Consider it a move if moved more than 10 pixels
+                if (moveDistance > 10) {
+                    touchMoved = true;
+                }
+            }
+        });
+        
+        // Touch end - handle tap vs drag
+        window.addEventListener('touchend', (event) => {
+            if (isZoomedIn) return;
+            
+            const touchDuration = Date.now() - touchStartTime;
+            
+            // Only consider it a tap if:
+            // 1. Duration is less than 500ms (not a long press)
+            // 2. User didn't move much (not a drag)
+            if (touchDuration < 500 && !touchMoved && hoveredNode) {
+                event.preventDefault(); // Prevent double-tap zoom
+                lastInteractionTime = Date.now();
+                zoomToNode(hoveredNode);
+            }
+        });
+        
+        // Click to select and focus camera (desktop)
         window.addEventListener('click', (event) => {
             if (isZoomedIn) return; // Prevent clicks when already zoomed
+            
+            // Skip if this is a touch device to avoid duplicate events
+            if (isMobile) return;
             
             if (hoveredNode) {
                 lastInteractionTime = Date.now(); // Update interaction time
