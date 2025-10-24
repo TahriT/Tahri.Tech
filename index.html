@@ -825,22 +825,29 @@
             }
         }
         
-        /* Mobile adjustments for navigation */
+        /* Mobile adjustments for navigation - attach arrows to card */
         @media (max-width: 768px) {
             #tree-navigation {
-                width: 100vw; /* Full width to ensure buttons don't overlap card */
-                height: 100vh; /* Full height */
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 90%; /* Match card width */
+                max-width: 400px; /* Match card constraints */
+                height: auto;
+                pointer-events: none; /* Let clicks pass through container */
             }
             
             .nav-arrow-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 22px;
+                width: 45px;
+                height: 45px;
+                font-size: 20px;
                 border-width: 2px;
+                pointer-events: auto; /* But buttons are clickable */
             }
             
             .arrow-icon {
-                font-size: 22px;
+                font-size: 20px;
             }
             
             /* Smaller labels on mobile */
@@ -849,29 +856,31 @@
                 padding: 3px 6px;
             }
             
-            /* Position buttons at screen edges on mobile to avoid card overlap */
+            /* Position buttons just outside card edges */
             .nav-pos-up {
-                top: 20px !important;
-                left: 50% !important;
-                transform: translateX(-50%) !important;
+                top: -55px;
+                left: 50%;
+                transform: translateX(-50%);
             }
             
             .nav-pos-down {
-                bottom: 20px !important;
-                left: 50% !important;
-                transform: translateX(-50%) !important;
+                bottom: -55px;
+                left: 50%;
+                transform: translateX(-50%);
+                top: auto;
             }
             
             .nav-pos-left {
-                left: 20px !important;
-                top: 50% !important;
-                transform: translateY(-50%) !important;
+                left: -55px;
+                top: 50%;
+                transform: translateY(-50%);
             }
             
             .nav-pos-right {
-                right: 20px !important;
-                top: 50% !important;
-                transform: translateY(-50%) !important;
+                right: -55px;
+                top: 50%;
+                transform: translateY(-50%);
+                left: auto;
             }
         }
         
@@ -2643,14 +2652,8 @@
                 if (!skillTree.isAnimating) {
                     showRandomCallout();
                 }
-                
-                // Then continue with interval (only needed as backup)
-                calloutInterval = setInterval(() => {
-                    // Only trigger if no callout is currently showing
-                    if (!currentCalloutNode && !isCalloutFading && !skillTree.isAnimating) {
-                        showRandomCallout();
-                    }
-                }, CALLOUT_DISPLAY_DURATION + 1000); // Check based on display duration
+                // Callouts will continue automatically via hideCallout(true) callback
+                // No interval needed - prevents rapid cycling bug
             }, 7000); // Start after 7 seconds (seed animation + tree growth)
         }
         
