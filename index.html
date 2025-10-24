@@ -387,6 +387,16 @@
             #roots-toggle {
                 display: block;
             }
+            
+            /* Move trunk UI down on mobile to align with roots panel */
+            #trunk-ui {
+                bottom: 60px; /* Align with collapsed roots panel */
+                height: 150px; /* Shorter on mobile */
+            }
+            
+            #trunk-ui.collapsed {
+                bottom: 60px; /* Stay at same position when collapsed */
+            }
         }
         
         #roots-content {
@@ -497,22 +507,47 @@
             #legend-toggle {
                 width: 45px;
                 height: 45px;
-                font-size: 24px;
+                font-size: 24px; /* Info icon size */
                 animation: mapGlow 4s ease-in-out infinite; /* Slower glow */
+                padding: 0; /* Remove padding for consistent sizing */
             }
             
-            /* Legend positioned relative to button on mobile */
+            /* Legend positioned relative to button on mobile - start collapsed */
             #legend {
-                top: 55px; /* Closer to button on mobile */
-                left: 0; /* Align with button */
-                max-width: 280px; /* Allow full width on mobile */
+                position: fixed;
+                top: 70px; /* Below button with more space */
+                left: 15px; /* Align with button */
+                max-width: calc(100vw - 30px); /* Full width minus margins */
                 min-width: 250px; /* Maintain good size */
+                max-height: calc(100vh - 150px); /* Don't go off bottom */
                 padding: 15px; /* Keep full padding */
-                font-size: 11px; /* Slightly smaller font for mobile */
-                
-                /* Ensure it doesn't go off screen */
+                overflow-y: auto; /* Allow scrolling if needed */
                 right: auto;
                 width: auto;
+                transform: translateY(-10px); /* Start slightly higher */
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+            
+            /* Larger text on mobile for better readability */
+            #legend h4 {
+                font-size: 15px;
+            }
+            
+            .legend-text {
+                font-size: 13px;
+            }
+            
+            .legend-item {
+                margin: 10px 0; /* More spacing on mobile */
+            }
+            
+            /* When legend is visible (not hidden) */
+            #legend:not(.hidden) {
+                opacity: 1;
+                transform: translateY(0);
+                pointer-events: auto;
             }
             
             /* Adjust if legend would go off right edge of screen */
@@ -520,21 +555,14 @@
                 #legend {
                     max-width: calc(100vw - 30px); /* Account for margins */
                     min-width: auto;
-                    left: -10px; /* Shift left slightly on very small screens */
+                    left: 10px; /* Adjust for smaller screens */
                 }
-            }
-            
-            /* Override any other classes when expanded on mobile */
-            #legend.expanded {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
-                pointer-events: auto !important;
             }
             
             /* Optimize callout for mobile - top center positioning */
             #skill-callout {
                 position: fixed;
-                top: 40px; /* Position at very top where title was */
+                top: 120px; /* Position below legend and projects buttons */
                 left: 50%; /* Center horizontally */
                 transform: translateX(-50%) translateY(-20px); /* Center and start offset */
                 max-width: 150px;
@@ -554,11 +582,23 @@
             #skill-callout.right {
                 left: 50% !important;
                 right: auto !important;
+                top: 120px !important;
                 transform: translateX(-50%) translateY(-20px) !important;
             }
             
             #skill-callout.visible.left,
             #skill-callout.visible.right {
+                transform: translateX(-50%) translateY(0) !important;
+            }
+            
+            /* Center class for mobile callouts */
+            #skill-callout.center {
+                left: 50% !important;
+                top: 120px !important;
+                transform: translateX(-50%) translateY(-20px) !important;
+            }
+            
+            #skill-callout.visible.center {
                 transform: translateX(-50%) translateY(0) !important;
             }
             
@@ -1025,7 +1065,7 @@
         #legend h4 {
             margin: 0 0 10px 0;
             color: #00ffff;
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
             text-align: center;
             border-bottom: 1px solid rgba(0, 255, 255, 0.3);
@@ -1104,6 +1144,7 @@
         .legend-text {
             flex: 1;
             line-height: 1.4;
+            font-size: 13px;
         }
         
         .legend-divider {
@@ -2143,9 +2184,16 @@
                 document.getElementById('roots-panel').classList.add('loaded');
                 document.getElementById('trunk-ui').classList.add('loaded');
                 
-                // Show legend automatically on desktop only
+                // Show legend automatically on desktop only, hide on mobile
+                const legend = document.getElementById('legend');
+                const legendToggle = document.getElementById('legend-toggle');
+                
                 if (!isMobile) {
-                    document.getElementById('legend').classList.add('visible');
+                    legend.classList.add('visible');
+                } else {
+                    // Start collapsed on mobile with info icon
+                    legend.classList.add('hidden');
+                    legendToggle.textContent = 'ℹ️';
                 }
                 
                 // Start tree build animation after roots panel is visible
