@@ -622,7 +622,7 @@
             /* Center class for mobile callouts */
             #skill-callout.center {
                 left: 50% !important;
-                top: 120px !important;
+                top: 100px !important; /* Positioned where skill tree header appears */
                 transform: translateX(-50%) translateY(-20px) !important;
             }
             
@@ -832,8 +832,8 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                width: 90%; /* Match card width */
-                max-width: 400px; /* Match card constraints */
+                width: 80%; /* Reduced from 90% to leave room for left/right arrows */
+                max-width: 350px; /* Reduced from 400px */
                 height: auto;
                 pointer-events: none; /* Let clicks pass through container */
             }
@@ -856,15 +856,15 @@
                 padding: 3px 6px;
             }
             
-            /* Position buttons just outside card edges */
+            /* Position buttons just outside card edges with more clearance */
             .nav-pos-up {
-                top: -55px;
+                top: -65px; /* Increased from -55px for more clearance */
                 left: 50%;
                 transform: translateX(-50%);
             }
             
             .nav-pos-down {
-                bottom: -55px;
+                bottom: -65px; /* Increased from -55px for more clearance */
                 left: 50%;
                 transform: translateX(-50%);
                 top: auto;
@@ -881,6 +881,12 @@
                 top: 50%;
                 transform: translateY(-50%);
                 left: auto;
+            }
+            
+            /* Also reduce detail card width on mobile to match */
+            #skill-detail {
+                width: 80% !important;
+                max-width: 350px !important;
             }
         }
         
@@ -2580,10 +2586,10 @@
             let balloonX, balloonY;
             if (isMobile && isCenter) {
                 balloonX = window.innerWidth / 2; // Center horizontally
-                balloonY = 40; // Very top position (matching CSS)
+                balloonY = 100; // Match CSS top position (where skill tree header appears)
             } else if (isMobile) {
                 balloonX = window.innerWidth / 2; // Center horizontally even if left/right class
-                balloonY = 40;
+                balloonY = 100; // Match CSS top position
             } else {
                 balloonX = isLeft ? 340 : window.innerWidth - 340;
                 balloonY = window.innerHeight / 2;
@@ -2913,20 +2919,20 @@
                 });
                 currentSiblingIndex = allSiblings.indexOf(node);
                 
-                // Enable/disable based on position
-                navLeft.disabled = currentSiblingIndex === 0;
-                navRight.disabled = currentSiblingIndex === allSiblings.length - 1;
+                // Enable/disable based on position (swapped for left/right)
+                navLeft.disabled = currentSiblingIndex === allSiblings.length - 1; // Left goes to next, so disable at end
+                navRight.disabled = currentSiblingIndex === 0; // Right goes to previous, so disable at start
                 navLeft.setAttribute('data-mode', 'sibling');
                 navRight.setAttribute('data-mode', 'sibling');
                 
-                // Set target names
-                if (currentSiblingIndex > 0) {
-                    navLeft.setAttribute('data-target', allSiblings[currentSiblingIndex - 1].userData.skillData.name);
+                // Set target names (swapped)
+                if (currentSiblingIndex < allSiblings.length - 1) {
+                    navLeft.setAttribute('data-target', allSiblings[currentSiblingIndex + 1].userData.skillData.name);
                 } else {
                     navLeft.setAttribute('data-target', '');
                 }
-                if (currentSiblingIndex < allSiblings.length - 1) {
-                    navRight.setAttribute('data-target', allSiblings[currentSiblingIndex + 1].userData.skillData.name);
+                if (currentSiblingIndex > 0) {
+                    navRight.setAttribute('data-target', allSiblings[currentSiblingIndex - 1].userData.skillData.name);
                 } else {
                     navRight.setAttribute('data-target', '');
                 }
@@ -2937,11 +2943,11 @@
                 navLeft.setAttribute('data-mode', 'child');
                 navRight.setAttribute('data-mode', 'child');
                 
-                // Set target names (wrap around)
-                const prevChildIndex = (currentChildIndex - 1 + children.length) % children.length;
+                // Set target names (swapped - left goes next, right goes previous)
                 const nextChildIndex = (currentChildIndex + 1) % children.length;
-                navLeft.setAttribute('data-target', children[prevChildIndex].userData.skillData.name);
-                navRight.setAttribute('data-target', children[nextChildIndex].userData.skillData.name);
+                const prevChildIndex = (currentChildIndex - 1 + children.length) % children.length;
+                navLeft.setAttribute('data-target', children[nextChildIndex].userData.skillData.name);
+                navRight.setAttribute('data-target', children[prevChildIndex].userData.skillData.name);
             } else {
                 // No siblings and 0-1 children - disable left/right
                 navLeft.disabled = true;
@@ -3042,7 +3048,7 @@
             console.log('Nav Left - Mode:', mode);
             
             if (mode === 'sibling') {
-                // Navigate to previous sibling
+                // Navigate to NEXT sibling (swapped)
                 const siblings = getSiblingNodes(currentNavigationNode);
                 const allSiblings = [...siblings, currentNavigationNode].sort((a, b) => {
                     const parent = getParentNode(currentNavigationNode);
@@ -3051,16 +3057,16 @@
                     return parentChildren.indexOf(a) - parentChildren.indexOf(b);
                 });
                 
-                if (currentSiblingIndex > 0) {
-                    console.log('Navigating to previous sibling:', allSiblings[currentSiblingIndex - 1]);
-                    navigateToNode(allSiblings[currentSiblingIndex - 1]);
+                if (currentSiblingIndex < allSiblings.length - 1) {
+                    console.log('Navigating to next sibling:', allSiblings[currentSiblingIndex + 1]);
+                    navigateToNode(allSiblings[currentSiblingIndex + 1]);
                 }
             } else if (mode === 'child') {
-                // Cycle to previous child
+                // Cycle to NEXT child (swapped)
                 const children = getChildrenNodes(currentNavigationNode);
                 if (children.length > 0) {
-                    currentChildIndex = (currentChildIndex - 1 + children.length) % children.length;
-                    console.log('Navigating to previous child:', children[currentChildIndex]);
+                    currentChildIndex = (currentChildIndex + 1) % children.length;
+                    console.log('Navigating to next child:', children[currentChildIndex]);
                     navigateToNode(children[currentChildIndex]);
                 }
             }
@@ -3078,7 +3084,7 @@
             console.log('Nav Right - Mode:', mode);
             
             if (mode === 'sibling') {
-                // Navigate to next sibling
+                // Navigate to PREVIOUS sibling (swapped)
                 const siblings = getSiblingNodes(currentNavigationNode);
                 const allSiblings = [...siblings, currentNavigationNode].sort((a, b) => {
                     const parent = getParentNode(currentNavigationNode);
@@ -3087,16 +3093,16 @@
                     return parentChildren.indexOf(a) - parentChildren.indexOf(b);
                 });
                 
-                if (currentSiblingIndex < allSiblings.length - 1) {
-                    console.log('Navigating to next sibling:', allSiblings[currentSiblingIndex + 1]);
-                    navigateToNode(allSiblings[currentSiblingIndex + 1]);
+                if (currentSiblingIndex > 0) {
+                    console.log('Navigating to previous sibling:', allSiblings[currentSiblingIndex - 1]);
+                    navigateToNode(allSiblings[currentSiblingIndex - 1]);
                 }
             } else if (mode === 'child') {
-                // Cycle to next child
+                // Cycle to PREVIOUS child (swapped)
                 const children = getChildrenNodes(currentNavigationNode);
                 if (children.length > 0) {
-                    currentChildIndex = (currentChildIndex + 1) % children.length;
-                    console.log('Navigating to next child:', children[currentChildIndex]);
+                    currentChildIndex = (currentChildIndex - 1 + children.length) % children.length;
+                    console.log('Navigating to previous child:', children[currentChildIndex]);
                     navigateToNode(children[currentChildIndex]);
                 }
             }
