@@ -589,6 +589,199 @@
             }
         }
         
+        /* Tree Navigation Controls - Surrounding Node Design */
+        #tree-navigation {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px; /* Wider to account for card + buttons */
+            height: 450px; /* Taller to account for card + buttons */
+            z-index: 998; /* Below detail panel (1000) */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none; /* Allow clicking through empty space */
+        }
+        
+        #tree-navigation.visible {
+            opacity: 1;
+        }
+        
+        /* Arrow buttons - positioned around center */
+        .nav-arrow-btn {
+            position: absolute;
+            background: rgba(0, 255, 255, 0.2);
+            border: 3px solid rgba(0, 255, 255, 0.8);
+            color: #00ffff;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 32px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
+            pointer-events: auto; /* Buttons are clickable */
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% {
+                box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 4px 30px rgba(0, 255, 255, 0.6), 0 0 15px rgba(0, 255, 255, 0.4);
+            }
+        }
+        
+        .nav-arrow-btn:hover:not(:disabled) {
+            background: rgba(0, 255, 255, 0.4);
+            border-color: #00ffff;
+            transform: scale(1.15);
+            box-shadow: 0 8px 40px rgba(0, 255, 255, 0.8);
+            animation: none; /* Stop pulse on hover */
+        }
+        
+        .nav-arrow-btn:active:not(:disabled) {
+            transform: scale(0.95);
+        }
+        
+        .nav-arrow-btn:disabled {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .arrow-icon {
+            font-size: 32px;
+            line-height: 1;
+            font-weight: bold;
+        }
+        
+        /* Tooltip preview for navigation - always visible */
+        .nav-arrow-btn::after {
+            content: attr(data-target);
+            position: absolute;
+            background: rgba(0, 0, 0, 0.95);
+            color: #00ffff;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+            opacity: 1;
+            pointer-events: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(0, 255, 255, 0.5);
+            box-shadow: 0 2px 10px rgba(0, 255, 255, 0.3);
+            z-index: 1001;
+        }
+        
+        /* Enhance label on hover */
+        .nav-arrow-btn:hover:not(:disabled)::after {
+            border-color: #00ffff;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+        }
+        
+        /* Position tooltips based on button position - outside buttons */
+        .nav-pos-up::after {
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-bottom: 8px;
+        }
+        
+        .nav-pos-down::after {
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 8px;
+        }
+        
+        .nav-pos-left::after {
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-right: 8px;
+        }
+        
+        .nav-pos-right::after {
+            left: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            margin-left: 8px;
+        }
+        
+        /* Position each arrow around the center - positioned outside the card */
+        .nav-pos-up {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .nav-pos-down {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .nav-pos-left {
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .nav-pos-right {
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        /* Hover effects with enhanced pulse and glow - no transform changes */
+        .nav-arrow-btn:hover:not(:disabled) {
+            animation: pulse-glow-intense 0.6s ease-in-out infinite;
+            background: rgba(0, 255, 255, 0.25);
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.4);
+        }
+        
+        /* Intense pulse animation for hover - no scale/position changes */
+        @keyframes pulse-glow-intense {
+            0%, 100% { 
+                box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.4);
+            }
+            50% { 
+                box-shadow: 0 0 35px rgba(0, 255, 255, 1), 0 0 60px rgba(0, 255, 255, 0.6);
+            }
+        }
+        
+        /* Mobile adjustments for navigation */
+        @media (max-width: 768px) {
+            #tree-navigation {
+                width: 400px; /* Narrower on mobile but still outside card */
+                height: 350px;
+            }
+            
+            .nav-arrow-btn {
+                width: 55px;
+                height: 55px;
+                font-size: 26px;
+                border-width: 2px;
+            }
+            
+            .arrow-icon {
+                font-size: 26px;
+            }
+            
+            /* Smaller labels on mobile */
+            .nav-arrow-btn::after {
+                font-size: 10px;
+                padding: 4px 8px;
+            }
+        }
+        
         /* Reduce motion for users who prefer it */
         @media (prefers-reduced-motion: reduce) {
             *,
@@ -1263,6 +1456,29 @@
         <p id="detail-experience" style="margin-bottom: 15px;"></p>
         <p id="detail-description" style="margin-top: 15px; line-height: 1.6;"></p>
         <div id="detail-additional" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(0, 255, 255, 0.3);"></div>
+    </div>
+
+    <!-- Tree Navigation Controls - Surrounding Current Node -->
+    <div id="tree-navigation" style="display: none;">
+        <!-- Up Arrow (Child - going up the tree visually) -->
+        <button id="nav-up" class="nav-arrow-btn nav-pos-up" title="Navigate Up Tree" data-target="">
+            <span class="arrow-icon">↑</span>
+        </button>
+        
+        <!-- Down Arrow (Parent - going down to roots) -->
+        <button id="nav-down" class="nav-arrow-btn nav-pos-down" title="Navigate Down Tree" data-target="">
+            <span class="arrow-icon">↓</span>
+        </button>
+        
+        <!-- Left Arrow (Previous Sibling/Child) -->
+        <button id="nav-left" class="nav-arrow-btn nav-pos-left" title="Navigate Left" data-target="">
+            <span class="arrow-icon">←</span>
+        </button>
+        
+        <!-- Right Arrow (Next Sibling/Child) -->
+        <button id="nav-right" class="nav-arrow-btn nav-pos-right" title="Navigate Right" data-target="">
+            <span class="arrow-icon">→</span>
+        </button>
     </div>
 
     <!-- Three.js -->
@@ -2450,6 +2666,7 @@
                 1000, // 1 second
                 () => {
                     showSkillDetail(node);
+                    updateNavigationUI(node); // Show navigation controls
                     controls.enabled = false; // Disable controls while zoomed
                 }
             );
@@ -2463,6 +2680,7 @@
             
             isZoomedIn = false;
             hideSkillDetail();
+            hideNavigationUI(); // Hide navigation controls
             
             // Expand the experience panel and trunk when zooming out
             document.getElementById('roots-panel').classList.remove('collapsed');
@@ -2485,26 +2703,313 @@
             );
         }
         
+        // ===== TREE NAVIGATION SYSTEM =====
+        let currentNavigationNode = null;
+        let currentChildIndex = 0;
+        let currentSiblingIndex = 0;
+        
+        const treeNavigation = document.getElementById('tree-navigation');
+        const navUp = document.getElementById('nav-up');
+        const navDown = document.getElementById('nav-down');
+        const navLeft = document.getElementById('nav-left');
+        const navRight = document.getElementById('nav-right');
+        
+        // Get parent node from the tree structure
+        function getParentNode(node) {
+            if (!node || !node.userData || !node.userData.parentChain) return null;
+            
+            const parentChain = node.userData.parentChain;
+            if (parentChain.length < 2) return null; // No parent (root level)
+            
+            const parentName = parentChain[parentChain.length - 2]; // Second-to-last is parent
+            
+            // Find the parent node by name
+            const allNodes = skillTree.getSkillNodes();
+            for (let potentialParent of allNodes) {
+                if (potentialParent.userData.skillData.name === parentName) {
+                    return potentialParent;
+                }
+            }
+            return null;
+        }
+        
+        // Get children nodes
+        function getChildrenNodes(node) {
+            if (!node || !node.userData || !node.userData.skillData) return [];
+            
+            const skillData = node.userData.skillData;
+            if (!skillData.children || skillData.children.length === 0) return [];
+            
+            // Find all nodes that have this node in their parent chain
+            const allNodes = skillTree.getSkillNodes();
+            const children = [];
+            
+            for (let potentialChild of allNodes) {
+                const childChain = potentialChild.userData.parentChain;
+                if (childChain && childChain.length > 0) {
+                    // Check if this node is the immediate parent
+                    const childParentName = childChain[childChain.length - 2];
+                    if (childParentName === node.userData.skillData.name) {
+                        children.push(potentialChild);
+                    }
+                }
+            }
+            
+            return children;
+        }
+        
+        // Get sibling nodes
+        function getSiblingNodes(node) {
+            const parent = getParentNode(node);
+            if (!parent) return [];
+            
+            const siblings = getChildrenNodes(parent);
+            return siblings.filter(sibling => sibling !== node);
+        }
+        
+        // Update navigation UI based on current node
+        function updateNavigationUI(node) {
+            currentNavigationNode = node;
+            
+            const parent = getParentNode(node);
+            const children = getChildrenNodes(node);
+            const siblings = getSiblingNodes(node);
+            
+            // Reset indices
+            currentChildIndex = 0;
+            currentSiblingIndex = 0;
+            
+            // UP arrow = First child (going UP the tree visually)
+            navUp.disabled = children.length === 0;
+            if (children.length > 0) {
+                navUp.setAttribute('data-target', children[0].userData.skillData.name);
+            } else {
+                navUp.setAttribute('data-target', '');
+            }
+            
+            // DOWN arrow = Parent (going DOWN toward roots)
+            navDown.disabled = !parent || !parent.userData || !parent.userData.isSkillNode;
+            if (parent && parent.userData && parent.userData.isSkillNode) {
+                navDown.setAttribute('data-target', parent.userData.skillData.name);
+            } else {
+                navDown.setAttribute('data-target', '');
+            }
+            
+            // LEFT/RIGHT arrows = Siblings OR cycle through children
+            if (siblings.length > 0) {
+                // Find current position among siblings
+                const allSiblings = [...siblings, node].sort((a, b) => {
+                    const parent = getParentNode(node);
+                    if (!parent) return 0;
+                    const parentChildren = getChildrenNodes(parent);
+                    return parentChildren.indexOf(a) - parentChildren.indexOf(b);
+                });
+                currentSiblingIndex = allSiblings.indexOf(node);
+                
+                // Enable/disable based on position
+                navLeft.disabled = currentSiblingIndex === 0;
+                navRight.disabled = currentSiblingIndex === allSiblings.length - 1;
+                navLeft.setAttribute('data-mode', 'sibling');
+                navRight.setAttribute('data-mode', 'sibling');
+                
+                // Set target names
+                if (currentSiblingIndex > 0) {
+                    navLeft.setAttribute('data-target', allSiblings[currentSiblingIndex - 1].userData.skillData.name);
+                } else {
+                    navLeft.setAttribute('data-target', '');
+                }
+                if (currentSiblingIndex < allSiblings.length - 1) {
+                    navRight.setAttribute('data-target', allSiblings[currentSiblingIndex + 1].userData.skillData.name);
+                } else {
+                    navRight.setAttribute('data-target', '');
+                }
+            } else if (children.length > 1) {
+                // No siblings but multiple children - use left/right to cycle children
+                navLeft.disabled = false;
+                navRight.disabled = false;
+                navLeft.setAttribute('data-mode', 'child');
+                navRight.setAttribute('data-mode', 'child');
+                
+                // Set target names (wrap around)
+                const prevChildIndex = (currentChildIndex - 1 + children.length) % children.length;
+                const nextChildIndex = (currentChildIndex + 1) % children.length;
+                navLeft.setAttribute('data-target', children[prevChildIndex].userData.skillData.name);
+                navRight.setAttribute('data-target', children[nextChildIndex].userData.skillData.name);
+            } else {
+                // No siblings and 0-1 children - disable left/right
+                navLeft.disabled = true;
+                navRight.disabled = true;
+                navLeft.setAttribute('data-target', '');
+                navRight.setAttribute('data-target', '');
+            }
+            
+            // Show navigation
+            treeNavigation.style.display = 'block';
+            setTimeout(() => treeNavigation.classList.add('visible'), 10);
+        }
+        
+        // Hide navigation UI
+        function hideNavigationUI() {
+            treeNavigation.classList.remove('visible');
+            setTimeout(() => {
+                treeNavigation.style.display = 'none';
+                currentNavigationNode = null;
+            }, 300);
+        }
+        
+        // Navigate to a different node
+        function navigateToNode(targetNode) {
+            if (!targetNode || !targetNode.userData || !targetNode.userData.isSkillNode) {
+                console.log('Invalid target node:', targetNode);
+                return;
+            }
+            
+            // Clear any existing camera animation
+            if (cameraAnimation) {
+                clearInterval(cameraAnimation);
+                cameraAnimation = null;
+            }
+            
+            // Get target world position
+            const worldPos = new THREE.Vector3();
+            targetNode.getWorldPosition(worldPos);
+            
+            // Calculate new camera position
+            const offset = new THREE.Vector3(1, 0.5, 2);
+            const targetCameraPos = worldPos.clone().add(offset);
+            
+            // Animate to new node
+            animateCamera(
+                camera.position.clone(),
+                targetCameraPos,
+                controls.target.clone(),
+                worldPos,
+                600, // Faster transition between nodes
+                () => {
+                    // Update UI after animation completes
+                    showSkillDetail(targetNode);
+                    updateNavigationUI(targetNode);
+                    skillTree.selectSkill(targetNode);
+                }
+            );
+        }
+        
+        // Navigation button handlers
+        navUp.addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            if (navUp.disabled || !currentNavigationNode) {
+                console.log('Nav Up disabled or no current node');
+                return;
+            }
+            // UP goes to first child (up the tree visually)
+            const children = getChildrenNodes(currentNavigationNode);
+            console.log('Nav Up - Children:', children);
+            if (children.length > 0) {
+                navigateToNode(children[0]);
+            }
+        });
+        
+        navDown.addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            if (navDown.disabled || !currentNavigationNode) {
+                console.log('Nav Down disabled or no current node');
+                return;
+            }
+            // DOWN goes to parent (down toward roots)
+            const parent = getParentNode(currentNavigationNode);
+            console.log('Nav Down - Parent:', parent);
+            if (parent) navigateToNode(parent);
+        });
+        
+        navLeft.addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            if (navLeft.disabled || !currentNavigationNode) {
+                console.log('Nav Left disabled or no current node');
+                return;
+            }
+            
+            const mode = navLeft.getAttribute('data-mode');
+            console.log('Nav Left - Mode:', mode);
+            
+            if (mode === 'sibling') {
+                // Navigate to previous sibling
+                const siblings = getSiblingNodes(currentNavigationNode);
+                const allSiblings = [...siblings, currentNavigationNode].sort((a, b) => {
+                    const parent = getParentNode(currentNavigationNode);
+                    if (!parent) return 0;
+                    const parentChildren = getChildrenNodes(parent);
+                    return parentChildren.indexOf(a) - parentChildren.indexOf(b);
+                });
+                
+                if (currentSiblingIndex > 0) {
+                    console.log('Navigating to previous sibling:', allSiblings[currentSiblingIndex - 1]);
+                    navigateToNode(allSiblings[currentSiblingIndex - 1]);
+                }
+            } else if (mode === 'child') {
+                // Cycle to previous child
+                const children = getChildrenNodes(currentNavigationNode);
+                if (children.length > 0) {
+                    currentChildIndex = (currentChildIndex - 1 + children.length) % children.length;
+                    console.log('Navigating to previous child:', children[currentChildIndex]);
+                    navigateToNode(children[currentChildIndex]);
+                }
+            }
+        });
+        
+        navRight.addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            if (navRight.disabled || !currentNavigationNode) {
+                console.log('Nav Right disabled or no current node');
+                return;
+            }
+            
+            const mode = navRight.getAttribute('data-mode');
+            console.log('Nav Right - Mode:', mode);
+            
+            if (mode === 'sibling') {
+                // Navigate to next sibling
+                const siblings = getSiblingNodes(currentNavigationNode);
+                const allSiblings = [...siblings, currentNavigationNode].sort((a, b) => {
+                    const parent = getParentNode(currentNavigationNode);
+                    if (!parent) return 0;
+                    const parentChildren = getChildrenNodes(parent);
+                    return parentChildren.indexOf(a) - parentChildren.indexOf(b);
+                });
+                
+                if (currentSiblingIndex < allSiblings.length - 1) {
+                    console.log('Navigating to next sibling:', allSiblings[currentSiblingIndex + 1]);
+                    navigateToNode(allSiblings[currentSiblingIndex + 1]);
+                }
+            } else if (mode === 'child') {
+                // Cycle to next child
+                const children = getChildrenNodes(currentNavigationNode);
+                if (children.length > 0) {
+                    currentChildIndex = (currentChildIndex + 1) % children.length;
+                    console.log('Navigating to next child:', children[currentChildIndex]);
+                    navigateToNode(children[currentChildIndex]);
+                }
+            }
+        });
+        
         // Close button handler
         document.getElementById('close-detail').addEventListener('click', (e) => {
             e.stopPropagation();
+            e.preventDefault();
+            hideNavigationUI();
             zoomOut();
         });
         
-        // Click outside detail panel to close
-        document.getElementById('skill-detail').addEventListener('click', (e) => {
-            // Only close if clicking the background (not the content)
-            if (e.target.id === 'skill-detail') {
+        // Only close on ESC key or close button
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isZoomedIn) {
+                hideNavigationUI();
                 zoomOut();
             }
         });
-        
-        // Also allow clicking anywhere on canvas when zoomed in
-        window.addEventListener('click', (e) => {
-            if (isZoomedIn && !e.target.closest('#skill-detail')) {
-                zoomOut();
-            }
-        }, true);
         
         // Shared function to update hover state
         function updateHoverState(clientX, clientY) {
