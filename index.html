@@ -145,6 +145,329 @@
             }
         }
 
+        /* Theme Toggle Button */
+        #theme-toggle {
+            position: fixed;
+            top: 10px;
+            right: 80px; /* Next to projects button */
+            background: rgba(0, 255, 255, 0.2);
+            border: 2px solid rgba(0, 255, 255, 0.6);
+            color: #00ffff;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 160;
+            font-size: 24px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+        }
+
+        #theme-toggle:hover {
+            background: rgba(0, 255, 255, 0.4);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
+        }
+
+        /* Nature theme styling */
+        body.nature-theme #theme-toggle {
+            background: rgba(139, 69, 19, 0.3);
+            border-color: rgba(101, 67, 33, 0.8);
+            color: #8B4513;
+            box-shadow: 0 4px 15px rgba(101, 67, 33, 0.3);
+        }
+
+        body.nature-theme #theme-toggle:hover {
+            background: rgba(139, 69, 19, 0.5);
+            box-shadow: 0 6px 20px rgba(101, 67, 33, 0.5);
+        }
+        
+        /* Nature theme - Projects toggle */
+        body.nature-theme #projects-toggle {
+            background: rgba(101, 67, 33, 0.3);
+            border-color: rgba(139, 69, 19, 0.6);
+            color: #8B7355;
+            box-shadow: 0 4px 15px rgba(101, 67, 33, 0.3);
+            animation: fruitSwing 2s ease-in-out infinite, fruitGlowNature 3s ease-in-out infinite;
+        }
+        
+        @keyframes fruitGlowNature {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(101, 67, 33, 0.3);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(101, 67, 33, 0.6), 0 0 15px rgba(101, 67, 33, 0.4);
+            }
+        }
+        
+        body.nature-theme #projects-toggle:hover {
+            background: rgba(101, 67, 33, 0.5);
+            box-shadow: 0 6px 25px rgba(101, 67, 33, 0.5);
+        }
+        
+        /* Nature theme - Callout */
+        body.nature-theme #skill-callout {
+            background: linear-gradient(135deg, rgba(40, 30, 20, 0.95), rgba(60, 45, 30, 0.95));
+            border-color: rgba(139, 69, 19, 0.6);
+            box-shadow: 0 0 30px rgba(101, 67, 33, 0.4);
+        }
+        
+        body.nature-theme #skill-callout h3 {
+            color: #9ACD32; /* Yellow-green for headers */
+        }
+        
+        body.nature-theme #skill-callout p {
+            color: #D2B48C; /* Tan color for text */
+        }
+        
+        /* Nature theme - Navigation arrows */
+        body.nature-theme .nav-arrow-btn {
+            background: rgba(101, 67, 33, 0.3);
+            border-color: rgba(139, 69, 19, 0.8);
+            color: #8B7355;
+            box-shadow: 0 4px 20px rgba(101, 67, 33, 0.3);
+            animation: pulse-glow-nature 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow-nature {
+            0%, 100% {
+                box-shadow: 0 4px 20px rgba(101, 67, 33, 0.3);
+            }
+            50% {
+                box-shadow: 0 4px 30px rgba(101, 67, 33, 0.6), 0 0 15px rgba(101, 67, 33, 0.4);
+            }
+        }
+        
+        body.nature-theme .nav-arrow-btn:hover:not(:disabled) {
+            background: rgba(101, 67, 33, 0.5);
+            border-color: rgba(139, 69, 19, 1);
+            box-shadow: 0 8px 40px rgba(101, 67, 33, 0.8);
+            animation: none;
+        }
+        
+        body.nature-theme .nav-arrow-btn:active:not(:disabled) {
+            background: rgba(101, 67, 33, 0.4);
+        }
+        
+        /* Nature theme - Legend */
+        body.nature-theme #legend {
+            background: rgba(40, 30, 20, 0.95);
+            border-color: rgba(139, 69, 19, 0.6);
+            box-shadow: 0 8px 32px rgba(101, 67, 33, 0.4);
+        }
+        
+        body.nature-theme #legend h3 {
+            color: #9ACD32;
+        }
+        
+        body.nature-theme .legend-item {
+            color: #D2B48C;
+        }
+        
+        body.nature-theme #legend-toggle {
+            background: rgba(101, 67, 33, 0.3);
+            border-color: rgba(139, 69, 19, 0.6);
+            color: #8B7355;
+            box-shadow: 0 4px 15px rgba(101, 67, 33, 0.3);
+        }
+        
+        body.nature-theme #legend-toggle:hover {
+            background: rgba(101, 67, 33, 0.5);
+            box-shadow: 0 6px 20px rgba(101, 67, 33, 0.5);
+        }
+        
+        /* Nature theme - Header title */
+        body.nature-theme #header-title h1 {
+            color: #66BB6A;
+            text-shadow: 0 0 20px rgba(102, 187, 106, 0.6),
+                         0 0 40px rgba(102, 187, 106, 0.4);
+        }
+        
+        body.nature-theme #header-title p {
+            color: #9ACD32;
+        }
+        
+        /* Nature theme - Projects header */
+        body.nature-theme #projects-header {
+            background: linear-gradient(180deg, rgba(40, 30, 20, 0.98), rgba(60, 45, 30, 0.95));
+            border-color: rgba(139, 69, 19, 0.6);
+            box-shadow: 0 10px 40px rgba(101, 67, 33, 0.4);
+        }
+        
+        body.nature-theme #projects-header h2 {
+            color: #66BB6A;
+            text-shadow: 0 0 10px rgba(102, 187, 106, 0.5);
+        }
+        
+        body.nature-theme .project-link {
+            background: rgba(101, 67, 33, 0.2);
+            border-color: rgba(139, 69, 19, 0.6);
+            color: #9ACD32;
+        }
+        
+        body.nature-theme .project-link:hover {
+            background: rgba(101, 67, 33, 0.4);
+            border-color: rgba(139, 69, 19, 0.9);
+            box-shadow: 0 6px 20px rgba(101, 67, 33, 0.4);
+        }
+        
+        /* Nature theme - Legend toggle animation */
+        @keyframes mapGlowNature {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(101, 67, 33, 0.3);
+            }
+            50% {
+                box-shadow: 0 4px 25px rgba(101, 67, 33, 0.6), 0 0 15px rgba(101, 67, 33, 0.4);
+            }
+        }
+        
+        body.nature-theme #legend-toggle {
+            animation: mapGlowNature 3s ease-in-out infinite;
+        }
+        
+        body.nature-theme #legend-toggle.expanded {
+            animation: mapBounce 0.6s ease-out, mapGlowNature 3s ease-in-out infinite;
+        }
+        
+        /* Nature theme - Skill detail panel */
+        body.nature-theme #skill-detail {
+            background: rgba(40, 30, 20, 0.95) !important;
+            border-color: rgba(139, 69, 19, 0.8) !important;
+            box-shadow: 0 0 20px rgba(102, 187, 106, 0.5) !important;
+        }
+        
+        body.nature-theme #detail-name {
+            color: #66BB6A !important;
+        }
+        
+        body.nature-theme #detail-breadcrumb {
+            color: #9ACD32 !important;
+        }
+        
+        body.nature-theme #detail-additional {
+            border-top-color: rgba(102, 187, 106, 0.3) !important;
+        }
+        
+        body.nature-theme #close-detail {
+            background: rgba(139, 69, 19, 0.3) !important;
+            color: #9ACD32 !important;
+        }
+        
+        body.nature-theme #close-detail:hover {
+            background: rgba(139, 69, 19, 0.6) !important;
+        }
+        
+        /* Nature theme - Roots toggle (mobile) */
+        body.nature-theme #roots-toggle {
+            background: rgba(101, 67, 33, 0.3);
+            border-color: rgba(139, 69, 19, 0.6);
+            color: #8B7355;
+        }
+        
+        body.nature-theme #roots-toggle:hover {
+            background: rgba(101, 67, 33, 0.5);
+        }
+        
+        /* Tech theme - Roots panel (when switched from nature) */
+        body:not(.nature-theme) #roots-panel {
+            background: rgba(10, 10, 20, 0.95);
+            border-color: rgba(0, 255, 255, 0.6);
+            box-shadow: 0 -10px 40px rgba(0, 255, 255, 0.4);
+        }
+        
+        body:not(.nature-theme) #roots-panel h2 {
+            color: #00ffff; /* Cyan for tech theme */
+            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+        
+        /* Nature theme - Roots panel */
+        body.nature-theme #roots-panel {
+            /* To add roots background image, uncomment and set the path below: */
+            /* background-image: url('path/to/roots-image.jpg'); */
+            background: linear-gradient(to bottom, rgba(101, 67, 33, 0.98), rgba(139, 69, 19, 0.95), rgba(160, 100, 60, 0.9), rgba(180, 130, 90, 0.85));
+            /* If using background image, you can overlay the gradient: */
+            /* background: linear-gradient(to bottom, rgba(101, 67, 33, 0.9), rgba(139, 69, 19, 0.85), rgba(160, 100, 60, 0.8), rgba(180, 130, 90, 0.75)), url('path/to/roots-image.jpg'); */
+            background-size: cover;
+            background-position: center bottom;
+            border-color: rgba(101, 67, 33, 0.6);
+            box-shadow: 0 -10px 40px rgba(101, 67, 33, 0.4);
+        }
+        
+        body.nature-theme #roots-panel h2 {
+            color: #66BB6A; /* Green accent for roots header */
+            text-shadow: 0 0 10px rgba(102, 187, 106, 0.5);
+        }
+        
+        body.nature-theme .experience-item {
+            background: rgba(102, 187, 106, 0.05);
+            border-left-color: rgba(102, 187, 106, 0.6);
+        }
+        
+        body.nature-theme .experience-item h4 {
+            color: #66BB6A;
+        }
+        
+        body.nature-theme .experience-item p {
+            color: #81C784;
+        }
+        
+        body.nature-theme .experience-item:hover {
+            background: rgba(102, 187, 106, 0.1);
+            border-left-color: rgba(102, 187, 106, 0.9);
+        }
+        
+        body.nature-theme .experience-org {
+            color: #9ACD32 !important;
+        }
+        
+        body.nature-theme .experience-period {
+            color: #66BB6A !important;
+        }
+        
+        body.nature-theme .experience-desc {
+            color: #A5D6A7 !important;
+        }
+        
+        body.nature-theme .experience-item p strong {
+            color: #66BB6A !important;
+        }
+        
+        body.nature-theme .experience-icon {
+            filter: hue-rotate(90deg) brightness(1.2);
+        }
+        
+        body.nature-theme #roots-toggle {
+            background: rgba(101, 67, 33, 0.3);
+            border-color: rgba(139, 69, 19, 0.6);
+            color: #8B7355;
+        }
+        
+        /* Nature theme - Header title */
+        body.nature-theme #header-title {
+            color: #9ACD32;
+            text-shadow: 0 0 20px rgba(154, 205, 50, 0.6), 
+                         0 0 40px rgba(154, 205, 50, 0.4);
+        }
+        
+        /* Nature theme - Trunk UI */
+        body.nature-theme #skill-count {
+            color: #8B7355;
+        }
+        
+        body.nature-theme #zoom-controls button {
+            background: rgba(101, 67, 33, 0.3);
+            border-color: rgba(139, 69, 19, 0.6);
+            color: #8B7355;
+        }
+        
+        body.nature-theme #zoom-controls button:hover {
+            background: rgba(101, 67, 33, 0.5);
+        }
+
         #projects-toggle {
             position: fixed;
             top: 10px;
@@ -310,19 +633,25 @@
             width: 90%;
             max-width: 1400px;
             max-height: 280px;
-            background: rgba(10, 10, 20, 0.95);
-            border: 2px solid rgba(0, 255, 255, 0.6);
+            background: linear-gradient(to bottom, rgba(101, 67, 33, 0.98), rgba(139, 69, 19, 0.95), rgba(160, 100, 60, 0.9), rgba(180, 130, 90, 0.85));
+            border: 2px solid rgba(101, 67, 33, 0.6);
             border-bottom: none;
             border-radius: 15px 15px 0 0;
             overflow: hidden;
             z-index: 50;
-            box-shadow: 0 -10px 40px rgba(0, 255, 255, 0.4);
+            box-shadow: 0 -10px 40px rgba(101, 67, 33, 0.4);
             backdrop-filter: blur(10px);
             opacity: 0;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
                         opacity 0.8s ease,
                         max-height 0.3s ease;
             cursor: pointer;
+            background-size: cover;
+            background-position: center bottom;
+            background-repeat: no-repeat;
+            /* Place background image here when you have one: */
+            /* background-image: url('path/to/roots-background.jpg'), linear-gradient(...); */
+            /* The gradient will show through or act as overlay depending on your needs */
         }
         
         #roots-panel:hover {
@@ -1461,6 +1790,9 @@
         </div>
     </div>
     
+    <!-- Theme Toggle -->
+    <button id="theme-toggle" aria-label="Toggle color theme" title="Switch Theme">🌳</button>
+    
     <!-- Projects Header (Collapsible) -->
     <button id="projects-toggle" aria-label="Toggle projects menu" title="Fruits of My Labor">🍎</button>
     <div id="projects-header">
@@ -1522,7 +1854,7 @@
         <button id="roots-toggle" aria-label="Toggle experience panel">↕</button>
         <div id="roots-content">
             <div id="roots-header">
-                <h2 style="margin: 0; color: #00ffff;">Tahri's Roots: Experience & Background</h2>
+                <h2 style="margin: 0; color: #66BB6A;">Tahri's Roots: Experience & Background</h2>
             </div>
             <div id="experience-list"></div>
         </div>
@@ -1602,7 +1934,7 @@
     <script>
         // ===== SCENE SETUP =====
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x0a0a0a);
+        scene.background = new THREE.Color(0x1a1410); // Start with nature theme background
         
         const camera = new THREE.PerspectiveCamera(
             60, // Narrower FOV for better framing
@@ -1703,9 +2035,10 @@
                 this.branchRadius = 0.1;
                 this.branchColor = 0x4a3728;
                 this.nodeSize = 0.2;
+                this.currentTheme = 'nature'; // 'tech' or 'nature' - default to nature
                 
-                // Category base colors - will be darkened/brightened based on depth
-                this.categoryColors = {
+                // Tech theme colors (current neon/cyber look)
+                this.techCategoryColors = {
                     'Robotics & Automation': 0xFF4500,      // Orange-Red
                     'Programming & Development': 0x4169E1,  // Royal Blue
                     'Data & Analytics': 0x32CD32,           // Lime Green
@@ -1715,6 +2048,21 @@
                     'Design & Visualization': 0xFF1493,     // Deep Pink
                     'DevOps & Infrastructure': 0x20B2AA     // Light Sea Green
                 };
+                
+                // Nature theme colors (tree-like earthy tones)
+                this.natureCategoryColors = {
+                    'Robotics & Automation': 0x4B8B3B,      // Forest Green
+                    'Programming & Development': 0x2E7D32,  // Dark Green
+                    'Data & Analytics': 0x66BB6A,           // Light Green
+                    'Mobile Robotics': 0x558B2F,            // Olive Green
+                    'AI & Machine Learning': 0x00C853,      // Bright Green
+                    'Industrial Systems': 0x388E3C,         // Medium Green
+                    'Design & Visualization': 0x81C784,     // Pale Green
+                    'DevOps & Infrastructure': 0x43A047     // Grass Green
+                };
+                
+                // Start with nature theme as default
+                this.categoryColors = this.natureCategoryColors;
                 
                 this.categoryIndex = 0; // Track which category we're in
                 this.connectionLines = []; // Store connections for trace animation
@@ -1766,6 +2114,61 @@
                 // Use category color directly (no depth-based brightness)
                 const baseColor = this.categoryColors[categoryName] || 0x888888;
                 return baseColor; // No brightness adjustment
+            }
+            
+            // Switch between tech and nature themes
+            switchTheme(themeName) {
+                this.currentTheme = themeName;
+                
+                // Update color palette
+                if (themeName === 'nature') {
+                    this.categoryColors = this.natureCategoryColors;
+                } else {
+                    this.categoryColors = this.techCategoryColors;
+                }
+                
+                // Update all node materials
+                this.tree.traverse((child) => {
+                    if (child.userData && child.userData.isSkillNode && child.material) {
+                        const categoryName = child.userData.category;
+                        const skillData = child.userData.skillData;
+                        const level = child.userData.level;
+                        
+                        // Recalculate color with new palette
+                        const newColor = this.getNodeColor(skillData, 0, categoryName);
+                        child.material.color.setHex(newColor);
+                        child.material.emissive.setHex(newColor);
+                    }
+                    
+                    // Update connection lines (branches)
+                    if (child.userData && child.userData.isConnection && child.material) {
+                        if (themeName === 'nature') {
+                            // Brown branches for nature theme
+                            const brownColor = 0x654321; // Dark brown
+                            child.material.color.setHex(brownColor);
+                            child.material.emissive.setHex(brownColor);
+                            child.material.emissiveIntensity = 0.3; // Subtle glow
+                        } else {
+                            // Colorful branches for tech theme
+                            const categoryName = child.userData.category;
+                            const level = child.userData.level || 0;
+                            
+                            const baseColor = this.categoryColors[categoryName] || 0x00ffff;
+                            const brightColor = this.adjustColorBrightness(baseColor, level);
+                            
+                            child.material.color.setHex(brightColor);
+                            child.material.emissive.setHex(brightColor);
+                            child.material.emissiveIntensity = 0.6;
+                        }
+                    }
+                });
+                
+                // Update scene background
+                if (themeName === 'nature') {
+                    scene.background.setHex(0x1a1410); // Earthy dark brown
+                } else {
+                    scene.background.setHex(0x0a0a0a); // Deep black
+                }
             }
             
             async build() {
@@ -1973,6 +2376,7 @@
                 const mesh = new THREE.Mesh(tubeGeometry, material);
                 mesh.userData.isConnection = true;
                 mesh.userData.level = level;
+                mesh.userData.category = categoryName; // Store category for theme switching
                 mesh.userData.startPos = start.clone();
                 mesh.userData.endPos = end.clone();
                 mesh.userData.branchLength = length;
@@ -2332,6 +2736,30 @@
             }
         });
         
+        // ===== THEME TOGGLE =====
+        const themeToggle = document.getElementById('theme-toggle');
+        let currentTheme = 'nature'; // Start with nature theme as default
+        document.body.classList.add('nature-theme'); // Apply nature theme styles on load
+        
+        themeToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            // Toggle theme
+            if (currentTheme === 'tech') {
+                // Switch to nature theme
+                currentTheme = 'nature';
+                themeToggle.textContent = '🌳'; // Tree emoji for nature theme
+                document.body.classList.add('nature-theme');
+                skillTree.switchTheme('nature');
+            } else {
+                // Switch back to tech theme
+                currentTheme = 'tech';
+                themeToggle.textContent = '💠'; // Digital/tech emoji
+                document.body.classList.remove('nature-theme');
+                skillTree.switchTheme('tech');
+            }
+        });
+        
         // ===== CALLOUT BALLOON SYSTEM =====
         const calloutBalloon = document.getElementById('skill-callout');
         const calloutLine = document.getElementById('callout-line');
@@ -2494,9 +2922,10 @@
         function drawSegmentedLine(startX, startY, endX, endY, isLeft, progress, fadeOpacity = 1) {
             calloutCtx.clearRect(0, 0, calloutLine.width, calloutLine.height);
             
-            // Apply fade opacity to stroke color
+            // Apply fade opacity to stroke color - green for nature theme, cyan for tech
             const opacity = (isMobile ? 0.4 : 0.6) * fadeOpacity;
-            calloutCtx.strokeStyle = `rgba(0, 255, 255, ${opacity})`;
+            const lineColor = currentTheme === 'nature' ? `rgba(102, 187, 106, ${opacity})` : `rgba(0, 255, 255, ${opacity})`;
+            calloutCtx.strokeStyle = lineColor;
             calloutCtx.lineWidth = isMobile ? 1 : 2;
             calloutCtx.setLineDash(isMobile ? [3, 3] : [5, 5]);
             calloutCtx.lineCap = 'round';
