@@ -41,6 +41,11 @@
             color: white;
             opacity: 0;
             transition: opacity 0.8s ease 0.5s;
+            background: rgba(0, 0, 0, 0.75);
+            padding: 20px 40px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
         
         #header-title.visible {
@@ -1007,9 +1012,9 @@
         /* Arrow buttons - positioned around center */
         .nav-arrow-btn {
             position: absolute;
-            background: rgba(0, 255, 255, 0.2);
-            border: 3px solid rgba(0, 255, 255, 0.8);
-            color: #00ffff;
+            background: rgba(76, 175, 80, 0.2);
+            border: 3px solid rgba(76, 175, 80, 0.8);
+            color: #4CAF50;
             width: 70px;
             height: 70px;
             border-radius: 50%;
@@ -1021,30 +1026,30 @@
             align-items: center;
             justify-content: center;
             backdrop-filter: blur(10px);
-            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
+            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
             pointer-events: auto; /* Buttons are clickable */
             animation: pulse-glow 2s ease-in-out infinite;
         }
         
         @keyframes pulse-glow {
             0%, 100% {
-                box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
+                box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
             }
             50% {
-                box-shadow: 0 4px 30px rgba(0, 255, 255, 0.6), 0 0 15px rgba(0, 255, 255, 0.4);
+                box-shadow: 0 4px 30px rgba(76, 175, 80, 0.7), 0 0 15px rgba(76, 175, 80, 0.5);
             }
         }
         
         .nav-arrow-btn:hover:not(:disabled) {
-            background: rgba(0, 255, 255, 0.4);
-            border-color: #00ffff;
-            box-shadow: 0 8px 40px rgba(0, 255, 255, 0.8);
+            background: rgba(76, 175, 80, 0.4);
+            border-color: #4CAF50;
+            box-shadow: 0 8px 40px rgba(76, 175, 80, 0.8);
             animation: none; /* Stop pulse on hover */
         }
         
         .nav-arrow-btn:active:not(:disabled) {
-            background: rgba(0, 255, 255, 0.3);
-            border-color: rgba(0, 255, 255, 0.6);
+            background: rgba(76, 175, 80, 0.3);
+            border-color: rgba(76, 175, 80, 0.6);
         }
         
         .nav-arrow-btn:disabled {
@@ -1063,7 +1068,7 @@
             content: attr(data-target);
             position: absolute;
             background: rgba(0, 0, 0, 0.95);
-            color: #00ffff;
+            color: #4CAF50;
             padding: 6px 12px;
             border-radius: 6px;
             font-size: 12px;
@@ -1072,15 +1077,15 @@
             opacity: 1;
             pointer-events: none;
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
-            border: 1px solid rgba(0, 255, 255, 0.5);
-            box-shadow: 0 2px 10px rgba(0, 255, 255, 0.3);
+            border: 1px solid rgba(76, 175, 80, 0.6);
+            box-shadow: 0 2px 10px rgba(76, 175, 80, 0.4);
             z-index: 1001;
         }
         
         /* Enhance label on hover */
         .nav-arrow-btn:hover:not(:disabled)::after {
-            border-color: #00ffff;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+            border-color: #4CAF50;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.8);
         }
         
         /* Position tooltips based on button position - outside buttons */
@@ -1140,17 +1145,17 @@
         /* Hover effects with enhanced pulse and glow - no transform changes */
         .nav-arrow-btn:hover:not(:disabled) {
             animation: pulse-glow-intense 0.6s ease-in-out infinite;
-            background: rgba(0, 255, 255, 0.25);
-            box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.4);
+            background: rgba(76, 175, 80, 0.25);
+            box-shadow: 0 0 25px rgba(76, 175, 80, 0.8), 0 0 40px rgba(76, 175, 80, 0.5);
         }
         
         /* Intense pulse animation for hover - no scale/position changes */
         @keyframes pulse-glow-intense {
             0%, 100% { 
-                box-shadow: 0 0 25px rgba(0, 255, 255, 0.8), 0 0 40px rgba(0, 255, 255, 0.4);
+                box-shadow: 0 0 25px rgba(76, 175, 80, 0.8), 0 0 40px rgba(76, 175, 80, 0.5);
             }
             50% { 
-                box-shadow: 0 0 35px rgba(0, 255, 255, 1), 0 0 60px rgba(0, 255, 255, 0.6);
+                box-shadow: 0 0 35px rgba(76, 175, 80, 1), 0 0 60px rgba(76, 175, 80, 0.7);
             }
         }
         
@@ -1163,7 +1168,7 @@
                 transform: translate(-50%, -50%);
                 width: 80%; /* Reduced from 90% to leave room for left/right arrows */
                 max-width: 350px; /* Reduced from 400px */
-                height: auto;
+                height: 400px; /* Fixed height to properly position top/bottom arrows */
                 pointer-events: none; /* Let clicks pass through container */
             }
             
@@ -1187,13 +1192,13 @@
             
             /* Position buttons just outside card edges with more clearance */
             .nav-pos-up {
-                top: -65px; /* Increased from -55px for more clearance */
+                top: -10px; /* Position relative to container top */
                 left: 50%;
                 transform: translateX(-50%);
             }
             
             .nav-pos-down {
-                bottom: -65px; /* Increased from -55px for more clearance */
+                bottom: -10px; /* Position relative to container bottom */
                 left: 50%;
                 transform: translateX(-50%);
                 top: auto;
@@ -1629,12 +1634,12 @@
         
         @keyframes seedGlow {
             0%, 100% {
-                filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.6))
-                        drop-shadow(0 0 20px rgba(0, 255, 255, 0.4));
+                filter: drop-shadow(0 0 15px rgba(139, 90, 43, 0.8))
+                        drop-shadow(0 0 25px rgba(139, 90, 43, 0.5));
             }
             50% {
-                filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8))
-                        drop-shadow(0 0 40px rgba(0, 255, 255, 0.6));
+                filter: drop-shadow(0 0 30px rgba(139, 90, 43, 1))
+                        drop-shadow(0 0 50px rgba(205, 133, 63, 0.7));
             }
         }
         
@@ -1652,7 +1657,7 @@
             width: 150px;
             height: 150px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 255, 255, 0.6), transparent);
+            background: radial-gradient(circle, rgba(139, 90, 43, 0.8), rgba(205, 133, 63, 0.4), transparent);
             animation: impactWave 0.8s ease-out 2s forwards;
         }
         
@@ -1708,31 +1713,26 @@
     <div id="seed-animation">
         <div class="seed-container">
             <div class="seed">
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Seed shape -->
-                    <ellipse cx="50" cy="55" rx="25" ry="35" fill="#00ffff" opacity="0.9"/>
-                    <ellipse cx="50" cy="55" rx="20" ry="30" fill="#1a5e1a"/>
-                    <ellipse cx="50" cy="55" rx="15" ry="25" fill="#00ffff" opacity="0.3"/>
+                <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Seed body - brown acorn-like shape -->
+                    <ellipse cx="50" cy="90" rx="35" ry="45" fill="#6B4423" stroke="#4a2f1a" stroke-width="2"/>
+                    <ellipse cx="50" cy="85" rx="32" ry="40" fill="#8B5A2B"/>
                     
-                    <!-- Sprout coming out -->
-                    <path d="M 50 20 Q 45 15 40 18 Q 38 20 40 22 Q 42 24 45 22 Q 48 20 50 20" 
-                          fill="#4ade80" opacity="0.8"/>
-                    <path d="M 50 20 Q 55 15 60 18 Q 62 20 60 22 Q 58 24 55 22 Q 52 20 50 20" 
-                          fill="#4ade80" opacity="0.8"/>
+                    <!-- Seed cap - darker brown -->
+                    <path d="M 20 70 Q 50 50, 80 70 L 75 85 Q 50 75, 25 85 Z" fill="#4a2f1a" stroke="#3a2010" stroke-width="2"/>
+                    <ellipse cx="50" cy="72" rx="28" ry="15" fill="#5C3317"/>
                     
-                    <!-- Center highlight -->
-                    <ellipse cx="45" cy="50" rx="8" ry="12" fill="#88ffff" opacity="0.6"/>
+                    <!-- Seed texture lines -->
+                    <line x1="50" y1="85" x2="50" y2="125" stroke="#4a2f1a" stroke-width="1.5" opacity="0.5"/>
+                    <line x1="35" y1="95" x2="35" y2="120" stroke="#4a2f1a" stroke-width="1" opacity="0.4"/>
+                    <line x1="65" y1="95" x2="65" y2="120" stroke="#4a2f1a" stroke-width="1" opacity="0.4"/>
                     
-                    <!-- Sparkles -->
-                    <circle cx="35" cy="45" r="2" fill="#ffffff" opacity="0.9">
-                        <animate attributeName="opacity" values="0.9;0.3;0.9" dur="1.5s" repeatCount="indefinite"/>
-                    </circle>
-                    <circle cx="65" cy="50" r="2" fill="#ffffff" opacity="0.9">
-                        <animate attributeName="opacity" values="0.3;0.9;0.3" dur="1.5s" repeatCount="indefinite"/>
-                    </circle>
-                    <circle cx="50" cy="70" r="2" fill="#ffffff" opacity="0.9">
-                        <animate attributeName="opacity" values="0.9;0.3;0.9" dur="2s" repeatCount="indefinite"/>
-                    </circle>
+                    <!-- Highlight for depth -->
+                    <ellipse cx="42" cy="85" rx="12" ry="20" fill="#A0714E" opacity="0.4"/>
+                    
+                    <!-- Cap texture -->
+                    <path d="M 30 70 Q 50 65, 70 70" stroke="#3a2010" stroke-width="1.5" fill="none" opacity="0.6"/>
+                    <path d="M 35 77 Q 50 73, 65 77" stroke="#3a2010" stroke-width="1" fill="none" opacity="0.4"/>
                 </svg>
             </div>
             <div class="seed-impact"></div>
@@ -1796,7 +1796,7 @@
     <!-- Projects Header (Collapsible) -->
     <button id="projects-toggle" aria-label="Toggle projects menu" title="Fruits of My Labor">🍎</button>
     <div id="projects-header">
-        <h2>🌟 Fruits of My Labor</h2>
+        <h2>🍎 Fruits of My Labor</h2>
         <div id="projects-links">
             <a href="https://github.com/TahriT" target="_blank" rel="noopener" class="project-link">
                 <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -1828,8 +1828,30 @@
     <!-- Title Header -->
     <div id="header-title">
         <h1>Tahri's Skill Tree</h1>
-        <p>Drag to rotate • Click nodes to explore</p>
+        <p style="display: flex; align-items: center; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
+            <span style="display: flex; align-items: center; gap: 5px;">
+                <span style="font-size: 24px; display: inline-block; animation: dragAnimation 2s ease-in-out infinite;">↔️</span>
+                <span>Drag to rotate</span>
+            </span>
+            <span style="opacity: 0.5;">•</span>
+            <span style="display: flex; align-items: center; gap: 5px;">
+                <span style="font-size: 24px; display: inline-block; animation: clickAnimation 1.5s ease-in-out infinite;">👆</span>
+                <span>Click nodes to explore</span>
+            </span>
+        </p>
     </div>
+    
+    <style>
+        @keyframes dragAnimation {
+            0%, 100% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+        }
+        
+        @keyframes clickAnimation {
+            0%, 100% { transform: scale(1) translateY(0); }
+            50% { transform: scale(1.3) translateY(-3px); }
+        }
+    </style>
     
     <div id="info">
         <h1>🌳 3D Skill Tree</h1>
@@ -1944,8 +1966,11 @@
         );
         camera.position.set(0, 0, 20); // View centered on tree origin
         
-        // Detect mobile device
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+        // Detect mobile device (user agent based, not just touch capability)
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (window.innerWidth < 768 && 'ontouchstart' in window);
+        
+        // Detect if device has touch capability (mobile OR desktop with touch)
+        const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
         
         // Track first interaction to hide title
         let hasInteracted = false;
@@ -2016,9 +2041,11 @@
         });
         canvas.addEventListener('wheel', hideHeaderTitle);
         
-        // Touch events
-        canvas.addEventListener('touchstart', hideHeaderTitle);
-        canvas.addEventListener('touchmove', hideHeaderTitle);
+        // Touch events (works on both mobile and desktop touch screens)
+        if (hasTouch) {
+            canvas.addEventListener('touchstart', hideHeaderTitle);
+            canvas.addEventListener('touchmove', hideHeaderTitle);
+        }
         
         // Lighting
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -2639,6 +2666,36 @@
             }
         }
         
+        // ===== LOAD PROJECTS =====
+        async function loadProjects() {
+            try {
+                const response = await fetch('data/projects.json');
+                const data = await response.json();
+                const projectsLinks = document.getElementById('projects-links');
+                projectsLinks.innerHTML = '';
+                
+                data.projects.forEach(project => {
+                    const link = document.createElement('a');
+                    link.href = project.url;
+                    link.target = '_blank';
+                    link.rel = 'noopener';
+                    link.className = 'project-link';
+                    link.innerHTML = `
+                        <svg viewBox="${project.viewBox}" xmlns="http://www.w3.org/2000/svg">
+                            ${project.svg}
+                        </svg>
+                        ${project.name}
+                    `;
+                    projectsLinks.appendChild(link);
+                });
+            } catch (error) {
+                console.error('Error loading projects:', error);
+            }
+        }
+        
+        // Load projects on page load
+        loadProjects();
+        
         // ===== BUILD & ANIMATE =====
         const skillTree = new SkillTree3D();
         const seedAnimation = document.getElementById('seed-animation');
@@ -2818,34 +2875,20 @@
                 return; // Node not visible
             }
             
-            // Determine left or right side - on mobile, always center
-            let className;
-            if (isMobile) {
-                className = 'center'; // New center class for mobile
-            } else {
-                const isLeft = x < window.innerWidth / 2;
-                className = isLeft ? 'left' : 'right';
-            }
+            // Determine left or right side
+            const isLeft = x < window.innerWidth / 2;
+            const className = isLeft ? 'left' : 'right';
             
             const data = node.userData.skillData;
             
             // Update callout content
             document.getElementById('callout-title').textContent = data.name;
-            
-            // Simplify content on mobile - title only
-            if (isMobile) {
-                // Hide all paragraphs on mobile (handled by CSS)
-                document.getElementById('callout-category').innerHTML = '';
-                document.getElementById('callout-level').innerHTML = '';
-                document.getElementById('callout-experience').innerHTML = '';
-            } else {
-                document.getElementById('callout-category').innerHTML = 
-                    `<strong>Category:</strong> ${node.userData.category || 'N/A'}`;
-                document.getElementById('callout-level').innerHTML = 
-                    `<strong>Level:</strong> ${data.level || 'N/A'}`;
-                document.getElementById('callout-experience').innerHTML = 
-                    `<strong>Experience:</strong> ${data.yearsExp || 0} years`;
-            }
+            document.getElementById('callout-category').innerHTML = 
+                `<strong>Category:</strong> ${node.userData.category || 'N/A'}`;
+            document.getElementById('callout-level').innerHTML = 
+                `<strong>Level:</strong> ${data.level || 'N/A'}`;
+            document.getElementById('callout-experience').innerHTML = 
+                `<strong>Experience:</strong> ${data.yearsExp || 0} years`;
             
             // Position callout (start offset for fade-in animation)
             calloutBalloon.className = className;
@@ -3186,6 +3229,11 @@
             if (isZoomedIn || cameraAnimation) return;
             
             isZoomedIn = true;
+            
+            // Hide any active callout when selecting a node
+            if (currentCalloutNode) {
+                hideCallout(false); // Don't show next callout
+            }
             
             // Save current camera state
             savedCameraPosition.copy(camera.position);
@@ -3620,83 +3668,91 @@
         
         // Mouse move for hover (desktop)
         window.addEventListener('mousemove', (event) => {
-            if (!isMobile) {
+            if (!isZoomedIn) {
                 updateHoverState(event.clientX, event.clientY);
+                lastInteractionTime = Date.now();
             }
         });
         
-        // Touch move for hover simulation (mobile)
-        window.addEventListener('touchmove', (event) => {
-            if (isMobile && event.touches[0] && !touchMoved) {
-                // Only simulate hover if we haven't moved much (not dragging)
-                updateHoverState(event.touches[0].clientX, event.touches[0].clientY);
-            }
-        });
+        // Touch move for hover simulation (works on mobile and desktop touch screens)
+        if (hasTouch) {
+            window.addEventListener('touchmove', (event) => {
+                if (!isZoomedIn && event.touches[0] && !touchMoved) {
+                    // Only simulate hover if we haven't moved much (not dragging)
+                    updateHoverState(event.touches[0].clientX, event.touches[0].clientY);
+                    lastInteractionTime = Date.now();
+                }
+            });
+        }
         
         // Touch/Click handling for node selection
         let touchStartTime = 0;
         let touchMoved = false;
         let touchStartPos = { x: 0, y: 0 };
         
-        // Touch start - combined handler for both hover and click detection
-        window.addEventListener('touchstart', (event) => {
-            if (isZoomedIn) return;
-            
-            // Handle hover simulation first
-            if (isMobile && event.touches[0]) {
-                updateHoverState(event.touches[0].clientX, event.touches[0].clientY);
-            }
-            
-            // Setup for click detection
-            touchStartTime = Date.now();
-            touchMoved = false;
-            
-            if (event.touches[0]) {
-                touchStartPos.x = event.touches[0].clientX;
-                touchStartPos.y = event.touches[0].clientY;
-            }
-        });
-        
-        // Touch move - track if user is dragging
-        window.addEventListener('touchmove', (event) => {
-            if (event.touches[0]) {
-                const moveDistance = Math.sqrt(
-                    Math.pow(event.touches[0].clientX - touchStartPos.x, 2) + 
-                    Math.pow(event.touches[0].clientY - touchStartPos.y, 2)
-                );
+        // Touch start - combined handler for both hover and click detection (mobile and desktop touch)
+        if (hasTouch) {
+            window.addEventListener('touchstart', (event) => {
+                if (isZoomedIn) return;
                 
-                // Consider it a move if moved more than 10 pixels
-                if (moveDistance > 10) {
-                    touchMoved = true;
+                // Handle hover simulation first
+                if (event.touches[0]) {
+                    updateHoverState(event.touches[0].clientX, event.touches[0].clientY);
                 }
-            }
-        });
-        
-        // Touch end - handle tap vs drag
-        window.addEventListener('touchend', (event) => {
-            if (isZoomedIn) return;
+                
+                // Setup for click detection
+                touchStartTime = Date.now();
+                touchMoved = false;
+                
+                if (event.touches[0]) {
+                    touchStartPos.x = event.touches[0].clientX;
+                    touchStartPos.y = event.touches[0].clientY;
+                }
+            });
             
-            const touchDuration = Date.now() - touchStartTime;
+            // Touch move - track if user is dragging
+            window.addEventListener('touchmove', (event) => {
+                if (event.touches[0]) {
+                    const moveDistance = Math.sqrt(
+                        Math.pow(event.touches[0].clientX - touchStartPos.x, 2) + 
+                        Math.pow(event.touches[0].clientY - touchStartPos.y, 2)
+                    );
+                    
+                    // Consider it a move if moved more than 10 pixels
+                    if (moveDistance > 10) {
+                        touchMoved = true;
+                    }
+                }
+            });
             
-            // Only consider it a tap if:
-            // 1. Duration is less than 500ms (not a long press)
-            // 2. User didn't move much (not a drag)
-            if (touchDuration < 500 && !touchMoved && hoveredNode) {
-                event.preventDefault(); // Prevent double-tap zoom
-                lastInteractionTime = Date.now();
-                zoomToNode(hoveredNode);
-            }
-        });
+            // Touch end - handle tap vs drag
+            window.addEventListener('touchend', (event) => {
+                if (isZoomedIn) return;
+                
+                const touchDuration = Date.now() - touchStartTime;
+                
+                // Only consider it a tap if:
+                // 1. Duration is less than 500ms (not a long press)
+                // 2. User didn't move much (not a drag)
+                if (touchDuration < 500 && !touchMoved && hoveredNode) {
+                    event.preventDefault(); // Prevent double-tap zoom
+                    lastInteractionTime = Date.now();
+                    scheduleAutoResume();
+                    zoomToNode(hoveredNode);
+                }
+            });
+        }
         
-        // Click to select and focus camera (desktop)
+        // Click to select and focus camera (desktop and desktop touch screens)
         window.addEventListener('click', (event) => {
             if (isZoomedIn) return; // Prevent clicks when already zoomed
             
-            // Skip if this is a touch device to avoid duplicate events
+            // Skip if this is a mobile device to avoid duplicate events with touch
             if (isMobile) return;
             
             if (hoveredNode) {
                 lastInteractionTime = Date.now(); // Update interaction time
+                scheduleAutoResume();
                 zoomToNode(hoveredNode);
             }
         });
