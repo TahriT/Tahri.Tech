@@ -178,6 +178,131 @@
             box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
         }
 
+        /* Resume Toggle Button */
+        #resume-toggle {
+            position: fixed;
+            top: 10px;
+            right: 140px; /* Next to theme button */
+            background: rgba(139, 90, 43, 0.2);
+            border: 2px solid rgba(139, 90, 43, 0.6);
+            color: #8B5A2B;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 160;
+            font-size: 24px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 90, 43, 0.3);
+        }
+
+        #resume-toggle:hover {
+            background: rgba(139, 90, 43, 0.4);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(139, 90, 43, 0.5);
+        }
+
+        /* Resume Paper Plane */
+        #resume-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            max-width: 700px;
+            height: 75vh;
+            max-height: 900px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 15px 60px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            display: none;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 50px 60px;
+            opacity: 0;
+            transition: opacity 1s ease-in;
+        }
+
+        #resume-container.visible {
+            display: block;
+            opacity: 1;
+        }
+        
+        #resume-container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        #resume-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+        
+        #resume-container::-webkit-scrollbar-thumb {
+            background: #8B5A2B;
+            border-radius: 4px;
+        }
+        
+        #resume-container::-webkit-scrollbar-thumb:hover {
+            background: #6B4423;
+        }
+
+        #back-to-tree {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(139, 90, 43, 0.9);
+            border: 2px solid rgba(139, 90, 43, 1);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        #back-to-tree.visible {
+            display: block;
+        }
+
+        #back-to-tree:hover {
+            background: rgba(139, 90, 43, 1);
+            transform: scale(1.05);
+        }
+
+        /* Recycle/Replant Button */
+        #recycle-tree {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(76, 175, 80, 0.9);
+            border: 2px solid rgba(76, 175, 80, 1);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        #recycle-tree.visible {
+            display: block;
+        }
+
+        #recycle-tree:hover {
+            background: rgba(76, 175, 80, 1);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
+        }
+
         /* Nature theme styling */
         body.nature-theme #theme-toggle {
             background: rgba(139, 69, 19, 0.3);
@@ -611,14 +736,16 @@
             bottom: 280px;
             left: 50%;
             transform: translateX(-50%);
+            transform-origin: bottom center;
             width: 4px;
             height: 200px;
             background: linear-gradient(to top, rgba(0, 255, 255, 0.8), transparent);
             pointer-events: none;
             z-index: 45;
             opacity: 0;
-            transition: bottom 0.5s ease, 
+            transition: bottom 0.4s ease, 
                         opacity 0.8s ease 0.3s;
+            will-change: transform, bottom;
         }
         
         #trunk-ui.loaded {
@@ -630,6 +757,11 @@
             opacity: 1; /* Keep visible when collapsed */
         }
         
+        /* Update trunk position dynamically based on roots panel */
+        #trunk-ui.roots-expanded {
+            bottom: 280px;
+        }
+        
         #roots-panel {
             position: fixed;
             bottom: 0;
@@ -637,7 +769,7 @@
             transform: translateX(-50%) translateY(100%);
             width: 90%;
             max-width: 1400px;
-            max-height: 280px;
+            max-height: 80px; /* Collapsed by default */
             background: linear-gradient(to bottom, rgba(101, 67, 33, 0.98), rgba(139, 69, 19, 0.95), rgba(160, 100, 60, 0.9), rgba(180, 130, 90, 0.85));
             border: 2px solid rgba(101, 67, 33, 0.6);
             border-bottom: none;
@@ -649,7 +781,7 @@
             opacity: 0;
             transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
                         opacity 0.8s ease,
-                        max-height 0.3s ease;
+                        max-height 0.4s ease;
             cursor: pointer;
             background-size: cover;
             background-position: center bottom;
@@ -660,7 +792,7 @@
         }
         
         #roots-panel:hover {
-            max-height: 500px;
+            max-height: 350px; /* Expand on hover */
         }
         
         #roots-panel.loaded {
@@ -736,14 +868,15 @@
         #roots-content {
             padding: 25px 30px;
             color: white;
+            overflow: hidden;
         }
         
         #experience-list {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 15px;
-            max-height: 200px;
-            overflow-y: auto;
+            max-height: none; /* No height limit, controlled by parent */
+            overflow-y: visible;
             padding-right: 10px;
             position: relative;
             background: 
@@ -1277,12 +1410,12 @@
         
         .experience-item {
             margin-bottom: 0;
-            padding: 12px 15px;
+            padding: 10px 12px;
             background: linear-gradient(135deg, rgba(0, 255, 255, 0.08), rgba(0, 255, 255, 0.18));
             border-left: 4px solid #00ffff;
             border-radius: 8px;
             transition: all 0.3s ease;
-            height: fit-content;
+            height: fit-content; /* Cards are fully expanded */
             position: relative;
             z-index: 1;
             backdrop-filter: blur(5px);
@@ -1296,6 +1429,26 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+        
+        /* Icon and logo header row */
+        .experience-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        
+        .experience-icon {
+            font-size: 20px;
+            opacity: 0.9;
+            flex-shrink: 0;
+        }
+        
+        .experience-logo {
+            height: 22px;
+            vertical-align: middle;
+            flex-shrink: 0;
         }
         
         /* Stagger animation for items */
@@ -1316,12 +1469,6 @@
             background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 255, 0.3));
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4);
-        }
-        
-        .experience-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-            opacity: 0.9;
         }
         
         .experience-item h4 {
@@ -1556,7 +1703,17 @@
         }
         
         /* Seed of Knowledge Loading Animation */
+        /* By default the startup "Seed of Knowledge" intro animations are disabled.
+           To enable them, add the class `enable-startup-animations` to the <body> element. */
         #seed-animation {
+            /* hidden by default so the page starts up without the intro animation */
+            display: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* When enabled, restore the full-screen seed animation container */
+        body.enable-startup-animations #seed-animation {
             position: fixed;
             top: 0;
             left: 0;
@@ -1591,8 +1748,118 @@
             transform: translateX(-50%);
             width: 80px;
             height: 80px;
+            /* animations are scoped to body.enable-startup-animations below */
+        }
+
+        /* Scoped animations: only run when body has enable-startup-animations */
+        body.enable-startup-animations .seed {
             animation: seedFall 2s cubic-bezier(0.4, 0, 0.6, 1) forwards,
                        seedRotate 2s ease-in-out;
+        }
+        
+        /* Watering can animation - comes from top (starts after seed falls + 1s delay) */
+        .watering-can {
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            z-index: 10;
+        }
+
+        body.enable-startup-animations .watering-can {
+            animation: wateringCanMove 2s ease-in-out 2s forwards; /* Start at 3s (2s seed + 1s delay) */
+        }
+        
+        @keyframes wateringCanMove {
+            0% {
+                top: -150px;
+                transform: translateX(-50%) rotate(0deg);
+            }
+            25% {
+                top: 100px;
+                transform: translateX(-50%) rotate(0deg);
+            }
+            40% {
+                top: 100px;
+                transform: translateX(-50%) rotate(-45deg);
+            }
+            70% {
+                top: 100px;
+                transform: translateX(-50%) rotate(-45deg);
+            }
+            85% {
+                top: 100px;
+                transform: translateX(-50%) rotate(0deg);
+            }
+            100% {
+                top: -150px;
+                transform: translateX(-50%) rotate(0deg);
+            }
+        }
+        
+        /* Rain animation - multiple drops (synced with watering can pouring at 40% of its animation) */
+        .water-drops {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        body.enable-startup-animations .water-drops {
+            animation: rainFadeIn 0.3s ease-in 3.8s forwards,  /* Start at 3.8s (3s can start + 0.8s to pour position at 40%) */
+                       rainFadeOut 0.5s ease-out 5.4s forwards; /* Fade out when can returns upright at 85% (5.7s) */
+        }
+        
+        .water-drop {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(to bottom, rgba(100, 180, 255, 0), rgba(100, 180, 255, 0.8), rgba(100, 180, 255, 0));
+            animation: dropFall 0.6s linear infinite;
+        }
+        
+        /* Create rain effect with multiple drops */
+        .water-drop:nth-child(1) { left: 45%; animation-delay: 0s; }
+        .water-drop:nth-child(2) { left: 48%; animation-delay: 0.1s; }
+        .water-drop:nth-child(3) { left: 50%; animation-delay: 0.05s; }
+        .water-drop:nth-child(4) { left: 52%; animation-delay: 0.15s; }
+        .water-drop:nth-child(5) { left: 55%; animation-delay: 0.08s; }
+        .water-drop:nth-child(6) { left: 46.5%; animation-delay: 0.2s; }
+        .water-drop:nth-child(7) { left: 49%; animation-delay: 0.12s; }
+        .water-drop:nth-child(8) { left: 51%; animation-delay: 0.18s; }
+        .water-drop:nth-child(9) { left: 53.5%; animation-delay: 0.03s; }
+        .water-drop:nth-child(10) { left: 47%; animation-delay: 0.22s; }
+        
+        @keyframes dropFall {
+            0% {
+                top: 180px;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: calc(100vh - 370px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes rainFadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes rainFadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
         }
         
         @keyframes seedFall {
@@ -1604,17 +1871,13 @@
             10% {
                 opacity: 1;
             }
-            85% {
-                top: calc(100vh - 350px);
+            50% {
+                top: calc(100vh - 370px);
                 transform: translateX(-50%) scale(1);
             }
-            90% {
-                top: calc(100vh - 380px);
-                transform: translateX(-50%) scale(1);
-            }
-            95% {
-                top: calc(100vh - 360px);
-                transform: translateX(-50%) scale(1);
+            70% {
+                top: calc(100vh - 370px);
+                transform: translateX(-50%) scale(1.2);
             }
             100% {
                 top: calc(100vh - 370px);
@@ -1627,8 +1890,14 @@
             0% {
                 transform: translateX(-50%) rotate(0deg);
             }
+            30% {
+                transform: translateX(-50%) rotate(180deg);
+            }
+            50% {
+                transform: translateX(-50%) rotate(360deg);
+            }
             100% {
-                transform: translateX(-50%) rotate(720deg);
+                transform: translateX(-50%) rotate(360deg);
             }
         }
         
@@ -1646,33 +1915,34 @@
         .seed svg {
             width: 100%;
             height: 100%;
+            /* glow animation only when enabled */
+        }
+
+        body.enable-startup-animations .seed svg {
             animation: seedGlow 1.5s ease-in-out infinite;
         }
         
-        .seed-impact {
-            position: absolute;
-            bottom: 370px;
-            left: 50%;
-            transform: translateX(-50%) scale(0);
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(139, 90, 43, 0.8), rgba(205, 133, 63, 0.4), transparent);
-            animation: impactWave 0.8s ease-out 2s forwards;
-        }
-        
-        @keyframes impactWave {
-            0% {
-                transform: translateX(-50%) scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(-50%) scale(3);
-                opacity: 0;
-            }
-        }
+        /* Removed seed-impact pulse animation */
         
         .seed-text {
+            position: absolute;
+            bottom: 250px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #8B5A2B;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            opacity: 0;
+            text-shadow: 0 0 10px rgba(139, 90, 43, 0.8);
+        }
+
+        body.enable-startup-animations .seed-text {
+            animation: textFadeIn 0.8s ease-out 0.2s forwards,
+                       textFadeOut 0.5s ease-out 0.9s forwards;
+        }
+        
+        .watering-text {
             position: absolute;
             bottom: 250px;
             left: 50%;
@@ -1682,9 +1952,12 @@
             font-weight: 700;
             text-align: center;
             opacity: 0;
-            animation: textFadeIn 0.8s ease-out 2.5s forwards,
-                       textFadeOut 0.5s ease-out 3.2s forwards;
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+
+        body.enable-startup-animations .watering-text {
+            animation: textFadeIn 0.8s ease-out 3.8s forwards,  /* Sync with water drops at pour position */
+                       textFadeOut 0.5s ease-out 5.4s forwards;   /* Fade out when pouring ends */
         }
         
         @keyframes textFadeIn {
@@ -1712,6 +1985,27 @@
     <!-- Seed of Knowledge Loading Animation -->
     <div id="seed-animation">
         <div class="seed-container">
+            <!-- Watering Can -->
+            <div class="watering-can">
+                <img src="https://uxwing.com/wp-content/themes/uxwing/download/agriculture-farming-gardening/watering-can-color-icon.svg" 
+                     alt="Watering Can" 
+                     style="width: 100%; height: 100%;">
+            </div>
+            
+            <!-- Rain drops -->
+            <div class="water-drops">
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+            </div>
+            
             <div class="seed">
                 <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
                     <!-- Seed body - brown acorn-like shape -->
@@ -1735,8 +2029,8 @@
                     <path d="M 35 77 Q 50 73, 65 77" stroke="#3a2010" stroke-width="1" fill="none" opacity="0.4"/>
                 </svg>
             </div>
-            <div class="seed-impact"></div>
             <div class="seed-text">🌱 Seed of Knowledge 🌱</div>
+            <div class="watering-text">💧 Growing Skills 💧</div>
         </div>
     </div>
     
@@ -1792,6 +2086,21 @@
     
     <!-- Theme Toggle -->
     <button id="theme-toggle" aria-label="Toggle color theme" title="Switch Theme">🌳</button>
+    
+    <!-- Resume Toggle Button -->
+    <button id="resume-toggle" aria-label="Transform to resume" title="View as Resume">📄</button>
+    
+    <!-- Back to Tree Button -->
+    <button id="back-to-tree">← Back to Tree</button>
+    
+    <!-- Recycle/Replant Button -->
+    <button id="recycle-tree">♻️ Recycle & Replant</button>
+    
+    <!-- Resume Container -->
+    <div id="resume-container">
+        <h1 style="text-align: center; color: #2c3e50; margin-bottom: 40px;">Resume</h1>
+        <div id="resume-content"></div>
+    </div>
     
     <!-- Projects Header (Collapsible) -->
     <button id="projects-toggle" aria-label="Toggle projects menu" title="Fruits of My Labor">🍎</button>
@@ -2249,12 +2558,14 @@
                             
                             let logoHtml = '';
                             if (item.logoUrl) {
-                                logoHtml = `<img src="${item.logoUrl}" alt="${item.organization} logo" style="height:28px;vertical-align:middle;margin-bottom:6px;">`;
+                                logoHtml = `<img src="${item.logoUrl}" alt="${item.organization} logo" class="experience-logo">`;
                             }
                             
                             itemDiv.innerHTML = `
-                                <div class="experience-icon">${category.icon}</div>
-                                ${logoHtml}
+                                <div class="experience-header">
+                                    <div class="experience-icon">${category.icon}</div>
+                                    ${logoHtml}
+                                </div>
                                 <h4>${item.title}</h4>
                                 <p class="experience-org">${item.organization}</p>
                                 <p class="experience-period"><strong>${item.period}</strong></p>
@@ -2703,9 +3014,9 @@
         // Start building tree (hidden initially)
         skillTree.build();
         
-        // Seed animation sequence
+        // Seed animation sequence (new timing: 2s seed + 1s + 3s can + 0.5s + 0.75s rain + 1.7s rain duration)
         setTimeout(() => {
-            // Hide seed animation after it lands (2s fall + 0.8s impact + 0.8s text)
+            // Hide seed animation after all animations complete
             seedAnimation.classList.add('hidden');
             
             // Show header title after seed animation
@@ -2733,16 +3044,41 @@
                     skillTree.startBuildAnimation();
                 }, 500); // Additional 0.5s delay after panel loads
             }, 800); // Wait for seed animation fade out
-        }, 3600); // 3.6 seconds total for seed animation
+        }, 6500); // Total: 2s seed + 1s + 3s can + 0.5s + 0.75s + 1.7s rain duration = ~8.95s, using 6.5s for better UX
         
         // ===== ROOTS PANEL TOGGLE (Mobile) =====
         const rootsToggle = document.getElementById('roots-toggle');
         const rootsPanel = document.getElementById('roots-panel');
+        const trunkUI = document.getElementById('trunk-ui');
+        
+        // Function to update trunk-ui position based on roots-panel height
+        function updateTrunkPosition() {
+            if (rootsPanel && trunkUI) {
+                const rootsHeight = rootsPanel.offsetHeight;
+                trunkUI.style.bottom = `${rootsHeight}px`;
+            }
+        }
+        
+        // Update trunk position on hover
+        rootsPanel.addEventListener('mouseenter', () => {
+            setTimeout(updateTrunkPosition, 50); // Small delay for transition
+        });
+        
+        rootsPanel.addEventListener('mouseleave', () => {
+            setTimeout(updateTrunkPosition, 50);
+        });
+        
+        // Also update on window resize
+        window.addEventListener('resize', updateTrunkPosition);
+        
+        // Initial update after roots panel loads
+        setTimeout(updateTrunkPosition, 1000);
         
         rootsToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             rootsPanel.classList.toggle('expanded');
             rootsToggle.textContent = rootsPanel.classList.contains('expanded') ? '↓' : '↕';
+            setTimeout(updateTrunkPosition, 50);
         });
         
         // ===== LEGEND TOGGLE =====
@@ -2837,7 +3173,7 @@
         let calloutTimeouts = []; // Track all active callout timeouts
         
         // Disable auto-callouts on mobile (only show on hover/tap)
-        const enableAutoCallouts = !isMobile;
+        let enableAutoCallouts = !isMobile; // Changed from const to let
         
         // Setup canvas for line drawing
         calloutLine.width = window.innerWidth;
@@ -2848,6 +3184,9 @@
         function showCalloutForNode(node, isFromHover = false) {
             // Don't show callouts until tree animation is complete
             if (!window.treeAnimationComplete) return;
+            
+            // Don't show callouts during resume transformation
+            if (isTransformingToResume || isResumeMode) return;
             
             // If already showing a callout, prevent race condition
             if (currentCalloutNode && currentCalloutNode !== node) {
@@ -2928,6 +3267,9 @@
         function showRandomCallout() {
             // Don't show if user is interacting, if we're already fading, or if already showing a callout
             if (isZoomedIn || hoveredNode || isCalloutFading || currentCalloutNode) return;
+            
+            // Don't show during resume transformation
+            if (isTransformingToResume || isResumeMode) return;
             
             const allNodes = skillTree.getSkillNodes();
             if (allNodes.length === 0) return;
@@ -3022,6 +3364,13 @@
         }
         
         function updateCalloutLine() {
+            // Don't show line during resume transformation
+            if (isTransformingToResume || isResumeMode) {
+                calloutCtx.clearRect(0, 0, calloutLine.width, calloutLine.height);
+                lineDrawProgress = 0;
+                return;
+            }
+            
             if (!currentCalloutNode || isZoomedIn) {
                 calloutCtx.clearRect(0, 0, calloutLine.width, calloutLine.height);
                 lineDrawProgress = 0;
@@ -3668,7 +4017,7 @@
         
         // Mouse move for hover (desktop)
         window.addEventListener('mousemove', (event) => {
-            if (!isZoomedIn) {
+            if (!isZoomedIn && !isTransformingToResume && !isResumeMode) {
                 updateHoverState(event.clientX, event.clientY);
                 lastInteractionTime = Date.now();
             }
@@ -3677,7 +4026,7 @@
         // Touch move for hover simulation (works on mobile and desktop touch screens)
         if (hasTouch) {
             window.addEventListener('touchmove', (event) => {
-                if (!isZoomedIn && event.touches[0] && !touchMoved) {
+                if (!isZoomedIn && !isTransformingToResume && !isResumeMode && event.touches[0] && !touchMoved) {
                     // Only simulate hover if we haven't moved much (not dragging)
                     updateHoverState(event.touches[0].clientX, event.touches[0].clientY);
                     lastInteractionTime = Date.now();
@@ -3693,7 +4042,7 @@
         // Touch start - combined handler for both hover and click detection (mobile and desktop touch)
         if (hasTouch) {
             window.addEventListener('touchstart', (event) => {
-                if (isZoomedIn) return;
+                if (isZoomedIn || isTransformingToResume || isResumeMode) return;
                 
                 // Handle hover simulation first
                 if (event.touches[0]) {
@@ -3727,7 +4076,7 @@
             
             // Touch end - handle tap vs drag
             window.addEventListener('touchend', (event) => {
-                if (isZoomedIn) return;
+                if (isZoomedIn || isTransformingToResume || isResumeMode) return;
                 
                 const touchDuration = Date.now() - touchStartTime;
                 
@@ -3745,7 +4094,7 @@
         
         // Click to select and focus camera (desktop and desktop touch screens)
         window.addEventListener('click', (event) => {
-            if (isZoomedIn) return; // Prevent clicks when already zoomed
+            if (isZoomedIn || isTransformingToResume || isResumeMode) return; // Prevent clicks when already zoomed
             
             // Skip if this is a mobile device to avoid duplicate events with touch
             if (isMobile) return;
@@ -3756,6 +4105,841 @@
                 zoomToNode(hoveredNode);
             }
         });
+        
+        // ===== RESUME TRANSFORMATION ANIMATION =====
+        let isTransformingToResume = false;
+        let isResumeMode = false;
+        let axe = null;
+        let axeHandle = null;
+        let axeBlade = null;
+        
+        // Create axe geometry
+        function createAxe() {
+            const axeGroup = new THREE.Group();
+            
+            // Wooden handle
+            const handleGeometry = new THREE.CylinderGeometry(0.12, 0.18, 3.5, 8);
+            const handleMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0x654321,
+                flatShading: true
+            });
+            axeHandle = new THREE.Mesh(handleGeometry, handleMaterial);
+            axeHandle.position.y = -0.5;
+            axeGroup.add(axeHandle);
+            
+            // Metal blade - wedge shape
+            const bladeShape = new THREE.Shape();
+            bladeShape.moveTo(0, 0);
+            bladeShape.lineTo(2, 1);
+            bladeShape.lineTo(2, -1);
+            bladeShape.lineTo(0, 0);
+            
+            const extrudeSettings = { depth: 0.15, bevelEnabled: true, bevelThickness: 0.05, bevelSize: 0.05 };
+            const bladeGeometry = new THREE.ExtrudeGeometry(bladeShape, extrudeSettings);
+            const bladeMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0xB0B0B0,
+                shininess: 100,
+                flatShading: false
+            });
+            axeBlade = new THREE.Mesh(bladeGeometry, bladeMaterial);
+            axeBlade.position.set(0.2, 1.5, -0.075);
+            axeGroup.add(axeBlade);
+            
+            // Position axe off-screen initially
+            axeGroup.position.set(-15, 5, 0);
+            axeGroup.rotation.z = Math.PI / 4;
+            axeGroup.visible = false;
+            
+            return axeGroup;
+        }
+        
+        // Animate camera zooming to trunk
+        function animateCameraToTrunk() {
+            return new Promise((resolve) => {
+                const zoomDuration = 1500;
+                const startTime = Date.now();
+                const startPos = camera.position.clone();
+                const targetPos = new THREE.Vector3(0, -2, 15);
+                const startTarget = controls.target.clone();
+                const targetTarget = new THREE.Vector3(0, -2, 0);
+                
+                const animateZoom = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / zoomDuration, 1);
+                    
+                    // Smooth ease in-out
+                    const eased = progress < 0.5
+                        ? 2 * progress * progress
+                        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                    
+                    // Move camera toward trunk
+                    camera.position.lerpVectors(startPos, targetPos, eased);
+                    controls.target.lerpVectors(startTarget, targetTarget, eased);
+                    controls.update();
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animateZoom);
+                    } else {
+                        resolve();
+                    }
+                };
+                
+                animateZoom();
+            });
+        }
+        
+        // Create wood chip particles
+        function createWoodChips() {
+            const chips = [];
+            const chipGeometry = new THREE.BoxGeometry(0.15, 0.1, 0.05);
+            const chipMaterial = new THREE.MeshPhongMaterial({ color: 0x8B5A2B });
+            
+            for (let i = 0; i < 20; i++) {
+                const chip = new THREE.Mesh(chipGeometry, chipMaterial);
+                chip.position.set(0, -2, 0);
+                chip.velocity = new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.3,
+                    Math.random() * 0.2 + 0.1,
+                    (Math.random() - 0.5) * 0.3
+                );
+                chip.rotationVel = new THREE.Vector3(
+                    Math.random() * 0.2,
+                    Math.random() * 0.2,
+                    Math.random() * 0.2
+                );
+                scene.add(chip);
+                chips.push(chip);
+            }
+            return chips;
+        }
+        
+        // Animate axe chopping
+        function animateAxeChop() {
+            return new Promise((resolve) => {
+                if (!axe) {
+                    axe = createAxe();
+                    scene.add(axe);
+                }
+                
+                axe.visible = true;
+                const trunkY = -2; // Height of trunk cut
+                
+                // Starting position: right side, ready for horizontal chop
+                axe.position.set(12, trunkY, 0);
+                axe.rotation.z = 0; // Horizontal orientation
+                
+                // Wind-up + swing
+                const swingInDuration = 400;    // Pendulum swing in
+                const windUpDuration = 600;     // Wind-up before chop
+                const swingDuration = 400;      // Fast chop
+                const totalDuration = swingInDuration + windUpDuration + swingDuration;
+                const startTime = Date.now();
+                let woodChips = null;
+                
+                const animateChop = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / totalDuration, 1);
+                    
+                    if (elapsed < swingInDuration) {
+                        // Phase 1: Pendulum swing in from off-screen
+                        const swingProgress = elapsed / swingInDuration;
+                        const swingEased = 1 - Math.pow(1 - swingProgress, 3); // Ease out
+                        
+                        // Swing from far right (off-screen) to ready position
+                        axe.position.x = 20 - (8 * swingEased); // 20 -> 12
+                        
+                        // Pendulum rotation as it swings in
+                        axe.rotation.z = Math.sin(swingProgress * Math.PI) * Math.PI / 8; // Swing motion
+                        
+                    } else if (elapsed < swingInDuration + windUpDuration) {
+                        // Phase 2: Wind-up (pull back and rotate)
+                        const windProgress = (elapsed - swingInDuration) / windUpDuration;
+                        const windEased = Math.sin(windProgress * Math.PI / 2); // Ease out
+                        
+                        axe.position.x = 12 + (3 * windEased); // Pull further right
+                        axe.rotation.z = -Math.PI / 6 * windEased; // Rotate back
+                        
+                    } else {
+                        // Phase 3: Fast horizontal chop
+                        const swingProgress = (elapsed - swingInDuration - windUpDuration) / swingDuration;
+                        const swingEased = 1 - Math.pow(1 - swingProgress, 4); // Fast acceleration
+                        
+                        // Horizontal swing from right to center trunk
+                        axe.position.x = 15 - (15 * swingEased);
+                        axe.rotation.z = -Math.PI / 6 + (Math.PI / 6 * swingEased);
+                        
+                        // Add spinning rotation after impact
+                        if (swingProgress > 0.7) {
+                            const spinProgress = (swingProgress - 0.7) / 0.3; // Last 30% of swing
+                            axe.rotation.y = spinProgress * Math.PI * 4; // Multiple rotations
+                        }
+                        
+                        // Create wood chips at impact
+                        if (swingProgress > 0.7 && !woodChips) {
+                            woodChips = createWoodChips();
+                        }
+                    }
+                    
+                    // Animate wood chips
+                    if (woodChips) {
+                        woodChips.forEach(chip => {
+                            chip.position.add(chip.velocity);
+                            chip.velocity.y -= 0.01; // Gravity
+                            chip.rotation.x += chip.rotationVel.x;
+                            chip.rotation.y += chip.rotationVel.y;
+                            chip.rotation.z += chip.rotationVel.z;
+                        });
+                    }
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animateChop);
+                    } else {
+                        // Hold for a moment, then clean up
+                        setTimeout(() => {
+                            axe.visible = false;
+                            if (woodChips) {
+                                woodChips.forEach(chip => scene.remove(chip));
+                            }
+                            resolve();
+                        }, 400);
+                    }
+                };
+                
+                animateChop();
+            });
+        }
+        
+        // Animate tree falling
+        function animateTreeFalling() {
+            return new Promise((resolve) => {
+                // Disable controls
+                controls.enabled = false;
+                
+                // Stop all interactions
+                isTransformingToResume = true;
+                
+                const fallDuration = 2500;
+                const startTime = Date.now();
+                const startRotation = skillTree.tree.rotation.clone();
+                
+                // Track individual node physics
+                const nodePhysics = [];
+                skillTree.tree.traverse((obj) => {
+                    if (obj.isMesh && obj.userData.skill) {
+                        nodePhysics.push({
+                            mesh: obj,
+                            velocity: new THREE.Vector3(0, 0, 0),
+                            startY: obj.position.y,
+                            hasHitGround: false,
+                            bounceVelocity: 0
+                        });
+                    }
+                });
+                
+                const animateFall = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / fallDuration, 1);
+                    
+                    // Gravity-like easing (accelerate then decelerate on impact)
+                    const eased = progress < 0.7
+                        ? Math.pow(progress / 0.7, 2)
+                        : 1 - Math.pow((progress - 0.7) / 0.3, 2) * 0.3;
+                    
+                    // Rotate tree 90 degrees around X axis (falling over)
+                    skillTree.tree.rotation.x = startRotation.x - (Math.PI / 2 * eased);
+                    
+                    // Movement down as it falls with bounce
+                    if (progress < 0.7) {
+                        skillTree.tree.position.y = -8 * eased;
+                    } else {
+                        // Bounce effect
+                        const bounceProgress = (progress - 0.7) / 0.3;
+                        const bounce = Math.sin(bounceProgress * Math.PI) * 0.5;
+                        skillTree.tree.position.y = -8 + bounce;
+                    }
+                    
+                    // Individual node physics for scattered effect
+                    if (progress > 0.6) {
+                        nodePhysics.forEach(np => {
+                            if (!np.hasHitGround) {
+                                np.velocity.y -= 0.02; // Gravity
+                                np.mesh.position.y += np.velocity.y;
+                                
+                                // Check if hit ground (relative to fallen tree)
+                                if (np.mesh.position.y < np.startY - 3) {
+                                    np.hasHitGround = true;
+                                    np.bounceVelocity = Math.abs(np.velocity.y) * 0.4;
+                                }
+                            } else if (np.bounceVelocity > 0.01) {
+                                // Bounce back up
+                                np.mesh.position.y += np.bounceVelocity;
+                                np.bounceVelocity *= 0.85; // Damping
+                            }
+                        });
+                    }
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animateFall);
+                    } else {
+                        resolve();
+                    }
+                };
+                
+                animateFall();
+            });
+        }
+        
+        // Animate paper machine transformation
+        function animatePaperMachine() {
+            return new Promise((resolve) => {
+                const transformDuration = 2000;
+                const startTime = Date.now();
+                
+                // Collect all nodes and branches
+                const allObjects = [];
+                skillTree.tree.traverse((obj) => {
+                    if (obj.isMesh) {
+                        allObjects.push({
+                            mesh: obj,
+                            startPos: obj.position.clone(),
+                            startScale: obj.scale.clone()
+                        });
+                    }
+                });
+                
+                const machineCenter = new THREE.Vector3(0, 0, 5);
+                
+                const animateTransform = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / transformDuration, 1);
+                    
+                    // Ease in
+                    const eased = progress * progress;
+                    
+                    // Shrink and move all objects to center
+                    allObjects.forEach(({mesh, startPos, startScale}) => {
+                        // Move toward machine center
+                        mesh.position.lerpVectors(startPos, machineCenter, eased);
+                        
+                        // Shrink to nothing
+                        const scale = 1 - eased;
+                        mesh.scale.set(
+                            startScale.x * scale,
+                            startScale.y * scale,
+                            startScale.z * scale
+                        );
+                        
+                        // Fade out
+                        if (mesh.material) {
+                            mesh.material.opacity = 1 - eased;
+                            mesh.material.transparent = true;
+                        }
+                    });
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animateTransform);
+                    } else {
+                        // Hide tree completely
+                        skillTree.tree.visible = false;
+                        resolve();
+                    }
+                };
+                
+                animateTransform();
+            });
+        }
+        
+        // Create white paper plane
+        function createPaperPlane() {
+            const planeGeometry = new THREE.PlaneGeometry(16, 20);
+            const planeMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0xffffff,
+                side: THREE.FrontSide
+            });
+            const paper = new THREE.Mesh(planeGeometry, planeMaterial);
+            paper.position.set(0, 0, 0);
+            
+            // Orient plane to face camera
+            paper.lookAt(camera.position);
+            paper.userData.isPaper = true;
+            
+            // Start small
+            paper.scale.set(0.01, 0.01, 0.01);
+            scene.add(paper);
+            
+            return paper;
+        }
+        
+        // Animate paper appearing and zooming to fill screen
+        function animatePaperAppear(paper) {
+            return new Promise((resolve) => {
+                const growDuration = 1000; // Grow to normal size
+                const zoomDuration = 800;  // Zoom to fill screen
+                const totalDuration = growDuration + zoomDuration;
+                const startTime = Date.now();
+                
+                const animateGrow = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / totalDuration, 1);
+                    
+                    if (elapsed < growDuration) {
+                        // Phase 1: Grow to normal size
+                        const growProgress = elapsed / growDuration;
+                        const growEased = 1 - Math.pow(1 - growProgress, 3);
+                        paper.scale.set(growEased, growEased, growEased);
+                    } else {
+                        // Phase 2: Zoom to fill entire screen
+                        const zoomProgress = (elapsed - growDuration) / zoomDuration;
+                        const zoomEased = zoomProgress < 0.5
+                            ? 2 * zoomProgress * zoomProgress
+                            : 1 - Math.pow(-2 * zoomProgress + 2, 2) / 2;
+                        
+                        // Scale from 1 to 4 (fills screen)
+                        const scale = 1 + (zoomEased * 3);
+                        paper.scale.set(scale, scale, scale);
+                        
+                        // Move towards camera slightly for full coverage
+                        paper.position.z = zoomEased * 2;
+                    }
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animateGrow);
+                    } else {
+                        // Keep paper visible briefly before showing resume
+                        setTimeout(() => resolve(), 300);
+                    }
+                };
+                
+                animateGrow();
+            });
+        }
+        
+        // Load resume content from JSON or PDF
+        async function loadResumeContent() {
+            try {
+                // Check if PDF exists, otherwise generate from data
+                const resumePdfPath = 'resume.pdf';
+                
+                // Try to load PDF first
+                const response = await fetch(resumePdfPath, { method: 'HEAD' });
+                
+                if (response.ok) {
+                    // PDF exists, display it in iframe
+                    const resumeHTML = `
+                        <iframe 
+                            src="${resumePdfPath}" 
+                            style="width: 100%; height: 100%; border: none; min-height: 800px;"
+                            title="Resume PDF">
+                        </iframe>
+                    `;
+                    document.getElementById('resume-content').innerHTML = resumeHTML;
+                } else {
+                    throw new Error('PDF not found');
+                }
+            } catch (error) {
+                console.log('PDF not found, generating content from data files...');
+                
+                // Fallback: Generate resume from JSON data files
+                try {
+                    // Load all data files in parallel
+                    let experienceData = [];
+                    let skillsData = {};
+                    let projectsData = [];
+                    
+                    // Load experience data
+                    try {
+                        const expResponse = await fetch('data/experience.json');
+                        if (expResponse.ok) {
+                            const expJson = await expResponse.json();
+                            // Extract items from all categories
+                            if (expJson.categories && Array.isArray(expJson.categories)) {
+                                experienceData = expJson.categories.flatMap(cat => 
+                                    cat.items.map(item => ({
+                                        ...item,
+                                        role: item.title,
+                                        category: cat.category
+                                    }))
+                                );
+                            }
+                        }
+                    } catch (e) {
+                        console.warn('Could not load experience.json:', e);
+                    }
+                    
+                    // Load skills data
+                    try {
+                        const skillsResponse = await fetch('data/skills.json');
+                        if (skillsResponse.ok) {
+                            const skillsJson = await skillsResponse.json();
+                            // Flatten skills hierarchy to a simple object
+                            if (skillsJson.skills && skillsJson.skills.children) {
+                                const flattenSkills = (node, category = '') => {
+                                    const result = {};
+                                    if (node.name && node.level) {
+                                        result[node.name] = {
+                                            level: node.level,
+                                            category: category || node.type,
+                                            yearsExp: node.yearsExp || 0,
+                                            color: node.color || '#8B5A2B'
+                                        };
+                                    }
+                                    if (node.children && Array.isArray(node.children)) {
+                                        node.children.forEach(child => {
+                                            Object.assign(result, flattenSkills(child, node.name));
+                                        });
+                                    }
+                                    return result;
+                                };
+                                
+                                skillsJson.skills.children.forEach(category => {
+                                    Object.assign(skillsData, flattenSkills(category));
+                                });
+                            }
+                        }
+                    } catch (e) {
+                        console.warn('Could not load skills.json:', e);
+                    }
+                    
+                    // Load projects data
+                    try {
+                        const projectsResponse = await fetch('data/projects.json');
+                        if (projectsResponse.ok) {
+                            const projectsJson = await projectsResponse.json();
+                            if (projectsJson.projects && Array.isArray(projectsJson.projects)) {
+                                projectsData = projectsJson.projects;
+                            }
+                        }
+                    } catch (e) {
+                        console.warn('Could not load projects.json:', e);
+                    }
+                    
+                    // Generate HTML content
+                    const resumeHTML = `
+                        <div style="color: #333; line-height: 1.8; font-family: 'Georgia', serif; max-width: 800px; margin: 0 auto;">
+                            <h1 style="color: #2c3e50; text-align: center; margin-bottom: 10px; font-size: 32px;">Professional Profile</h1>
+                            <p style="text-align: center; color: #666; margin-bottom: 30px; font-size: 16px;">Full-Stack Developer | Robotics & AI Specialist</p>
+                            
+                            ${experienceData.length > 0 ? `
+                            <h2 style="color: #2c3e50; border-bottom: 3px solid #8B5A2B; padding-bottom: 10px; margin-top: 40px; font-size: 24px;">Experience</h2>
+                            ${experienceData.map(exp => `
+                                <div style="margin: 25px 0; padding: 20px; background: #f8f9fa; border-left: 4px solid #8B5A2B; border-radius: 5px;">
+                                    ${exp.logoUrl ? `<img src="${exp.logoUrl}" style="max-height: 40px; margin-bottom: 10px;" onerror="this.style.display='none'" alt="${exp.organization || 'Company'} logo">` : ''}
+                                    <h3 style="color: #2c3e50; margin: 0 0 8px 0; font-size: 18px;">${exp.role || exp.title || 'Role'}</h3>
+                                    <p style="color: #666; font-style: italic; margin: 5px 0; font-size: 14px;">
+                                        <strong>${exp.organization || exp.company || 'Organization'}</strong> | ${exp.period || exp.date || 'Date'}
+                                    </p>
+                                    ${exp.location ? `<p style="color: #777; font-size: 13px; margin: 5px 0;">📍 ${exp.location}</p>` : ''}
+                                    ${exp.description ? `<p style="margin: 15px 0 0 0; color: #555; line-height: 1.6;">${exp.description}</p>` : ''}
+                                    ${exp.skills && exp.skills.length > 0 ? `
+                                        <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px;">
+                                            ${exp.skills.slice(0, 8).map(skill => `
+                                                <span style="background: #e3f2fd; color: #1976d2; padding: 4px 10px; border-radius: 12px; font-size: 11px;">${skill}</span>
+                                            `).join('')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `).join('')}
+                            ` : ''}
+                            
+                            ${Object.keys(skillsData).length > 0 ? `
+                            <h2 style="color: #2c3e50; border-bottom: 3px solid #8B5A2B; padding-bottom: 10px; margin-top: 40px; font-size: 24px;">Technical Skills</h2>
+                            <div style="margin: 20px 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                                ${Object.entries(skillsData).slice(0, 30).map(([skill, data]) => `
+                                    <div style="background: #f8f9fa; padding: 12px 16px; border-radius: 5px; border-left: 3px solid ${data.color || '#8B5A2B'}; font-size: 14px;">
+                                        <strong style="color: #2c3e50;">${skill}</strong>
+                                        ${data.category ? `<br><span style="font-size: 11px; color: #666;">${data.category}</span>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ` : ''}
+                            
+                            ${projectsData.length > 0 ? `
+                            <h2 style="color: #2c3e50; border-bottom: 3px solid #8B5A2B; padding-bottom: 10px; margin-top: 40px; font-size: 24px;">Projects</h2>
+                            ${projectsData.map(project => `
+                                <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+                                    <h3 style="color: #2c3e50; margin: 0 0 8px 0; font-size: 16px;">
+                                        ${project.url ? `<a href="${project.url}" target="_blank" style="color: #8B5A2B; text-decoration: none;">${project.name}</a>` : project.name}
+                                    </h3>
+                                    ${project.description ? `<p style="margin: 5px 0; color: #555; font-size: 14px;">${project.description}</p>` : ''}
+                                </div>
+                            `).join('')}
+                            ` : ''}
+                            
+                            <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #e0e0e0; text-align: center;">
+                                <p style="color: #999; font-size: 12px; margin: 10px 0;">
+                                    <em>📄 This resume was dynamically generated from JSON data files</em>
+                                </p>
+                                <p style="color: #999; font-size: 12px; margin: 5px 0;">
+                                    Place <strong>resume.pdf</strong> in the root directory to display your PDF resume instead
+                                </p>
+                            </div>
+                            
+                            ${experienceData.length === 0 && Object.keys(skillsData).length === 0 && projectsData.length === 0 ? `
+                                <div style="text-align: center; padding: 40px 20px; color: #666;">
+                                    <h3 style="color: #999; margin-bottom: 20px;">No Content Available</h3>
+                                    <p style="margin: 10px 0;">Add <strong>resume.pdf</strong> to the root directory, or populate:</p>
+                                    <ul style="list-style: none; padding: 0; margin: 20px 0;">
+                                        <li style="margin: 8px 0;">📁 data/experience.json</li>
+                                        <li style="margin: 8px 0;">📁 data/skills.json</li>
+                                        <li style="margin: 8px 0;">📁 js/projects-data.js</li>
+                                    </ul>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                    document.getElementById('resume-content').innerHTML = resumeHTML;
+                    
+                } catch (fallbackError) {
+                    console.error('Error generating fallback content:', fallbackError);
+                    document.getElementById('resume-content').innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #666;">
+                            <h3 style="color: #999;">Resume Unavailable</h3>
+                            <p style="margin: 20px 0;">Add <strong>resume.pdf</strong> to the root directory to display your resume.</p>
+                            <p style="margin: 10px 0; font-size: 14px;">Alternatively, populate data files:</p>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>data/experience.json</li>
+                                <li>data/skills.json</li>
+                                <li>js/projects-data.js</li>
+                            </ul>
+                        </div>
+                    `;
+                }
+            }
+        }
+        
+        // Main transformation sequence
+        async function transformToResume() {
+            console.log('transformToResume called', { isTransformingToResume, isResumeMode });
+            
+            if (isTransformingToResume || isResumeMode) {
+                console.log('Already transforming or in resume mode, returning');
+                return;
+            }
+            
+            console.log('Starting transformation...');
+            isTransformingToResume = true;
+            
+            // Hide header title if still visible
+            const headerTitle = document.getElementById('header-title');
+            if (headerTitle && headerTitle.style.display !== 'none') {
+                headerTitle.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                headerTitle.style.opacity = '0';
+                headerTitle.style.transform = 'translateX(-50%) translateY(-20px)';
+                setTimeout(() => {
+                    headerTitle.style.display = 'none';
+                }, 500);
+            }
+            
+            // Fade out UI elements
+            const uiElements = [
+                document.getElementById('detail-card'),
+                document.getElementById('projects-panel'),
+                document.getElementById('theme-toggle'),
+                document.getElementById('resume-toggle'),
+                document.getElementById('navigation'),
+                document.getElementById('skill-legend'),
+                document.getElementById('experience-section'),
+                document.getElementById('roots-content'),
+                document.getElementById('projects-toggle'),
+                document.getElementById('legend-toggle'),
+                document.getElementById('trunk-ui'),
+                document.getElementById('roots-panel')
+            ];
+            
+            uiElements.forEach(el => {
+                if (el) {
+                    el.style.transition = 'opacity 0.5s ease-out';
+                    el.style.opacity = '0';
+                    setTimeout(() => { el.style.display = 'none'; }, 500);
+                }
+            });
+            
+            if (typeof hideCallout === 'function') {
+                hideCallout(false);
+            }
+            
+            // Disable callout loop during transformation
+            enableAutoCallouts = false;
+            if (typeof hideCallout === 'function') {
+                hideCallout(false);
+            }
+            
+            // Hide roots and experience section
+            skillTree.tree.traverse((obj) => {
+                // Hide trunk/roots meshes
+                if (obj.userData && (obj.userData.isTrunk || obj.userData.isRoot)) {
+                    obj.visible = false;
+                }
+            });
+            
+            console.log('1. Starting camera animation to trunk...');
+            // 1. Camera zooms to trunk
+            await animateCameraToTrunk();
+            console.log('1. Camera animation complete');
+            
+            console.log('2. Starting axe chop animation...');
+            // 2. Axe chops tree
+            await animateAxeChop();
+            console.log('2. Axe chop complete');
+            
+            console.log('3. Starting tree falling animation...');
+            // 3. Tree falls over
+            await animateTreeFalling();
+            console.log('3. Tree falling complete');
+            
+            console.log('4. Starting paper machine animation...');
+            // 4. Tree transforms to paper machine
+            await animatePaperMachine();
+            console.log('4. Paper machine complete');
+            
+            console.log('5. Creating and animating paper plane...');
+            // 5. Paper plane appears
+            const paper = createPaperPlane();
+            await animatePaperAppear(paper);
+            console.log('5. Paper plane complete');
+            
+            console.log('6. Loading resume content...');
+            // 6. Show resume content
+            await loadResumeContent();
+            document.getElementById('resume-container').classList.add('visible');
+            document.getElementById('recycle-tree').classList.add('visible');
+            console.log('6. Resume content loaded');
+            
+            isResumeMode = true;
+            isTransformingToResume = false;
+            console.log('Transformation complete!');
+        }
+        
+        // Transform back to tree
+        async function transformToTree() {
+            if (isTransformingToResume || !isResumeMode) return;
+            
+            isTransformingToResume = true;
+            
+            // Fade out resume first
+            const resumeContainer = document.getElementById('resume-container');
+            resumeContainer.style.opacity = '0';
+            
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            // Hide resume
+            resumeContainer.classList.remove('visible');
+            document.getElementById('back-to-tree').classList.remove('visible');
+            
+            // Remove paper plane
+            const toRemove = [];
+            scene.children.forEach(child => {
+                if (child instanceof THREE.Mesh && child.geometry instanceof THREE.PlaneGeometry) {
+                    toRemove.push(child);
+                }
+            });
+            toRemove.forEach(obj => scene.remove(obj));
+            
+            // Remove old fallen tree completely
+            if (skillTree.tree) {
+                scene.remove(skillTree.tree);
+            }
+            
+            // Reset camera to original position
+            camera.position.set(0, 0, 20);
+            camera.rotation.set(0, 0, 0);
+            controls.target.set(0, 0, 0);
+            controls.update();
+            
+            // Rebuild tree from scratch with animation
+            skillTree.tree = null;
+            skillTree.nodes = [];
+            skillTree.branches = [];
+            skillTree.isAnimating = true;
+            skillTree.buildProgress = 0;
+            
+            // Rebuild the tree structure
+            await skillTree.buildTree(skillTree.hierarchyData);
+            
+            // Show roots and trunk again
+            if (skillTree.tree) {
+                skillTree.tree.traverse((obj) => {
+                    if (obj.userData && (obj.userData.isTrunk || obj.userData.isRoot)) {
+                        obj.visible = true;
+                    }
+                });
+            }
+            
+            // Re-enable controls and callouts
+            controls.enabled = true;
+            enableAutoCallouts = true;
+            
+            // Fade UI elements back in
+            const uiElements = [
+                document.getElementById('detail-card'),
+                document.getElementById('projects-panel'),
+                document.getElementById('theme-toggle'),
+                document.getElementById('resume-toggle'),
+                document.getElementById('navigation'),
+                document.getElementById('skill-legend'),
+                document.getElementById('experience-section'),
+                document.getElementById('roots-content'),
+                document.getElementById('projects-toggle'),
+                document.getElementById('legend-toggle')
+            ];
+            
+            uiElements.forEach(el => {
+                if (el) {
+                    el.style.display = 'block';
+                    el.style.opacity = '0';
+                    setTimeout(() => {
+                        el.style.transition = 'opacity 0.5s ease-in';
+                        el.style.opacity = '1';
+                    }, 50);
+                }
+            });
+            
+            isResumeMode = false;
+            isTransformingToResume = false;
+        }
+        
+        // Recycle and replant tree with seed intro
+        async function recycleAndReplant() {
+            if (isTransformingToResume) return;
+            
+            // Fade out resume first
+            const resumeContainer = document.getElementById('resume-container');
+            if (resumeContainer) {
+                resumeContainer.style.opacity = '0';
+            }
+            
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            // Hide resume and recycle button
+            if (resumeContainer) resumeContainer.classList.remove('visible');
+            const recycleBtn = document.getElementById('recycle-tree');
+            if (recycleBtn) recycleBtn.classList.remove('visible');
+            
+            // Full page reload for clean reset
+            window.location.reload();
+        }
+        
+        // Add event listeners
+        const resumeToggleBtn = document.getElementById('resume-toggle');
+        const backToTreeBtn = document.getElementById('back-to-tree');
+        const recycleBtn = document.getElementById('recycle-tree');
+        
+        if (resumeToggleBtn) {
+            resumeToggleBtn.addEventListener('click', () => {
+                console.log('Resume toggle clicked');
+                transformToResume();
+            });
+        } else {
+            console.error('Resume toggle button not found!');
+        }
+        
+        if (backToTreeBtn) {
+            backToTreeBtn.addEventListener('click', transformToTree);
+        }
+        
+        if (recycleBtn) {
+            recycleBtn.addEventListener('click', recycleAndReplant);
+        }
         
         // ===== ANIMATION LOOP =====
         let time = 0;
@@ -3804,9 +4988,38 @@
                 }
             }
             
-            // Slow rotation (pause when node selected, hovered, or during build animation)
-            if (skillTree.tree && !skillTree.selectedNode && !skillTree.isAnimating && !hoveredNode) {
+            // Slow rotation (pause when node selected, hovered, or during build animation, or transforming)
+            if (skillTree.tree && !skillTree.selectedNode && !skillTree.isAnimating && !hoveredNode && !isTransformingToResume) {
                 skillTree.tree.rotation.y += isMobile ? 0.001 : 0.002; // Slower rotation on mobile
+            }
+            
+            // Keep paper plane facing camera in resume mode
+            if (isResumeMode) {
+                scene.children.forEach(child => {
+                    if (child.userData && child.userData.isPaper) {
+                        child.lookAt(camera.position);
+                    }
+                });
+            }
+            
+            // Scale trunk-ui with camera zoom
+            const trunkUI = document.getElementById('trunk-ui');
+            if (trunkUI && !isResumeMode && !isTransformingToResume) {
+                // Calculate scale based on camera distance (default is 20)
+                const defaultDistance = 20;
+                const currentDistance = camera.position.length();
+                // Invert scaling: closer = shorter, farther = taller
+                const scale = Math.pow(currentDistance / defaultDistance, 1.5);
+                // Clamp scale between 0.3 and 3.0 for wider range
+                const clampedScale = Math.max(0.3, Math.min(3.0, scale));
+                trunkUI.style.transform = `translateX(-50%) scaleY(${clampedScale})`;
+                
+                // Update trunk position to match roots panel height
+                const rootsPanel = document.getElementById('roots-panel');
+                if (rootsPanel) {
+                    const rootsHeight = rootsPanel.offsetHeight;
+                    trunkUI.style.bottom = `${rootsHeight}px`;
+                }
             }
             
             skillTree.update(time);
