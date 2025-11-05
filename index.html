@@ -40,7 +40,7 @@
             z-index: 100;
             color: white;
             opacity: 0;
-            transition: opacity 0.8s ease 0.5s;
+            transition: opacity 0.2s ease;
             background: rgba(0, 0, 0, 0.75);
             padding: 20px 40px;
             border-radius: 12px;
@@ -1550,7 +1550,7 @@
             backdrop-filter: blur(5px);
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeInUp 0.5s ease forwards;
+            animation: fadeInUp 0.2s ease forwards;
         }
         
         @keyframes fadeInUp {
@@ -3249,6 +3249,7 @@
         loadProjects();
         
         // ===== BUILD & ANIMATE =====
+        console.log('📌 Version: Instant Load (No Seed Animation) - v3.0');
         const skillTree = new SkillTree3D();
         const seedAnimation = document.getElementById('seed-animation');
         
