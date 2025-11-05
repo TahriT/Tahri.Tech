@@ -40,7 +40,7 @@
             z-index: 100;
             color: white;
             opacity: 0;
-            transition: opacity 0.8s ease 0.5s;
+            transition: opacity 0.2s ease;
             background: rgba(0, 0, 0, 0.75);
             padding: 20px 40px;
             border-radius: 12px;
@@ -617,8 +617,8 @@
             pointer-events: none;
             z-index: 45;
             opacity: 0;
-            transition: bottom 0.5s ease, 
-                        opacity 0.8s ease 0.3s;
+            transition: bottom 0.4s ease, 
+                        opacity 0.2s ease;
         }
         
         #trunk-ui.loaded {
@@ -647,8 +647,8 @@
             box-shadow: 0 -10px 40px rgba(101, 67, 33, 0.4);
             backdrop-filter: blur(10px);
             opacity: 0;
-            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
-                        opacity 0.8s ease,
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.2s ease,
                         max-height 0.3s ease;
             cursor: pointer;
             background-size: cover;
@@ -1288,7 +1288,7 @@
             backdrop-filter: blur(5px);
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeInUp 0.5s ease forwards;
+            animation: fadeInUp 0.2s ease forwards;
         }
         
         @keyframes fadeInUp {
@@ -1298,19 +1298,19 @@
             }
         }
         
-        /* Stagger animation for items */
-        .experience-item:nth-child(1) { animation-delay: 0.1s; }
-        .experience-item:nth-child(2) { animation-delay: 0.15s; }
-        .experience-item:nth-child(3) { animation-delay: 0.2s; }
-        .experience-item:nth-child(4) { animation-delay: 0.25s; }
-        .experience-item:nth-child(5) { animation-delay: 0.3s; }
-        .experience-item:nth-child(6) { animation-delay: 0.35s; }
-        .experience-item:nth-child(7) { animation-delay: 0.4s; }
-        .experience-item:nth-child(8) { animation-delay: 0.45s; }
-        .experience-item:nth-child(9) { animation-delay: 0.5s; }
-        .experience-item:nth-child(10) { animation-delay: 0.55s; }
-        .experience-item:nth-child(11) { animation-delay: 0.6s; }
-        .experience-item:nth-child(12) { animation-delay: 0.65s; }
+        /* Stagger animation for items - faster for instant loading */
+        .experience-item:nth-child(1) { animation-delay: 0s; }
+        .experience-item:nth-child(2) { animation-delay: 0.02s; }
+        .experience-item:nth-child(3) { animation-delay: 0.04s; }
+        .experience-item:nth-child(4) { animation-delay: 0.06s; }
+        .experience-item:nth-child(5) { animation-delay: 0.08s; }
+        .experience-item:nth-child(6) { animation-delay: 0.1s; }
+        .experience-item:nth-child(7) { animation-delay: 0.12s; }
+        .experience-item:nth-child(8) { animation-delay: 0.14s; }
+        .experience-item:nth-child(9) { animation-delay: 0.16s; }
+        .experience-item:nth-child(10) { animation-delay: 0.18s; }
+        .experience-item:nth-child(11) { animation-delay: 0.2s; }
+        .experience-item:nth-child(12) { animation-delay: 0.22s; }
         
         .experience-item:hover {
             background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 255, 0.3));
@@ -2697,43 +2697,35 @@
         loadProjects();
         
         // ===== BUILD & ANIMATE =====
+        console.log('📌 Version: Instant Load (No Seed Animation) - v3.0');
         const skillTree = new SkillTree3D();
         const seedAnimation = document.getElementById('seed-animation');
         
-        // Start building tree (hidden initially)
-        skillTree.build();
-        
-        // Seed animation sequence
-        setTimeout(() => {
-            // Hide seed animation after it lands (2s fall + 0.8s impact + 0.8s text)
+        // Force hide seed animation immediately
+        if (seedAnimation) {
+            seedAnimation.style.display = 'none';
             seedAnimation.classList.add('hidden');
-            
-            // Show header title after seed animation
-            document.getElementById('header-title').classList.add('visible');
-            
-            // Show experience panel and trunk after seed disappears
-            setTimeout(() => {
-                document.getElementById('roots-panel').classList.add('loaded');
-                document.getElementById('trunk-ui').classList.add('loaded');
-                
-                // Show legend automatically on desktop only, hide on mobile
-                const legend = document.getElementById('legend');
-                const legendToggle = document.getElementById('legend-toggle');
-                
-                if (!isMobile) {
-                    legend.classList.add('visible');
-                } else {
-                    // Start collapsed on mobile with info icon
-                    legend.classList.add('hidden');
-                    legendToggle.textContent = 'ℹ️';
-                }
-                
-                // Start tree build animation after roots panel is visible
-                setTimeout(() => {
-                    skillTree.startBuildAnimation();
-                }, 500); // Additional 0.5s delay after panel loads
-            }, 800); // Wait for seed animation fade out
-        }, 3600); // 3.6 seconds total for seed animation
+        }
+        
+        // Show all UI elements immediately (no delays)
+        document.getElementById('header-title').classList.add('visible');
+        document.getElementById('roots-panel').classList.add('loaded');
+        document.getElementById('trunk-ui').classList.add('loaded');
+        
+        // Show legend automatically on desktop only, hide on mobile
+        const legendEl = document.getElementById('legend');
+        const legendToggleEl = document.getElementById('legend-toggle');
+        
+        if (!isMobile) {
+            legendEl.classList.add('visible');
+        } else {
+            // Start collapsed on mobile
+            legendEl.classList.add('hidden');
+        }
+        
+        // Start building tree and animation immediately
+        skillTree.build();
+        skillTree.startBuildAnimation();
         
         // ===== ROOTS PANEL TOGGLE (Mobile) =====
         const rootsToggle = document.getElementById('roots-toggle');
