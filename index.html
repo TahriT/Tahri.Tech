@@ -178,6 +178,230 @@
             box-shadow: 0 6px 20px rgba(0, 255, 255, 0.5);
         }
 
+        /* Resume Toggle Button */
+        #resume-toggle {
+            position: fixed;
+            top: 10px;
+            right: 140px; /* Next to theme button */
+            background: rgba(139, 90, 43, 0.2);
+            border: 2px solid rgba(139, 90, 43, 0.6);
+            color: #8B5A2B;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 160;
+            font-size: 24px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(139, 90, 43, 0.3);
+        }
+
+        #resume-toggle:hover {
+            background: rgba(139, 90, 43, 0.4);
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(139, 90, 43, 0.5);
+        }
+
+        /* Resume Paper Plane - Full Screen */
+        #resume-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            display: none;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 80px 60px 60px 60px; /* Extra top padding for back button */
+            opacity: 0;
+            transition: opacity 0.5s ease-in;
+        }
+
+        #resume-container.visible {
+            display: block;
+            opacity: 1;
+        }
+        
+        #resume-container::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        #resume-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        #resume-container::-webkit-scrollbar-thumb {
+            background: #8B5A2B;
+            border-radius: 5px;
+        }
+        
+        #resume-container::-webkit-scrollbar-thumb:hover {
+            background: #6B4423;
+        }
+        
+        /* Resume content wrapper for max-width control */
+        #resume-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            color: #2c3e50;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        /* Resume styling */
+        .resume-category {
+            margin-bottom: 40px;
+        }
+        
+        .resume-category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #8B5A2B;
+        }
+        
+        .resume-category-icon {
+            font-size: 32px;
+        }
+        
+        .resume-category-title {
+            font-size: 28px;
+            color: #2c3e50;
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .resume-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .resume-item {
+            background: #f8f9fa;
+            border-left: 4px solid #8B5A2B;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .resume-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .resume-item-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .resume-item-logo {
+            max-height: 45px;
+            max-width: 70px;
+            object-fit: contain;
+        }
+        
+        .resume-item-title {
+            flex: 1;
+        }
+        
+        .resume-item-title h3 {
+            font-size: 20px;
+            color: #2c3e50;
+            margin: 0 0 6px 0;
+            font-weight: 600;
+        }
+        
+        .resume-item-org {
+            font-size: 16px;
+            color: #555;
+            margin: 0 0 4px 0;
+            font-weight: 500;
+        }
+        
+        .resume-item-period {
+            font-size: 14px;
+            color: #8B5A2B;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .resume-item-location {
+            font-size: 13px;
+            color: #666;
+            margin: 4px 0 0 0;
+            font-style: italic;
+        }
+        
+        .resume-item-description {
+            font-size: 15px;
+            color: #444;
+            line-height: 1.6;
+            margin: 12px 0 0 0;
+        }
+
+        #back-to-tree {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(139, 90, 43, 0.9);
+            border: 2px solid rgba(139, 90, 43, 1);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        #back-to-tree.visible {
+            display: block;
+        }
+
+        #back-to-tree:hover {
+            background: rgba(139, 90, 43, 1);
+            transform: scale(1.05);
+        }
+
+        /* Recycle/Replant Button */
+        #recycle-tree {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(76, 175, 80, 0.9);
+            border: 2px solid rgba(76, 175, 80, 1);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 1001;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: none;
+        }
+
+        #recycle-tree.visible {
+            display: block;
+        }
+
+        #recycle-tree:hover {
+            background: rgba(76, 175, 80, 1);
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.5);
+        }
+
         /* Nature theme styling */
         body.nature-theme #theme-toggle {
             background: rgba(139, 69, 19, 0.3);
@@ -611,6 +835,7 @@
             bottom: 280px;
             left: 50%;
             transform: translateX(-50%);
+            transform-origin: bottom center;
             width: 4px;
             height: 200px;
             background: linear-gradient(to top, rgba(0, 255, 255, 0.8), transparent);
@@ -618,7 +843,8 @@
             z-index: 45;
             opacity: 0;
             transition: bottom 0.4s ease, 
-                        opacity 0.2s ease;
+                        opacity 0.8s ease 0.3s;
+            will-change: transform, bottom;
         }
         
         #trunk-ui.loaded {
@@ -630,6 +856,11 @@
             opacity: 1; /* Keep visible when collapsed */
         }
         
+        /* Update trunk position dynamically based on roots panel */
+        #trunk-ui.roots-expanded {
+            bottom: 280px;
+        }
+        
         #roots-panel {
             position: fixed;
             bottom: 0;
@@ -637,7 +868,7 @@
             transform: translateX(-50%) translateY(100%);
             width: 90%;
             max-width: 1400px;
-            max-height: 280px;
+            max-height: 80px; /* Collapsed by default */
             background: linear-gradient(to bottom, rgba(101, 67, 33, 0.98), rgba(139, 69, 19, 0.95), rgba(160, 100, 60, 0.9), rgba(180, 130, 90, 0.85));
             border: 2px solid rgba(101, 67, 33, 0.6);
             border-bottom: none;
@@ -647,9 +878,9 @@
             box-shadow: 0 -10px 40px rgba(101, 67, 33, 0.4);
             backdrop-filter: blur(10px);
             opacity: 0;
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
-                        opacity 0.2s ease,
-                        max-height 0.3s ease;
+            transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1), 
+                        opacity 0.8s ease,
+                        max-height 0.4s ease;
             cursor: pointer;
             background-size: cover;
             background-position: center bottom;
@@ -660,7 +891,7 @@
         }
         
         #roots-panel:hover {
-            max-height: 500px;
+            max-height: 350px; /* Expand on hover */
         }
         
         #roots-panel.loaded {
@@ -736,14 +967,15 @@
         #roots-content {
             padding: 25px 30px;
             color: white;
+            overflow: hidden;
         }
         
         #experience-list {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 15px;
-            max-height: 200px;
-            overflow-y: auto;
+            max-height: none; /* No height limit, controlled by parent */
+            overflow-y: visible;
             padding-right: 10px;
             position: relative;
             background: 
@@ -785,48 +1017,6 @@
                 grid-template-columns: 1fr;
             }
             
-            #legend {
-                top: 10px;
-                left: 10px;
-                padding: 10px;
-                font-size: 10px;
-                max-width: 180px;
-            }
-            
-            #legend h4 {
-                font-size: 12px;
-                margin-bottom: 8px;
-                padding-bottom: 6px;
-            }
-            
-            .legend-item {
-                margin: 6px 0;
-                gap: 8px;
-            }
-            
-            .legend-icon.small {
-                width: 10px;
-                height: 10px;
-            }
-            
-            .legend-icon.medium {
-                width: 14px;
-                height: 14px;
-            }
-            
-            .legend-icon.large {
-                width: 18px;
-                height: 18px;
-            }
-            
-            .legend-text {
-                font-size: 10px;
-            }
-            
-            .legend-divider {
-                margin: 6px 0;
-            }
-            
             /* Reduce animations on mobile for better performance */
             #projects-toggle {
                 animation: fruitSwing 3s ease-in-out infinite; /* Slower swing, no glow */
@@ -852,9 +1042,9 @@
                 top: 70px; /* Below button with more space */
                 left: 15px; /* Align with button */
                 max-width: calc(100vw - 30px); /* Full width minus margins */
-                min-width: 250px; /* Maintain good size */
+                min-width: 280px; /* Increased from 250px for better layout */
                 max-height: calc(100vh - 150px); /* Don't go off bottom */
-                padding: 15px; /* Keep full padding */
+                padding: 18px; /* Increased from 15px */
                 overflow-y: auto; /* Allow scrolling if needed */
                 right: auto;
                 width: auto;
@@ -862,19 +1052,28 @@
                 opacity: 0;
                 pointer-events: none;
                 transition: opacity 0.3s ease, transform 0.3s ease;
+                font-size: 14px; /* Consistent with desktop */
             }
             
             /* Larger text on mobile for better readability */
             #legend h4 {
-                font-size: 15px;
+                font-size: 17px; /* Increased from 15px */
+                margin-bottom: 12px;
+                padding-bottom: 10px;
             }
             
             .legend-text {
-                font-size: 13px;
+                font-size: 14px; /* Increased from 13px to match desktop */
+                line-height: 1.5;
             }
             
             .legend-item {
                 margin: 10px 0; /* More spacing on mobile */
+                gap: 12px;
+            }
+            
+            .legend-divider {
+                margin: 12px 0;
             }
             
             /* When legend is visible (not hidden) */
@@ -988,6 +1187,69 @@
             .project-link {
                 padding: 8px 15px;
                 font-size: 12px;
+            }
+            
+            /* Resume container mobile adjustments */
+            #resume-container {
+                padding: 70px 20px 40px 20px; /* Reduced padding for mobile */
+            }
+            
+            #resume-content {
+                max-width: 100%; /* Full width on mobile */
+            }
+            
+            #resume-container h1 {
+                font-size: 28px !important; /* Smaller heading on mobile */
+                margin-bottom: 30px !important;
+            }
+            
+            .resume-category-header {
+                flex-direction: row;
+                gap: 10px;
+            }
+            
+            .resume-category-icon {
+                font-size: 24px;
+            }
+            
+            .resume-category-title {
+                font-size: 22px;
+            }
+            
+            .resume-item {
+                padding: 16px;
+            }
+            
+            .resume-item-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .resume-item-logo {
+                max-height: 35px;
+            }
+            
+            .resume-item-title h3 {
+                font-size: 18px;
+            }
+            
+            .resume-item-org {
+                font-size: 14px;
+            }
+            
+            .resume-item-period {
+                font-size: 13px;
+            }
+            
+            .resume-item-description {
+                font-size: 14px;
+            }
+            
+            #back-to-tree {
+                top: 10px;
+                left: 10px;
+                padding: 8px 16px;
+                font-size: 14px;
             }
         }
         
@@ -1277,12 +1539,12 @@
         
         .experience-item {
             margin-bottom: 0;
-            padding: 12px 15px;
+            padding: 10px 12px;
             background: linear-gradient(135deg, rgba(0, 255, 255, 0.08), rgba(0, 255, 255, 0.18));
             border-left: 4px solid #00ffff;
             border-radius: 8px;
             transition: all 0.3s ease;
-            height: fit-content;
+            height: fit-content; /* Cards are fully expanded */
             position: relative;
             z-index: 1;
             backdrop-filter: blur(5px);
@@ -1298,30 +1560,44 @@
             }
         }
         
-        /* Stagger animation for items - faster for instant loading */
-        .experience-item:nth-child(1) { animation-delay: 0s; }
-        .experience-item:nth-child(2) { animation-delay: 0.02s; }
-        .experience-item:nth-child(3) { animation-delay: 0.04s; }
-        .experience-item:nth-child(4) { animation-delay: 0.06s; }
-        .experience-item:nth-child(5) { animation-delay: 0.08s; }
-        .experience-item:nth-child(6) { animation-delay: 0.1s; }
-        .experience-item:nth-child(7) { animation-delay: 0.12s; }
-        .experience-item:nth-child(8) { animation-delay: 0.14s; }
-        .experience-item:nth-child(9) { animation-delay: 0.16s; }
-        .experience-item:nth-child(10) { animation-delay: 0.18s; }
-        .experience-item:nth-child(11) { animation-delay: 0.2s; }
-        .experience-item:nth-child(12) { animation-delay: 0.22s; }
+        /* Icon and logo header row */
+        .experience-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+        
+        .experience-icon {
+            font-size: 20px;
+            opacity: 0.9;
+            flex-shrink: 0;
+        }
+        
+        .experience-logo {
+            height: 22px;
+            vertical-align: middle;
+            flex-shrink: 0;
+        }
+        
+        /* Stagger animation for items */
+        .experience-item:nth-child(1) { animation-delay: 0.1s; }
+        .experience-item:nth-child(2) { animation-delay: 0.15s; }
+        .experience-item:nth-child(3) { animation-delay: 0.2s; }
+        .experience-item:nth-child(4) { animation-delay: 0.25s; }
+        .experience-item:nth-child(5) { animation-delay: 0.3s; }
+        .experience-item:nth-child(6) { animation-delay: 0.35s; }
+        .experience-item:nth-child(7) { animation-delay: 0.4s; }
+        .experience-item:nth-child(8) { animation-delay: 0.45s; }
+        .experience-item:nth-child(9) { animation-delay: 0.5s; }
+        .experience-item:nth-child(10) { animation-delay: 0.55s; }
+        .experience-item:nth-child(11) { animation-delay: 0.6s; }
+        .experience-item:nth-child(12) { animation-delay: 0.65s; }
         
         .experience-item:hover {
             background: linear-gradient(135deg, rgba(0, 255, 255, 0.2), rgba(0, 255, 255, 0.3));
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0, 255, 255, 0.4);
-        }
-        
-        .experience-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-            opacity: 0.9;
         }
         
         .experience-item h4 {
@@ -1431,15 +1707,15 @@
             background: rgba(10, 10, 20, 0.95);
             border: 2px solid rgba(0, 255, 255, 0.4);
             border-radius: 10px;
-            padding: 15px;
+            padding: 18px;
             backdrop-filter: blur(10px);
             opacity: 0;
             transform: translateY(-10px);
             transition: opacity 0.3s ease, transform 0.3s ease;
-            font-size: 12px;
+            font-size: 14px; /* Increased from 12px for better readability */
             color: #ccc;
-            max-width: 250px;
-            min-width: 220px; /* Ensure consistent width */
+            max-width: 280px; /* Increased from 250px */
+            min-width: 240px; /* Increased from 220px for better spacing */
             pointer-events: none;
             z-index: 150;
             box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
@@ -1465,20 +1741,82 @@
         }
         
         #legend h4 {
-            margin: 0 0 10px 0;
+            margin: 0 0 12px 0;
             color: #00ffff;
-            font-size: 16px;
+            font-size: 18px; /* Increased from 16px */
             font-weight: 600;
             text-align: center;
             border-bottom: 1px solid rgba(0, 255, 255, 0.3);
-            padding-bottom: 8px;
+            padding-bottom: 10px; /* Increased from 8px */
         }
         
         .legend-item {
             display: flex;
             align-items: center;
-            margin: 8px 0;
-            gap: 10px;
+            margin: 10px 0; /* Increased from 8px */
+            gap: 12px; /* Increased from 10px */
+        }
+        
+        /* Visual scale illustration */
+        .legend-scale {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 0;
+        }
+        
+        .scale-line {
+            width: 20px;
+            height: 2px;
+            background: rgba(0, 255, 255, 0.4);
+        }
+        
+        body.nature-theme .scale-line {
+            background: rgba(102, 187, 106, 0.4);
+        }
+        
+        /* Vertical scale for niche/foundational */
+        .legend-vertical-scale {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 0;
+            gap: 4px;
+        }
+        
+        .vertical-line {
+            width: 2px;
+            height: 25px;
+            background: rgba(0, 255, 255, 0.4);
+        }
+        
+        body.nature-theme .vertical-line {
+            background: rgba(102, 187, 106, 0.4);
+        }
+        
+        .vertical-arrow {
+            font-size: 14px;
+            line-height: 1;
+            color: rgba(0, 255, 255, 0.6);
+        }
+        
+        body.nature-theme .vertical-arrow {
+            color: rgba(102, 187, 106, 0.6);
+        }
+        
+        /* 2-column layout for categories */
+        .legend-categories {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 12px;
+            margin-top: 0;
+        }
+        
+        .legend-categories .legend-item {
+            margin: 0;
+            gap: 8px;
         }
         
         .legend-icon {
@@ -1486,6 +1824,13 @@
             height: 20px;
             border-radius: 50%;
             flex-shrink: 0;
+            background: rgba(0, 255, 255, 0.6); /* Default cyan color for tech theme */
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+        }
+        
+        body.nature-theme .legend-icon {
+            background: rgba(102, 187, 106, 0.6); /* Green for nature theme */
+            box-shadow: 0 0 8px rgba(102, 187, 106, 0.4);
         }
         
         .legend-icon.small {
@@ -1503,7 +1848,13 @@
             height: 20px;
         }
         
+        /* Category-specific colors override the default */
         .legend-icon.robotics {
+            background: #FF4500;
+            box-shadow: 0 0 10px #FF4500;
+        }
+        
+        body.nature-theme .legend-icon.robotics {
             background: #FF4500;
             box-shadow: 0 0 10px #FF4500;
         }
@@ -1513,7 +1864,17 @@
             box-shadow: 0 0 10px #4169E1;
         }
         
+        body.nature-theme .legend-icon.programming {
+            background: #4169E1;
+            box-shadow: 0 0 10px #4169E1;
+        }
+        
         .legend-icon.data {
+            background: #32CD32;
+            box-shadow: 0 0 10px #32CD32;
+        }
+        
+        body.nature-theme .legend-icon.data {
             background: #32CD32;
             box-shadow: 0 0 10px #32CD32;
         }
@@ -1528,6 +1889,11 @@
             box-shadow: 0 0 10px #9370DB;
         }
         
+        body.nature-theme .legend-icon.ai {
+            background: #9370DB;
+            box-shadow: 0 0 10px #9370DB;
+        }
+        
         .legend-icon.industrial {
             background: #DC143C;
             box-shadow: 0 0 10px #DC143C;
@@ -1538,25 +1904,45 @@
             box-shadow: 0 0 10px #FF1493;
         }
         
+        body.nature-theme .legend-icon.design {
+            background: #FF1493;
+            box-shadow: 0 0 10px #FF1493;
+        }
+        
         .legend-icon.devops {
+            background: #20B2AA;
+            box-shadow: 0 0 10px #20B2AA;
+        }
+        
+        body.nature-theme .legend-icon.devops {
             background: #20B2AA;
             box-shadow: 0 0 10px #20B2AA;
         }
         
         .legend-text {
             flex: 1;
-            line-height: 1.4;
-            font-size: 13px;
+            line-height: 1.5; /* Increased from 1.4 */
+            font-size: 14px; /* Increased from 13px for better readability */
         }
         
         .legend-divider {
             height: 1px;
             background: rgba(0, 255, 255, 0.2);
-            margin: 10px 0;
+            margin: 12px 0; /* Increased from 10px */
         }
         
         /* Seed of Knowledge Loading Animation */
+        /* By default the startup "Seed of Knowledge" intro animations are disabled.
+           To enable them, add the class `enable-startup-animations` to the <body> element. */
         #seed-animation {
+            /* hidden by default so the page starts up without the intro animation */
+            display: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* When enabled, restore the full-screen seed animation container */
+        body.enable-startup-animations #seed-animation {
             position: fixed;
             top: 0;
             left: 0;
@@ -1591,8 +1977,118 @@
             transform: translateX(-50%);
             width: 80px;
             height: 80px;
+            /* animations are scoped to body.enable-startup-animations below */
+        }
+
+        /* Scoped animations: only run when body has enable-startup-animations */
+        body.enable-startup-animations .seed {
             animation: seedFall 2s cubic-bezier(0.4, 0, 0.6, 1) forwards,
                        seedRotate 2s ease-in-out;
+        }
+        
+        /* Watering can animation - comes from top (starts after seed falls + 1s delay) */
+        .watering-can {
+            position: absolute;
+            top: -150px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 120px;
+            z-index: 10;
+        }
+
+        body.enable-startup-animations .watering-can {
+            animation: wateringCanMove 2s ease-in-out 2s forwards; /* Start at 3s (2s seed + 1s delay) */
+        }
+        
+        @keyframes wateringCanMove {
+            0% {
+                top: -150px;
+                transform: translateX(-50%) rotate(0deg);
+            }
+            25% {
+                top: 100px;
+                transform: translateX(-50%) rotate(0deg);
+            }
+            40% {
+                top: 100px;
+                transform: translateX(-50%) rotate(-45deg);
+            }
+            70% {
+                top: 100px;
+                transform: translateX(-50%) rotate(-45deg);
+            }
+            85% {
+                top: 100px;
+                transform: translateX(-50%) rotate(0deg);
+            }
+            100% {
+                top: -150px;
+                transform: translateX(-50%) rotate(0deg);
+            }
+        }
+        
+        /* Rain animation - multiple drops (synced with watering can pouring at 40% of its animation) */
+        .water-drops {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        body.enable-startup-animations .water-drops {
+            animation: rainFadeIn 0.3s ease-in 3.8s forwards,  /* Start at 3.8s (3s can start + 0.8s to pour position at 40%) */
+                       rainFadeOut 0.5s ease-out 5.4s forwards; /* Fade out when can returns upright at 85% (5.7s) */
+        }
+        
+        .water-drop {
+            position: absolute;
+            width: 2px;
+            height: 20px;
+            background: linear-gradient(to bottom, rgba(100, 180, 255, 0), rgba(100, 180, 255, 0.8), rgba(100, 180, 255, 0));
+            animation: dropFall 0.6s linear infinite;
+        }
+        
+        /* Create rain effect with multiple drops */
+        .water-drop:nth-child(1) { left: 45%; animation-delay: 0s; }
+        .water-drop:nth-child(2) { left: 48%; animation-delay: 0.1s; }
+        .water-drop:nth-child(3) { left: 50%; animation-delay: 0.05s; }
+        .water-drop:nth-child(4) { left: 52%; animation-delay: 0.15s; }
+        .water-drop:nth-child(5) { left: 55%; animation-delay: 0.08s; }
+        .water-drop:nth-child(6) { left: 46.5%; animation-delay: 0.2s; }
+        .water-drop:nth-child(7) { left: 49%; animation-delay: 0.12s; }
+        .water-drop:nth-child(8) { left: 51%; animation-delay: 0.18s; }
+        .water-drop:nth-child(9) { left: 53.5%; animation-delay: 0.03s; }
+        .water-drop:nth-child(10) { left: 47%; animation-delay: 0.22s; }
+        
+        @keyframes dropFall {
+            0% {
+                top: 180px;
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                top: calc(100vh - 370px);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes rainFadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        
+        @keyframes rainFadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; }
         }
         
         @keyframes seedFall {
@@ -1604,17 +2100,13 @@
             10% {
                 opacity: 1;
             }
-            85% {
-                top: calc(100vh - 350px);
+            50% {
+                top: calc(100vh - 370px);
                 transform: translateX(-50%) scale(1);
             }
-            90% {
-                top: calc(100vh - 380px);
-                transform: translateX(-50%) scale(1);
-            }
-            95% {
-                top: calc(100vh - 360px);
-                transform: translateX(-50%) scale(1);
+            70% {
+                top: calc(100vh - 370px);
+                transform: translateX(-50%) scale(1.2);
             }
             100% {
                 top: calc(100vh - 370px);
@@ -1627,8 +2119,14 @@
             0% {
                 transform: translateX(-50%) rotate(0deg);
             }
+            30% {
+                transform: translateX(-50%) rotate(180deg);
+            }
+            50% {
+                transform: translateX(-50%) rotate(360deg);
+            }
             100% {
-                transform: translateX(-50%) rotate(720deg);
+                transform: translateX(-50%) rotate(360deg);
             }
         }
         
@@ -1646,33 +2144,34 @@
         .seed svg {
             width: 100%;
             height: 100%;
+            /* glow animation only when enabled */
+        }
+
+        body.enable-startup-animations .seed svg {
             animation: seedGlow 1.5s ease-in-out infinite;
         }
         
-        .seed-impact {
-            position: absolute;
-            bottom: 370px;
-            left: 50%;
-            transform: translateX(-50%) scale(0);
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(139, 90, 43, 0.8), rgba(205, 133, 63, 0.4), transparent);
-            animation: impactWave 0.8s ease-out 2s forwards;
-        }
-        
-        @keyframes impactWave {
-            0% {
-                transform: translateX(-50%) scale(0);
-                opacity: 1;
-            }
-            100% {
-                transform: translateX(-50%) scale(3);
-                opacity: 0;
-            }
-        }
+        /* Removed seed-impact pulse animation */
         
         .seed-text {
+            position: absolute;
+            bottom: 250px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #8B5A2B;
+            font-size: 28px;
+            font-weight: 700;
+            text-align: center;
+            opacity: 0;
+            text-shadow: 0 0 10px rgba(139, 90, 43, 0.8);
+        }
+
+        body.enable-startup-animations .seed-text {
+            animation: textFadeIn 0.8s ease-out 0.2s forwards,
+                       textFadeOut 0.5s ease-out 0.9s forwards;
+        }
+        
+        .watering-text {
             position: absolute;
             bottom: 250px;
             left: 50%;
@@ -1682,9 +2181,12 @@
             font-weight: 700;
             text-align: center;
             opacity: 0;
-            animation: textFadeIn 0.8s ease-out 2.5s forwards,
-                       textFadeOut 0.5s ease-out 3.2s forwards;
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+        }
+
+        body.enable-startup-animations .watering-text {
+            animation: textFadeIn 0.8s ease-out 3.8s forwards,  /* Sync with water drops at pour position */
+                       textFadeOut 0.5s ease-out 5.4s forwards;   /* Fade out when pouring ends */
         }
         
         @keyframes textFadeIn {
@@ -1712,6 +2214,27 @@
     <!-- Seed of Knowledge Loading Animation -->
     <div id="seed-animation">
         <div class="seed-container">
+            <!-- Watering Can -->
+            <div class="watering-can">
+                <img src="https://uxwing.com/wp-content/themes/uxwing/download/agriculture-farming-gardening/watering-can-color-icon.svg" 
+                     alt="Watering Can" 
+                     style="width: 100%; height: 100%;">
+            </div>
+            
+            <!-- Rain drops -->
+            <div class="water-drops">
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+                <div class="water-drop"></div>
+            </div>
+            
             <div class="seed">
                 <svg viewBox="0 0 100 140" xmlns="http://www.w3.org/2000/svg">
                     <!-- Seed body - brown acorn-like shape -->
@@ -1735,8 +2258,8 @@
                     <path d="M 35 77 Q 50 73, 65 77" stroke="#3a2010" stroke-width="1" fill="none" opacity="0.4"/>
                 </svg>
             </div>
-            <div class="seed-impact"></div>
             <div class="seed-text">🌱 Seed of Knowledge 🌱</div>
+            <div class="watering-text">💧 Growing Skills 💧</div>
         </div>
     </div>
     
@@ -1744,54 +2267,81 @@
     
     <!-- Legend Toggle (Collapsible) with integrated dropdown -->
     <div id="legend-toggle-container">
-        <button id="legend-toggle" aria-label="Toggle skill tree key" title="Skill Tree Key">🗺️</button>
+        <button id="legend-toggle" aria-label="Toggle skill tree key" title="Skill Tree Key">ℹ️</button>
         
         <!-- Legend/Key as child of toggle button -->
         <div id="legend">
-            <h4>🗺️ Skill Tree Key</h4>
-            <div class="legend-item">
-                <div class="legend-icon small"></div>
-                <div class="legend-text">Smaller nodes = Less experience</div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-icon large"></div>
-                <div class="legend-text">Larger nodes = More experience</div>
-            </div>
-            <div class="legend-divider"></div>
-            <div class="legend-item">
-                <div class="legend-icon robotics"></div>
-                <div class="legend-text">Robotics & Automation</div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-icon programming"></div>
-                <div class="legend-text">Programming & Development</div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-icon data"></div>
-                <div class="legend-text">Data & Analytics</div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-icon ai"></div>
-                <div class="legend-text">AI & Machine Learning</div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-icon design"></div>
-                <div class="legend-text">Design & Visualization</div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-icon devops"></div>
-                <div class="legend-text">DevOps & Infrastructure</div>
+            <h4>ℹ️ Skill Tree Key</h4>
+            <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">             
+                <!-- Vertical niche/foundational scale -->
+                <div style="flex: 1;">
+                    <div class="legend-vertical-scale">
+                        <div class="legend-text" style="font-size: 11px; margin: 0;">Niche</div>
+                        <div class="vertical-arrow">↑</div>
+                        <div class="vertical-line"></div>
+                        <div class="vertical-arrow">↓</div>
+                        <div class="legend-text" style="font-size: 11px; margin: 0;">Foundational</div>
+                    </div>
+                </div>
+                      <!-- Experience scale -->
+                <div style="flex: 1;">
+                    <div class="legend-scale">
+                        <div class="legend-icon small"></div>
+                        <div class="scale-line"></div>
+                        <div class="legend-icon medium"></div>
+                        <div class="scale-line"></div>
+                        <div class="legend-icon large"></div>
+                    </div>
+                    <div class="legend-text" style="text-align: center; margin: 8px 0 10px 0; font-size: 12px;">Experience</div>
+                </div>
             </div>
             <div class="legend-divider"></div>
-            <div class="legend-text" style="font-size: 11px; font-style: italic; margin-top: 8px;">
-                ↑ Higher = More niche<br>
-                ↓ Lower = More foundational
+            <div class="legend-categories">
+                <div class="legend-item">
+                    <div class="legend-icon robotics"></div>
+                    <div class="legend-text">Robotics</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon programming"></div>
+                    <div class="legend-text">Programming</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon data"></div>
+                    <div class="legend-text">Data</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon ai"></div>
+                    <div class="legend-text">AI/ML</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon design"></div>
+                    <div class="legend-text">Design</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon devops"></div>
+                    <div class="legend-text">DevOps</div>
+                </div>
             </div>
         </div>
     </div>
     
     <!-- Theme Toggle -->
     <button id="theme-toggle" aria-label="Toggle color theme" title="Switch Theme">🌳</button>
+    
+    <!-- Resume Toggle Button -->
+    <button id="resume-toggle" aria-label="Transform to resume" title="View as Resume">📄</button>
+    
+    <!-- Back to Tree Button -->
+    <button id="back-to-tree">← Back to Tree</button>
+    
+    <!-- Recycle/Replant Button -->
+    <button id="recycle-tree">♻️ Recycle & Replant</button>
+    
+    <!-- Resume Container -->
+    <div id="resume-container">
+        <h1 style="text-align: center; color: #2c3e50; margin-bottom: 40px;">Resume</h1>
+        <div id="resume-content"></div>
+    </div>
     
     <!-- Projects Header (Collapsible) -->
     <button id="projects-toggle" aria-label="Toggle projects menu" title="Fruits of My Labor">🍎</button>
@@ -2249,12 +2799,14 @@
                             
                             let logoHtml = '';
                             if (item.logoUrl) {
-                                logoHtml = `<img src="${item.logoUrl}" alt="${item.organization} logo" style="height:28px;vertical-align:middle;margin-bottom:6px;">`;
+                                logoHtml = `<img src="${item.logoUrl}" alt="${item.organization} logo" class="experience-logo">`;
                             }
                             
                             itemDiv.innerHTML = `
-                                <div class="experience-icon">${category.icon}</div>
-                                ${logoHtml}
+                                <div class="experience-header">
+                                    <div class="experience-icon">${category.icon}</div>
+                                    ${logoHtml}
+                                </div>
                                 <h4>${item.title}</h4>
                                 <p class="experience-org">${item.organization}</p>
                                 <p class="experience-period"><strong>${item.period}</strong></p>
@@ -2701,40 +3253,139 @@
         const skillTree = new SkillTree3D();
         const seedAnimation = document.getElementById('seed-animation');
         
-        // Force hide seed animation immediately
-        if (seedAnimation) {
-            seedAnimation.style.display = 'none';
-            seedAnimation.classList.add('hidden');
-        }
+        // Check if we should enable startup animations (set by recycle/replant)
+        const shouldShowStartupAnimations = sessionStorage.getItem('enableStartupAnimations') === 'true';
         
-        // Show all UI elements immediately (no delays)
-        document.getElementById('header-title').classList.add('visible');
-        document.getElementById('roots-panel').classList.add('loaded');
-        document.getElementById('trunk-ui').classList.add('loaded');
-        
-        // Show legend automatically on desktop only, hide on mobile
-        const legendEl = document.getElementById('legend');
-        const legendToggleEl = document.getElementById('legend-toggle');
-        
-        if (!isMobile) {
-            legendEl.classList.add('visible');
+        if (shouldShowStartupAnimations) {
+            // Clear the flag so it doesn't persist
+            sessionStorage.removeItem('enableStartupAnimations');
+            
+            console.log('🌱 Startup animations enabled - showing seed sequence');
+            
+            // Add class to enable animations
+            document.body.classList.add('enable-startup-animations');
+            
+            // Show seed animation
+            if (seedAnimation) {
+                seedAnimation.style.display = 'flex';
+                seedAnimation.style.opacity = '1';
+                seedAnimation.classList.remove('hidden');
+            }
+            
+            // Wait for seed animation to complete (4 seconds)
+            setTimeout(() => {
+                // Hide seed animation with fade
+                if (seedAnimation) {
+                    seedAnimation.classList.add('hidden');
+                    setTimeout(() => {
+                        seedAnimation.style.display = 'none';
+                        // Remove animation class after seed is done
+                        document.body.classList.remove('enable-startup-animations');
+                    }, 800);
+                }
+                
+                // Show UI elements gradually
+                setTimeout(() => {
+                    document.getElementById('header-title').classList.add('visible');
+                }, 300);
+                
+                setTimeout(() => {
+                    document.getElementById('roots-panel').classList.add('loaded');
+                    document.getElementById('trunk-ui').classList.add('loaded');
+                }, 600);
+                
+                setTimeout(() => {
+                    if (!isMobile) {
+                        document.getElementById('legend').classList.add('visible');
+                    } else {
+                        document.getElementById('legend').classList.add('hidden');
+                    }
+                }, 900);
+                
+                // Start building tree after UI is shown
+                setTimeout(async () => {
+                    try {
+                        console.log('🌱 Starting tree build...');
+                        await skillTree.build();
+                        console.log('✅ Tree build complete, starting animation...');
+                        skillTree.startBuildAnimation();
+                    } catch (error) {
+                        console.error('❌ Error building tree:', error);
+                    }
+                }, 1200);
+                
+            }, 4000); // Match seed animation duration
+            
         } else {
-            // Start collapsed on mobile
-            legendEl.classList.add('hidden');
+            // Instant load - no startup animations (default behavior)
+            console.log('🚀 Instant loading mode - skipping startup animations');
+            
+            // Hide seed animation immediately
+            if (seedAnimation) {
+                seedAnimation.style.display = 'none';
+                seedAnimation.classList.add('hidden');
+            }
+            
+            // Show all UI elements immediately
+            document.getElementById('header-title').classList.add('visible');
+            document.getElementById('roots-panel').classList.add('loaded');
+            document.getElementById('trunk-ui').classList.add('loaded');
+            
+            // Show legend on desktop, hide on mobile
+            if (!isMobile) {
+                document.getElementById('legend').classList.add('visible');
+            } else {
+                document.getElementById('legend').classList.add('hidden');
+            }
+            
+            // Start building tree immediately
+            async function initializeTree() {
+                try {
+                    console.log('🌱 Starting tree build...');
+                    await skillTree.build();
+                    console.log('✅ Tree build complete, starting animation...');
+                    skillTree.startBuildAnimation();
+                } catch (error) {
+                    console.error('❌ Error building tree:', error);
+                }
+            }
+            
+            initializeTree();
         }
-        
-        // Start building tree and animation immediately
-        skillTree.build();
-        skillTree.startBuildAnimation();
         
         // ===== ROOTS PANEL TOGGLE (Mobile) =====
         const rootsToggle = document.getElementById('roots-toggle');
         const rootsPanel = document.getElementById('roots-panel');
+        const trunkUI = document.getElementById('trunk-ui');
+        
+        // Function to update trunk-ui position based on roots-panel height
+        function updateTrunkPosition() {
+            if (rootsPanel && trunkUI) {
+                const rootsHeight = rootsPanel.offsetHeight;
+                trunkUI.style.bottom = `${rootsHeight}px`;
+            }
+        }
+        
+        // Update trunk position on hover
+        rootsPanel.addEventListener('mouseenter', () => {
+            setTimeout(updateTrunkPosition, 50); // Small delay for transition
+        });
+        
+        rootsPanel.addEventListener('mouseleave', () => {
+            setTimeout(updateTrunkPosition, 50);
+        });
+        
+        // Also update on window resize
+        window.addEventListener('resize', updateTrunkPosition);
+        
+        // Initial update after roots panel loads
+        setTimeout(updateTrunkPosition, 1000);
         
         rootsToggle.addEventListener('click', (e) => {
             e.stopPropagation();
             rootsPanel.classList.toggle('expanded');
             rootsToggle.textContent = rootsPanel.classList.contains('expanded') ? '↓' : '↕';
+            setTimeout(updateTrunkPosition, 50);
         });
         
         // ===== LEGEND TOGGLE =====
@@ -2829,7 +3480,7 @@
         let calloutTimeouts = []; // Track all active callout timeouts
         
         // Disable auto-callouts on mobile (only show on hover/tap)
-        const enableAutoCallouts = !isMobile;
+        let enableAutoCallouts = !isMobile; // Changed from const to let
         
         // Setup canvas for line drawing
         calloutLine.width = window.innerWidth;
@@ -2840,6 +3491,9 @@
         function showCalloutForNode(node, isFromHover = false) {
             // Don't show callouts until tree animation is complete
             if (!window.treeAnimationComplete) return;
+            
+            // Don't show callouts during resume transformation
+            if (isTransformingToResume || isResumeMode) return;
             
             // If already showing a callout, prevent race condition
             if (currentCalloutNode && currentCalloutNode !== node) {
@@ -2920,6 +3574,9 @@
         function showRandomCallout() {
             // Don't show if user is interacting, if we're already fading, or if already showing a callout
             if (isZoomedIn || hoveredNode || isCalloutFading || currentCalloutNode) return;
+            
+            // Don't show during resume transformation
+            if (isTransformingToResume || isResumeMode) return;
             
             const allNodes = skillTree.getSkillNodes();
             if (allNodes.length === 0) return;
@@ -3014,6 +3671,13 @@
         }
         
         function updateCalloutLine() {
+            // Don't show line during resume transformation
+            if (isTransformingToResume || isResumeMode) {
+                calloutCtx.clearRect(0, 0, calloutLine.width, calloutLine.height);
+                lineDrawProgress = 0;
+                return;
+            }
+            
             if (!currentCalloutNode || isZoomedIn) {
                 calloutCtx.clearRect(0, 0, calloutLine.width, calloutLine.height);
                 lineDrawProgress = 0;
@@ -3585,6 +4249,20 @@
             zoomOut();
         });
         
+        // Click outside detail panel to close (but not on navigation arrows)
+        window.addEventListener('click', (e) => {
+            if (isZoomedIn) {
+                const detailPanel = document.getElementById('skill-detail');
+                const treeNav = document.getElementById('tree-navigation');
+                
+                // Check if click is outside both the detail panel and navigation controls
+                if (!detailPanel.contains(e.target) && !treeNav.contains(e.target)) {
+                    hideNavigationUI();
+                    zoomOut();
+                }
+            }
+        });
+        
         // Only close on ESC key or close button
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && isZoomedIn) {
@@ -3660,7 +4338,7 @@
         
         // Mouse move for hover (desktop)
         window.addEventListener('mousemove', (event) => {
-            if (!isZoomedIn) {
+            if (!isZoomedIn && !isTransformingToResume && !isResumeMode) {
                 updateHoverState(event.clientX, event.clientY);
                 lastInteractionTime = Date.now();
             }
@@ -3669,7 +4347,7 @@
         // Touch move for hover simulation (works on mobile and desktop touch screens)
         if (hasTouch) {
             window.addEventListener('touchmove', (event) => {
-                if (!isZoomedIn && event.touches[0] && !touchMoved) {
+                if (!isZoomedIn && !isTransformingToResume && !isResumeMode && event.touches[0] && !touchMoved) {
                     // Only simulate hover if we haven't moved much (not dragging)
                     updateHoverState(event.touches[0].clientX, event.touches[0].clientY);
                     lastInteractionTime = Date.now();
@@ -3685,7 +4363,7 @@
         // Touch start - combined handler for both hover and click detection (mobile and desktop touch)
         if (hasTouch) {
             window.addEventListener('touchstart', (event) => {
-                if (isZoomedIn) return;
+                if (isZoomedIn || isTransformingToResume || isResumeMode) return;
                 
                 // Handle hover simulation first
                 if (event.touches[0]) {
@@ -3719,7 +4397,7 @@
             
             // Touch end - handle tap vs drag
             window.addEventListener('touchend', (event) => {
-                if (isZoomedIn) return;
+                if (isZoomedIn || isTransformingToResume || isResumeMode) return;
                 
                 const touchDuration = Date.now() - touchStartTime;
                 
@@ -3737,7 +4415,7 @@
         
         // Click to select and focus camera (desktop and desktop touch screens)
         window.addEventListener('click', (event) => {
-            if (isZoomedIn) return; // Prevent clicks when already zoomed
+            if (isZoomedIn || isTransformingToResume || isResumeMode) return; // Prevent clicks when already zoomed
             
             // Skip if this is a mobile device to avoid duplicate events with touch
             if (isMobile) return;
@@ -3748,6 +4426,868 @@
                 zoomToNode(hoveredNode);
             }
         });
+        
+        // ===== RESUME TRANSFORMATION ANIMATION =====
+        let isTransformingToResume = false;
+        let isResumeMode = false;
+        let axe = null;
+        let axeHandle = null;
+        let axeBlade = null;
+        
+        // Create axe geometry
+        function createAxe() {
+            const axeGroup = new THREE.Group();
+            
+            // Wooden handle
+            const handleGeometry = new THREE.CylinderGeometry(0.12, 0.18, 3.5, 8);
+            const handleMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0x654321,
+                flatShading: true
+            });
+            axeHandle = new THREE.Mesh(handleGeometry, handleMaterial);
+            axeHandle.position.y = -0.5;
+            axeGroup.add(axeHandle);
+            
+            // Metal blade - wedge shape
+            const bladeShape = new THREE.Shape();
+            bladeShape.moveTo(0, 0);
+            bladeShape.lineTo(2, 1);
+            bladeShape.lineTo(2, -1);
+            bladeShape.lineTo(0, 0);
+            
+            const extrudeSettings = { depth: 0.15, bevelEnabled: true, bevelThickness: 0.05, bevelSize: 0.05 };
+            const bladeGeometry = new THREE.ExtrudeGeometry(bladeShape, extrudeSettings);
+            const bladeMaterial = new THREE.MeshPhongMaterial({ 
+                color: 0xB0B0B0,
+                shininess: 100,
+                flatShading: false
+            });
+            axeBlade = new THREE.Mesh(bladeGeometry, bladeMaterial);
+            axeBlade.position.set(0.2, 1.5, -0.075);
+            axeGroup.add(axeBlade);
+            
+            // Position axe off-screen initially
+            axeGroup.position.set(-15, 5, 0);
+            axeGroup.rotation.z = Math.PI ;
+            axeGroup.visible = false;
+            
+            return axeGroup;
+        }
+        
+        // Animate camera zooming to trunk
+        function animateCameraToTrunk() {
+            return new Promise((resolve) => {
+                const zoomDuration = 1500;
+                const startTime = Date.now();
+                const startPos = camera.position.clone();
+                const targetPos = new THREE.Vector3(0, -2, 15);
+                const startTarget = controls.target.clone();
+                const targetTarget = new THREE.Vector3(0, -2, 0);
+                
+                const animateZoom = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / zoomDuration, 1);
+                    
+                    // Smooth ease in-out
+                    const eased = progress < 0.5
+                        ? 2 * progress * progress
+                        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+                    
+                    // Move camera toward trunk
+                    camera.position.lerpVectors(startPos, targetPos, eased);
+                    controls.target.lerpVectors(startTarget, targetTarget, eased);
+                    controls.update();
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animateZoom);
+                    } else {
+                        resolve();
+                    }
+                };
+                
+                animateZoom();
+            });
+        }
+        
+        // Create wood chip particles
+        function createWoodChips() {
+            const chips = [];
+            const chipGeometry = new THREE.BoxGeometry(0.15, 0.1, 0.05);
+            const chipMaterial = new THREE.MeshPhongMaterial({ color: 0x8B5A2B });
+            
+            for (let i = 0; i < 20; i++) {
+                const chip = new THREE.Mesh(chipGeometry, chipMaterial);
+                chip.position.set(0, -2, 0);
+                chip.velocity = new THREE.Vector3(
+                    (Math.random() - 0.5) * 0.3,
+                    Math.random() * 0.2 + 0.1,
+                    (Math.random() - 0.5) * 0.3
+                );
+                chip.rotationVel = new THREE.Vector3(
+                    Math.random() * 0.2,
+                    Math.random() * 0.2,
+                    Math.random() * 0.2
+                );
+                scene.add(chip);
+                chips.push(chip);
+            }
+            return chips;
+        }
+        
+        // Animate axe chopping
+        function animateAxeChop() {
+            return new Promise((resolve) => {
+                if (!axe) {
+                    axe = createAxe();
+                    scene.add(axe);
+                }
+                
+                // RESET all rotations and positions before animation
+                axe.rotation.set(0, 0, 0);
+                axe.visible = true;
+                const trunkY = -2; // Height of trunk cut
+                
+                // Wind-up + swing
+                const swingInDuration = 500;    // Pendulum swing in
+                const windUpDuration = 700;     // Wind-up before chop
+                const swingDuration = 500;      // Fast chop
+                const totalDuration = swingInDuration + windUpDuration + swingDuration;
+                const startTime = Date.now();
+                let woodChips = null;
+                
+                const animateChop = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / totalDuration, 1);
+                    
+                    if (elapsed < swingInDuration) {
+                        // Phase 1: Pendulum swing in from far right off-screen
+                        const swingProgress = elapsed / swingInDuration;
+                        const swingEased = 1 - Math.pow(1 - swingProgress, 3); // Ease out
+                        
+                        // Reset all rotations first
+                        axe.rotation.set(0, 90, 0);
+                        
+                        // Swing from far right (off-screen) to ready position
+                        axe.position.set(
+                            25 - (13 * swingEased), // 25 -> 12 (off-screen to ready)
+                            trunkY,
+                            0
+                        );
+                        
+                        // Subtle pendulum rotation as it swings in
+                        //axe.rotation.z = Math.sin(swingProgress * Math.PI) * (Math.PI / 12); // Small swing
+                        
+                    } else if (elapsed < swingInDuration + windUpDuration) {
+                        // Phase 2: Wind-up (pull back and rotate for power)
+                        const windProgress = (elapsed - swingInDuration) / windUpDuration;
+                        const windEased = Math.sin(windProgress * Math.PI / 2); // Ease out
+                        
+                        // Reset Y rotation (no spinning during wind-up)
+                        axe.rotation.y = 90;
+                        
+                       //// Pull back to the right and rotate back
+                       axe.position.set(
+                           12 + (4 * windEased), // Pull from 12 to 16
+                           trunkY,
+                           0
+                       );
+                       axe.rotation.z = -Math.PI / 5 * windEased; // Rotate back ~36 degrees
+                       
+                    } else {
+                        // Phase 3: Fast horizontal chop
+                        const swingProgress = (elapsed - swingInDuration - windUpDuration) / swingDuration;
+                        const swingEased = 1 - Math.pow(1 - swingProgress, 4); // Fast acceleration
+                        
+                        // Horizontal swing from right (16) to center/past trunk (0 or negative)
+                        axe.position.set(
+                            16 - (17 * swingEased), // 16 -> -1 (swings past center)
+                            trunkY,
+                            0
+                        );
+                        
+                        // Rotate from wind-up angle back to horizontal as it chops
+                        //axe.rotation.z = -Math.PI / 5 + ((Math.PI / 5) * swingEased); // Back to ~0
+                        
+                        // Add spinning rotation ONLY after impact (after 70% of chop phase)
+                        if (swingProgress > 0.7) {
+                            const spinProgress = (swingProgress - 0.7) / 0.3; // Last 30% of swing
+                            axe.rotation.x = spinProgress * Math.PI * -0.2
+                            axe.rotation.y = spinProgress  + 90;
+                        } else {
+                            axe.rotation.y = 90; // No Y rotation during chop
+                        }
+                        
+                        // Create wood chips at impact point (around 70%)
+                        if (swingProgress > 0.7 && !woodChips) {
+                            woodChips = createWoodChips();
+                        }
+                    }
+                    
+                    // Animate wood chips
+                    if (woodChips) {
+                        woodChips.forEach(chip => {
+                            chip.position.add(chip.velocity);
+                            chip.velocity.y -= 0.01; // Gravity
+                            chip.rotation.x += chip.rotationVel.x;
+                            chip.rotation.y += chip.rotationVel.y;
+                            chip.rotation.z += chip.rotationVel.z;
+                        });
+                    }
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animateChop);
+                    } else {
+                        // Hold for a moment, then clean up
+                        setTimeout(() => {
+                            axe.visible = false;
+                            if (woodChips) {
+                                woodChips.forEach(chip => scene.remove(chip));
+                            }
+                            // Reset axe rotation for next use
+                            axe.rotation.set(0, 0, 0);
+                            resolve();
+                        }, 400);
+                    }
+                };
+                
+                animateChop();
+            });
+        }
+        
+        // Animate tree falling
+        function animateTreeFalling() {
+            return new Promise((resolve) => {
+                // Disable controls
+                controls.enabled = false;
+                
+                // Stop all interactions
+                isTransformingToResume = true;
+                
+                const fallDuration = 2500;
+                const startTime = Date.now();
+                const startRotation = skillTree.tree.rotation.clone();
+                
+                // Track individual node physics
+                const nodePhysics = [];
+                skillTree.tree.traverse((obj) => {
+                    if (obj.isMesh && obj.userData.skill) {
+                        nodePhysics.push({
+                            mesh: obj,
+                            velocity: new THREE.Vector3(0, 0, 0),
+                            startY: obj.position.y,
+                            hasHitGround: false,
+                            bounceVelocity: 0
+                        });
+                    }
+                });
+                
+                const animateFall = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / fallDuration, 1);
+                    
+                    // Gravity-like easing (accelerate then decelerate on impact)
+                    const eased = progress < 0.7
+                        ? Math.pow(progress / 0.7, 2)
+                        : 1 - Math.pow((progress - 0.7) / 0.3, 2) * 0.3;
+                    
+                    // Rotate tree 90 degrees around X axis (falling over)
+                    skillTree.tree.rotation.x = startRotation.x - (Math.PI / 2 * eased);
+                    
+                    // Movement down as it falls with bounce
+                    if (progress < 0.7) {
+                        skillTree.tree.position.y = -8 * eased;
+                    } else {
+                        // Bounce effect
+                        const bounceProgress = (progress - 0.7) / 0.3;
+                        const bounce = Math.sin(bounceProgress * Math.PI) * 0.5;
+                        skillTree.tree.position.y = -8 + bounce;
+                    }
+                    
+                    // Individual node physics for scattered effect
+                    if (progress > 0.6) {
+                        nodePhysics.forEach(np => {
+                            if (!np.hasHitGround) {
+                                np.velocity.y -= 0.02; // Gravity
+                                np.mesh.position.y += np.velocity.y;
+                                
+                                // Check if hit ground (relative to fallen tree)
+                                if (np.mesh.position.y < np.startY - 3) {
+                                    np.hasHitGround = true;
+                                    np.bounceVelocity = Math.abs(np.velocity.y) * 0.4;
+                                }
+                            } else if (np.bounceVelocity > 0.01) {
+                                // Bounce back up
+                                np.mesh.position.y += np.bounceVelocity;
+                                np.bounceVelocity *= 0.85; // Damping
+                            }
+                        });
+                    }
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animateFall);
+                    } else {
+                        resolve();
+                    }
+                };
+                
+                animateFall();
+            });
+        }
+        
+        // Animate paper machine transformation
+        function animatePaperMachine() {
+            return new Promise((resolve) => {
+                const transformDuration = 2000;
+                const startTime = Date.now();
+                
+                // Collect all nodes and branches
+                const allObjects = [];
+                skillTree.tree.traverse((obj) => {
+                    if (obj.isMesh) {
+                        allObjects.push({
+                            mesh: obj,
+                            startPos: obj.position.clone(),
+                            startScale: obj.scale.clone()
+                        });
+                    }
+                });
+                
+                const machineCenter = new THREE.Vector3(0, 0, 5);
+                
+                const animateTransform = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / transformDuration, 1);
+                    
+                    // Ease in
+                    const eased = progress * progress;
+                    
+                    // Shrink and move all objects to center
+                    allObjects.forEach(({mesh, startPos, startScale}) => {
+                        // Move toward machine center
+                        mesh.position.lerpVectors(startPos, machineCenter, eased);
+                        
+                        // Shrink to nothing
+                        const scale = 1 - eased;
+                        mesh.scale.set(
+                            startScale.x * scale,
+                            startScale.y * scale,
+                            startScale.z * scale
+                        );
+                        
+                        // Fade out
+                        if (mesh.material) {
+                            mesh.material.opacity = 1 - eased;
+                            mesh.material.transparent = true;
+                        }
+                    });
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animateTransform);
+                    } else {
+                        // Hide tree completely
+                        skillTree.tree.visible = false;
+                        resolve();
+                    }
+                };
+                
+                animateTransform();
+            });
+        }
+        
+        // Create white paper plane
+        function createPaperPlane() {
+            const planeGeometry = new THREE.PlaneGeometry(16, 20);
+            const planeMaterial = new THREE.MeshBasicMaterial({ 
+                color: 0xffffff,
+                side: THREE.FrontSide
+            });
+            const paper = new THREE.Mesh(planeGeometry, planeMaterial);
+            paper.position.set(0, 0, 0);
+            
+            // Orient plane to face camera
+            paper.lookAt(camera.position);
+            paper.userData.isPaper = true;
+            
+            // Start small
+            paper.scale.set(0.01, 0.01, 0.01);
+            scene.add(paper);
+            
+            return paper;
+        }
+        
+        // Animate paper appearing and zooming to fill screen
+        function animatePaperAppear(paper) {
+            return new Promise((resolve) => {
+                const growDuration = 1000; // Grow to normal size
+                const zoomDuration = 800;  // Zoom to fill screen
+                const totalDuration = growDuration + zoomDuration;
+                const startTime = Date.now();
+                
+                const animateGrow = () => {
+                    const elapsed = Date.now() - startTime;
+                    const progress = Math.min(elapsed / totalDuration, 1);
+                    
+                    if (elapsed < growDuration) {
+                        // Phase 1: Grow to normal size
+                        const growProgress = elapsed / growDuration;
+                        const growEased = 1 - Math.pow(1 - growProgress, 3);
+                        paper.scale.set(growEased, growEased, growEased);
+                    } else {
+                        // Phase 2: Zoom to fill entire screen
+                        const zoomProgress = (elapsed - growDuration) / zoomDuration;
+                        const zoomEased = zoomProgress < 0.5
+                            ? 2 * zoomProgress * zoomProgress
+                            : 1 - Math.pow(-2 * zoomProgress + 2, 2) / 2;
+                        
+                        // Scale from 1 to 4 (fills screen)
+                        const scale = 1 + (zoomEased * 3);
+                        paper.scale.set(scale, scale, scale);
+                        
+                        // Move towards camera slightly for full coverage
+                        paper.position.z = zoomEased * 2;
+                    }
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(animateGrow);
+                    } else {
+                        // Keep paper visible briefly before showing resume
+                        setTimeout(() => resolve(), 300);
+                    }
+                };
+                
+                animateGrow();
+            });
+        }
+        
+        // Load resume content from JSON or PDF
+        async function loadResumeContent() {
+            try {
+                // Check if PDF exists, otherwise generate from data
+                const resumePdfPath = 'resume.pdf';
+                
+                // Try to load PDF first
+                const response = await fetch(resumePdfPath, { method: 'HEAD' });
+                
+                if (response.ok) {
+                    // PDF exists, display it in iframe
+                    const resumeHTML = `
+                        <iframe 
+                            src="${resumePdfPath}" 
+                            style="width: 100%; height: 100%; border: none; min-height: 800px;"
+                            title="Resume PDF">
+                        </iframe>
+                    `;
+                    document.getElementById('resume-content').innerHTML = resumeHTML;
+                } else {
+                    throw new Error('PDF not found');
+                }
+            } catch (error) {
+                console.log('PDF not found, generating content from data files...');
+                
+                // Fallback: Generate resume from JSON data files
+                try {
+                    // Load all data files in parallel
+                    let experienceData = [];
+                    let skillsData = {};
+                    let projectsData = [];
+                    
+                    // Load experience data
+                    try {
+                        const expResponse = await fetch('data/experience.json');
+                        if (expResponse.ok) {
+                            const expJson = await expResponse.json();
+                            // Extract items from all categories
+                            if (expJson.categories && Array.isArray(expJson.categories)) {
+                                experienceData = expJson.categories.flatMap(cat => 
+                                    cat.items.map(item => ({
+                                        ...item,
+                                        role: item.title,
+                                        category: cat.category
+                                    }))
+                                );
+                            }
+                        }
+                    } catch (e) {
+                        console.warn('Could not load experience.json:', e);
+                    }
+                    
+                    // Load skills data
+                    try {
+                        const skillsResponse = await fetch('data/skills.json');
+                        if (skillsResponse.ok) {
+                            const skillsJson = await skillsResponse.json();
+                            // Flatten skills hierarchy to a simple object
+                            if (skillsJson.skills && skillsJson.skills.children) {
+                                const flattenSkills = (node, category = '') => {
+                                    const result = {};
+                                    if (node.name && node.level) {
+                                        result[node.name] = {
+                                            level: node.level,
+                                            category: category || node.type,
+                                            yearsExp: node.yearsExp || 0,
+                                            color: node.color || '#8B5A2B'
+                                        };
+                                    }
+                                    if (node.children && Array.isArray(node.children)) {
+                                        node.children.forEach(child => {
+                                            Object.assign(result, flattenSkills(child, node.name));
+                                        });
+                                    }
+                                    return result;
+                                };
+                                
+                                skillsJson.skills.children.forEach(category => {
+                                    Object.assign(skillsData, flattenSkills(category));
+                                });
+                            }
+                        }
+                    } catch (e) {
+                        console.warn('Could not load skills.json:', e);
+                    }
+                    
+                    // Load projects data
+                    try {
+                        const projectsResponse = await fetch('data/projects.json');
+                        if (projectsResponse.ok) {
+                            const projectsJson = await projectsResponse.json();
+                            if (projectsJson.projects && Array.isArray(projectsJson.projects)) {
+                                projectsData = projectsJson.projects;
+                            }
+                        }
+                    } catch (e) {
+                        console.warn('Could not load projects.json:', e);
+                    }
+                    
+                    // Generate HTML content
+                    const resumeHTML = `
+                        <div style="color: #333; line-height: 1.8; font-family: 'Georgia', serif; max-width: 800px; margin: 0 auto;">
+                            <h1 style="color: #2c3e50; text-align: center; margin-bottom: 10px; font-size: 32px;">Professional Profile</h1>
+                            <p style="text-align: center; color: #666; margin-bottom: 30px; font-size: 16px;">Full-Stack Developer | Robotics & AI Specialist</p>
+                            
+                            ${experienceData.length > 0 ? `
+                            <h2 style="color: #2c3e50; border-bottom: 3px solid #8B5A2B; padding-bottom: 10px; margin-top: 40px; font-size: 24px;">Experience</h2>
+                            ${experienceData.map(exp => `
+                                <div style="margin: 25px 0; padding: 20px; background: #f8f9fa; border-left: 4px solid #8B5A2B; border-radius: 5px;">
+                                    ${exp.logoUrl ? `<img src="${exp.logoUrl}" style="max-height: 40px; margin-bottom: 10px;" onerror="this.style.display='none'" alt="${exp.organization || 'Company'} logo">` : ''}
+                                    <h3 style="color: #2c3e50; margin: 0 0 8px 0; font-size: 18px;">${exp.role || exp.title || 'Role'}</h3>
+                                    <p style="color: #666; font-style: italic; margin: 5px 0; font-size: 14px;">
+                                        <strong>${exp.organization || exp.company || 'Organization'}</strong> | ${exp.period || exp.date || 'Date'}
+                                    </p>
+                                    ${exp.location ? `<p style="color: #777; font-size: 13px; margin: 5px 0;">📍 ${exp.location}</p>` : ''}
+                                    ${exp.description ? `<p style="margin: 15px 0 0 0; color: #555; line-height: 1.6;">${exp.description}</p>` : ''}
+                                    ${exp.skills && exp.skills.length > 0 ? `
+                                        <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px;">
+                                            ${exp.skills.slice(0, 8).map(skill => `
+                                                <span style="background: #e3f2fd; color: #1976d2; padding: 4px 10px; border-radius: 12px; font-size: 11px;">${skill}</span>
+                                            `).join('')}
+                                        </div>
+                                    ` : ''}
+                                </div>
+                            `).join('')}
+                            ` : ''}
+                            
+                            ${Object.keys(skillsData).length > 0 ? `
+                            <h2 style="color: #2c3e50; border-bottom: 3px solid #8B5A2B; padding-bottom: 10px; margin-top: 40px; font-size: 24px;">Technical Skills</h2>
+                            <div style="margin: 20px 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                                ${Object.entries(skillsData).slice(0, 30).map(([skill, data]) => `
+                                    <div style="background: #f8f9fa; padding: 12px 16px; border-radius: 5px; border-left: 3px solid ${data.color || '#8B5A2B'}; font-size: 14px;">
+                                        <strong style="color: #2c3e50;">${skill}</strong>
+                                        ${data.category ? `<br><span style="font-size: 11px; color: #666;">${data.category}</span>` : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                            ` : ''}
+                            
+                            ${projectsData.length > 0 ? `
+                            <h2 style="color: #2c3e50; border-bottom: 3px solid #8B5A2B; padding-bottom: 10px; margin-top: 40px; font-size: 24px;">Projects</h2>
+                            ${projectsData.map(project => `
+                                <div style="margin: 20px 0; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+                                    <h3 style="color: #2c3e50; margin: 0 0 8px 0; font-size: 16px;">
+                                        ${project.url ? `<a href="${project.url}" target="_blank" style="color: #8B5A2B; text-decoration: none;">${project.name}</a>` : project.name}
+                                    </h3>
+                                    ${project.description ? `<p style="margin: 5px 0; color: #555; font-size: 14px;">${project.description}</p>` : ''}
+                                </div>
+                            `).join('')}
+                            ` : ''}
+                            
+                            <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #e0e0e0; text-align: center;">
+                                <p style="color: #999; font-size: 12px; margin: 10px 0;">
+                                    <em>📄 This resume was dynamically generated from my JSON skills and experience files</em>
+                                </p>
+                                <p style="color: #999; font-size: 12px; margin: 5px 0;">
+                                    Latest <strong>resume.pdf</strong> was missing from my root directory...oops!
+                                </p>
+                            </div>
+                            
+                            ${experienceData.length === 0 && Object.keys(skillsData).length === 0 && projectsData.length === 0 ? `
+                                <div style="text-align: center; padding: 40px 20px; color: #666;">
+                                    <h3 style="color: #999; margin-bottom: 20px;">No Content Available</h3>
+                                    <p style="margin: 10px 0;">Add <strong>resume.pdf</strong> to the root directory, or populate:</p>
+                                    <ul style="list-style: none; padding: 0; margin: 20px 0;">
+                                        <li style="margin: 8px 0;">📁 data/experience.json</li>
+                                        <li style="margin: 8px 0;">📁 data/skills.json</li>
+                                        <li style="margin: 8px 0;">📁 js/projects-data.js</li>
+                                    </ul>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                    document.getElementById('resume-content').innerHTML = resumeHTML;
+                    
+                } catch (fallbackError) {
+                    console.error('Error generating fallback content:', fallbackError);
+                    document.getElementById('resume-content').innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #666;">
+                            <h3 style="color: #999;">Resume Unavailable</h3>
+                            <p style="margin: 20px 0;">Add <strong>resume.pdf</strong> to the root directory to display your resume.</p>
+                            <p style="margin: 10px 0; font-size: 14px;">Alternatively, populate data files:</p>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>data/experience.json</li>
+                                <li>data/skills.json</li>
+                                <li>js/projects-data.js</li>
+                            </ul>
+                        </div>
+                    `;
+                }
+            }
+        }
+        
+        // Main transformation sequence
+        async function transformToResume() {
+            console.log('transformToResume called', { isTransformingToResume, isResumeMode });
+            
+            if (isTransformingToResume || isResumeMode) {
+                console.log('Already transforming or in resume mode, returning');
+                return;
+            }
+            
+            console.log('Starting transformation...');
+            isTransformingToResume = true;
+            
+            // Hide header title if still visible
+            const headerTitle = document.getElementById('header-title');
+            if (headerTitle && headerTitle.style.display !== 'none') {
+                headerTitle.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+                headerTitle.style.opacity = '0';
+                headerTitle.style.transform = 'translateX(-50%) translateY(-20px)';
+                setTimeout(() => {
+                    headerTitle.style.display = 'none';
+                }, 500);
+            }
+            
+            // Fade out UI elements
+            const uiElements = [
+                document.getElementById('detail-card'),
+                document.getElementById('projects-panel'),
+                document.getElementById('theme-toggle'),
+                document.getElementById('resume-toggle'),
+                document.getElementById('navigation'),
+                document.getElementById('skill-legend'),
+                document.getElementById('experience-section'),
+                document.getElementById('roots-content'),
+                document.getElementById('projects-toggle'),
+                document.getElementById('legend-toggle'),
+                document.getElementById('trunk-ui'),
+                document.getElementById('roots-panel')
+            ];
+            
+            uiElements.forEach(el => {
+                if (el) {
+                    el.style.transition = 'opacity 0.5s ease-out';
+                    el.style.opacity = '0';
+                    setTimeout(() => { el.style.display = 'none'; }, 500);
+                }
+            });
+            
+            if (typeof hideCallout === 'function') {
+                hideCallout(false);
+            }
+            
+            // Disable callout loop during transformation
+            enableAutoCallouts = false;
+            if (typeof hideCallout === 'function') {
+                hideCallout(false);
+            }
+            
+            // Hide roots and experience section
+            skillTree.tree.traverse((obj) => {
+                // Hide trunk/roots meshes
+                if (obj.userData && (obj.userData.isTrunk || obj.userData.isRoot)) {
+                    obj.visible = false;
+                }
+            });
+            
+            console.log('1. Starting camera animation to trunk...');
+            // 1. Camera zooms to trunk
+            await animateCameraToTrunk();
+            console.log('1. Camera animation complete');
+            
+            console.log('2. Starting axe chop animation...');
+            // 2. Axe chops tree
+            await animateAxeChop();
+            console.log('2. Axe chop complete');
+            
+            console.log('3. Starting tree falling animation...');
+            // 3. Tree falls over
+            await animateTreeFalling();
+            console.log('3. Tree falling complete');
+            
+            console.log('4. Starting paper machine animation...');
+            // 4. Tree transforms to paper machine
+            await animatePaperMachine();
+            console.log('4. Paper machine complete');
+            
+            console.log('5. Creating and animating paper plane...');
+            // 5. Paper plane appears
+            const paper = createPaperPlane();
+            await animatePaperAppear(paper);
+            console.log('5. Paper plane complete');
+            
+            console.log('6. Loading resume content...');
+            // 6. Show resume content
+            await loadResumeContent();
+            document.getElementById('resume-container').classList.add('visible');
+            document.getElementById('recycle-tree').classList.add('visible');
+            console.log('6. Resume content loaded');
+            
+            isResumeMode = true;
+            isTransformingToResume = false;
+            console.log('Transformation complete!');
+        }
+        
+        // Transform back to tree
+        async function transformToTree() {
+            if (isTransformingToResume || !isResumeMode) return;
+            
+            isTransformingToResume = true;
+            
+            // Fade out resume first
+            const resumeContainer = document.getElementById('resume-container');
+            resumeContainer.style.opacity = '0';
+            
+            await new Promise(resolve => setTimeout(resolve, 500));
+            
+            // Hide resume
+            resumeContainer.classList.remove('visible');
+            document.getElementById('back-to-tree').classList.remove('visible');
+            
+            // Remove paper plane
+            const toRemove = [];
+            scene.children.forEach(child => {
+                if (child instanceof THREE.Mesh && child.geometry instanceof THREE.PlaneGeometry) {
+                    toRemove.push(child);
+                }
+            });
+            toRemove.forEach(obj => scene.remove(obj));
+            
+            // Remove old fallen tree completely
+            if (skillTree.tree) {
+                scene.remove(skillTree.tree);
+            }
+            
+            // Reset camera to original position
+            camera.position.set(0, 0, 20);
+            camera.rotation.set(0, 0, 0);
+            controls.target.set(0, 0, 0);
+            controls.update();
+            
+            // Rebuild tree from scratch with animation
+            skillTree.tree = null;
+            skillTree.nodes = [];
+            skillTree.branches = [];
+            skillTree.isAnimating = true;
+            skillTree.buildProgress = 0;
+            
+            // Rebuild the tree structure
+            await skillTree.buildTree(skillTree.hierarchyData);
+            
+            // Show roots and trunk again
+            if (skillTree.tree) {
+                skillTree.tree.traverse((obj) => {
+                    if (obj.userData && (obj.userData.isTrunk || obj.userData.isRoot)) {
+                        obj.visible = true;
+                    }
+                });
+            }
+            
+            // Re-enable controls and callouts
+            controls.enabled = true;
+            enableAutoCallouts = true;
+            
+            // Fade UI elements back in
+            const uiElements = [
+                document.getElementById('detail-card'),
+                document.getElementById('projects-panel'),
+                document.getElementById('theme-toggle'),
+                document.getElementById('resume-toggle'),
+                document.getElementById('navigation'),
+                document.getElementById('skill-legend'),
+                document.getElementById('experience-section'),
+                document.getElementById('roots-content'),
+                document.getElementById('projects-toggle'),
+                document.getElementById('legend-toggle')
+            ];
+            
+            uiElements.forEach(el => {
+                if (el) {
+                    el.style.display = 'block';
+                    el.style.opacity = '0';
+                    setTimeout(() => {
+                        el.style.transition = 'opacity 0.5s ease-in';
+                        el.style.opacity = '1';
+                    }, 50);
+                }
+            });
+            
+            isResumeMode = false;
+            isTransformingToResume = false;
+        }
+        
+        // Recycle and replant tree with seed intro
+        async function recycleAndReplant() {
+            if (isTransformingToResume) return;
+            
+            // Fade out resume first
+            const resumeContainer = document.getElementById('resume-container');
+            if (resumeContainer) {
+                resumeContainer.style.opacity = '0';
+            }
+            
+            await new Promise(resolve => setTimeout(resolve, 300));
+            
+            // Hide resume and recycle button
+            if (resumeContainer) resumeContainer.classList.remove('visible');
+            const recycleBtn = document.getElementById('recycle-tree');
+            if (recycleBtn) recycleBtn.classList.remove('visible');
+            
+            // Set flag in sessionStorage to enable startup animations on reload
+            sessionStorage.setItem('enableStartupAnimations', 'true');
+            
+            // Full page reload - will show seed animation due to flag
+            window.location.reload();
+        }
+        
+        // Add event listeners
+        const resumeToggleBtn = document.getElementById('resume-toggle');
+        const backToTreeBtn = document.getElementById('back-to-tree');
+        const recycleBtn = document.getElementById('recycle-tree');
+        
+        if (resumeToggleBtn) {
+            resumeToggleBtn.addEventListener('click', () => {
+                console.log('Resume toggle clicked');
+                transformToResume();
+            });
+        } else {
+            console.error('Resume toggle button not found!');
+        }
+        
+        if (backToTreeBtn) {
+            backToTreeBtn.addEventListener('click', transformToTree);
+        }
+        
+        if (recycleBtn) {
+            recycleBtn.addEventListener('click', recycleAndReplant);
+        }
         
         // ===== ANIMATION LOOP =====
         let time = 0;
@@ -3796,9 +5336,38 @@
                 }
             }
             
-            // Slow rotation (pause when node selected, hovered, or during build animation)
-            if (skillTree.tree && !skillTree.selectedNode && !skillTree.isAnimating && !hoveredNode) {
+            // Slow rotation (pause when node selected, hovered, or during build animation, or transforming)
+            if (skillTree.tree && !skillTree.selectedNode && !skillTree.isAnimating && !hoveredNode && !isTransformingToResume) {
                 skillTree.tree.rotation.y += isMobile ? 0.001 : 0.002; // Slower rotation on mobile
+            }
+            
+            // Keep paper plane facing camera in resume mode
+            if (isResumeMode) {
+                scene.children.forEach(child => {
+                    if (child.userData && child.userData.isPaper) {
+                        child.lookAt(camera.position);
+                    }
+                });
+            }
+            
+            // Scale trunk-ui with camera zoom
+            const trunkUI = document.getElementById('trunk-ui');
+            if (trunkUI && !isResumeMode && !isTransformingToResume) {
+                // Calculate scale based on camera distance (default is 20)
+                const defaultDistance = 20;
+                const currentDistance = camera.position.length();
+                // Invert scaling: closer = shorter, farther = taller
+                const scale = Math.pow(currentDistance / defaultDistance, 1.5);
+                // Clamp scale between 0.3 and 3.0 for wider range
+                const clampedScale = Math.max(0.3, Math.min(3.0, scale));
+                trunkUI.style.transform = `translateX(-50%) scaleY(${clampedScale})`;
+                
+                // Update trunk position to match roots panel height
+                const rootsPanel = document.getElementById('roots-panel');
+                if (rootsPanel) {
+                    const rootsHeight = rootsPanel.offsetHeight;
+                    trunkUI.style.bottom = `${rootsHeight}px`;
+                }
             }
             
             skillTree.update(time);
