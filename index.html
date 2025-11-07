@@ -40,7 +40,7 @@
             z-index: 100;
             color: white;
             opacity: 0;
-            transition: opacity 0.8s ease 0.5s;
+            transition: opacity 0.2s ease;
             background: rgba(0, 0, 0, 0.75);
             padding: 20px 40px;
             border-radius: 12px;
@@ -206,26 +206,21 @@
             box-shadow: 0 6px 20px rgba(139, 90, 43, 0.5);
         }
 
-        /* Resume Paper Plane */
+        /* Resume Paper Plane - Full Screen */
         #resume-container {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 60%;
-            max-width: 700px;
-            height: 75vh;
-            max-height: 900px;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
             background: white;
-            border-radius: 5px;
-            box-shadow: 0 15px 60px rgba(0, 0, 0, 0.4);
             z-index: 1000;
             display: none;
             overflow-y: auto;
             overflow-x: hidden;
-            padding: 50px 60px;
+            padding: 80px 60px 60px 60px; /* Extra top padding for back button */
             opacity: 0;
-            transition: opacity 1s ease-in;
+            transition: opacity 0.5s ease-in;
         }
 
         #resume-container.visible {
@@ -234,21 +229,125 @@
         }
         
         #resume-container::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
         
         #resume-container::-webkit-scrollbar-track {
             background: #f1f1f1;
-            border-radius: 4px;
         }
         
         #resume-container::-webkit-scrollbar-thumb {
             background: #8B5A2B;
-            border-radius: 4px;
+            border-radius: 5px;
         }
         
         #resume-container::-webkit-scrollbar-thumb:hover {
             background: #6B4423;
+        }
+        
+        /* Resume content wrapper for max-width control */
+        #resume-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            color: #2c3e50;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        /* Resume styling */
+        .resume-category {
+            margin-bottom: 40px;
+        }
+        
+        .resume-category-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #8B5A2B;
+        }
+        
+        .resume-category-icon {
+            font-size: 32px;
+        }
+        
+        .resume-category-title {
+            font-size: 28px;
+            color: #2c3e50;
+            margin: 0;
+            font-weight: 700;
+        }
+        
+        .resume-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .resume-item {
+            background: #f8f9fa;
+            border-left: 4px solid #8B5A2B;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .resume-item:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .resume-item-header {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 12px;
+        }
+        
+        .resume-item-logo {
+            max-height: 45px;
+            max-width: 70px;
+            object-fit: contain;
+        }
+        
+        .resume-item-title {
+            flex: 1;
+        }
+        
+        .resume-item-title h3 {
+            font-size: 20px;
+            color: #2c3e50;
+            margin: 0 0 6px 0;
+            font-weight: 600;
+        }
+        
+        .resume-item-org {
+            font-size: 16px;
+            color: #555;
+            margin: 0 0 4px 0;
+            font-weight: 500;
+        }
+        
+        .resume-item-period {
+            font-size: 14px;
+            color: #8B5A2B;
+            margin: 0;
+            font-weight: 600;
+        }
+        
+        .resume-item-location {
+            font-size: 13px;
+            color: #666;
+            margin: 4px 0 0 0;
+            font-style: italic;
+        }
+        
+        .resume-item-description {
+            font-size: 15px;
+            color: #444;
+            line-height: 1.6;
+            margin: 12px 0 0 0;
         }
 
         #back-to-tree {
@@ -920,48 +1019,6 @@
                 grid-template-columns: 1fr;
             }
             
-            #legend {
-                top: 10px;
-                left: 10px;
-                padding: 10px;
-                font-size: 10px;
-                max-width: 180px;
-            }
-            
-            #legend h4 {
-                font-size: 12px;
-                margin-bottom: 8px;
-                padding-bottom: 6px;
-            }
-            
-            .legend-item {
-                margin: 6px 0;
-                gap: 8px;
-            }
-            
-            .legend-icon.small {
-                width: 10px;
-                height: 10px;
-            }
-            
-            .legend-icon.medium {
-                width: 14px;
-                height: 14px;
-            }
-            
-            .legend-icon.large {
-                width: 18px;
-                height: 18px;
-            }
-            
-            .legend-text {
-                font-size: 10px;
-            }
-            
-            .legend-divider {
-                margin: 6px 0;
-            }
-            
             /* Reduce animations on mobile for better performance */
             #projects-toggle {
                 animation: fruitSwing 3s ease-in-out infinite; /* Slower swing, no glow */
@@ -987,9 +1044,9 @@
                 top: 70px; /* Below button with more space */
                 left: 15px; /* Align with button */
                 max-width: calc(100vw - 30px); /* Full width minus margins */
-                min-width: 250px; /* Maintain good size */
+                min-width: 280px; /* Increased from 250px for better layout */
                 max-height: calc(100vh - 150px); /* Don't go off bottom */
-                padding: 15px; /* Keep full padding */
+                padding: 18px; /* Increased from 15px */
                 overflow-y: auto; /* Allow scrolling if needed */
                 right: auto;
                 width: auto;
@@ -997,19 +1054,28 @@
                 opacity: 0;
                 pointer-events: none;
                 transition: opacity 0.3s ease, transform 0.3s ease;
+                font-size: 14px; /* Consistent with desktop */
             }
             
             /* Larger text on mobile for better readability */
             #legend h4 {
-                font-size: 15px;
+                font-size: 17px; /* Increased from 15px */
+                margin-bottom: 12px;
+                padding-bottom: 10px;
             }
             
             .legend-text {
-                font-size: 13px;
+                font-size: 14px; /* Increased from 13px to match desktop */
+                line-height: 1.5;
             }
             
             .legend-item {
                 margin: 10px 0; /* More spacing on mobile */
+                gap: 12px;
+            }
+            
+            .legend-divider {
+                margin: 12px 0;
             }
             
             /* When legend is visible (not hidden) */
@@ -1123,6 +1189,69 @@
             .project-link {
                 padding: 8px 15px;
                 font-size: 12px;
+            }
+            
+            /* Resume container mobile adjustments */
+            #resume-container {
+                padding: 70px 20px 40px 20px; /* Reduced padding for mobile */
+            }
+            
+            #resume-content {
+                max-width: 100%; /* Full width on mobile */
+            }
+            
+            #resume-container h1 {
+                font-size: 28px !important; /* Smaller heading on mobile */
+                margin-bottom: 30px !important;
+            }
+            
+            .resume-category-header {
+                flex-direction: row;
+                gap: 10px;
+            }
+            
+            .resume-category-icon {
+                font-size: 24px;
+            }
+            
+            .resume-category-title {
+                font-size: 22px;
+            }
+            
+            .resume-item {
+                padding: 16px;
+            }
+            
+            .resume-item-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .resume-item-logo {
+                max-height: 35px;
+            }
+            
+            .resume-item-title h3 {
+                font-size: 18px;
+            }
+            
+            .resume-item-org {
+                font-size: 14px;
+            }
+            
+            .resume-item-period {
+                font-size: 13px;
+            }
+            
+            .resume-item-description {
+                font-size: 14px;
+            }
+            
+            #back-to-tree {
+                top: 10px;
+                left: 10px;
+                padding: 8px 16px;
+                font-size: 14px;
             }
         }
         
@@ -1423,7 +1552,7 @@
             backdrop-filter: blur(5px);
             opacity: 0;
             transform: translateY(20px);
-            animation: fadeInUp 0.5s ease forwards;
+            animation: fadeInUp 0.2s ease forwards;
         }
         
         @keyframes fadeInUp {
@@ -1580,15 +1709,15 @@
             background: rgba(10, 10, 20, 0.95);
             border: 2px solid rgba(0, 255, 255, 0.4);
             border-radius: 10px;
-            padding: 15px;
+            padding: 18px;
             backdrop-filter: blur(10px);
             opacity: 0;
             transform: translateY(-10px);
             transition: opacity 0.3s ease, transform 0.3s ease;
-            font-size: 12px;
+            font-size: 14px; /* Increased from 12px for better readability */
             color: #ccc;
-            max-width: 250px;
-            min-width: 220px; /* Ensure consistent width */
+            max-width: 280px; /* Increased from 250px */
+            min-width: 240px; /* Increased from 220px for better spacing */
             pointer-events: none;
             z-index: 150;
             box-shadow: 0 4px 20px rgba(0, 255, 255, 0.2);
@@ -1614,20 +1743,82 @@
         }
         
         #legend h4 {
-            margin: 0 0 10px 0;
+            margin: 0 0 12px 0;
             color: #00ffff;
-            font-size: 16px;
+            font-size: 18px; /* Increased from 16px */
             font-weight: 600;
             text-align: center;
             border-bottom: 1px solid rgba(0, 255, 255, 0.3);
-            padding-bottom: 8px;
+            padding-bottom: 10px; /* Increased from 8px */
         }
         
         .legend-item {
             display: flex;
             align-items: center;
-            margin: 8px 0;
-            gap: 10px;
+            margin: 10px 0; /* Increased from 8px */
+            gap: 12px; /* Increased from 10px */
+        }
+        
+        /* Visual scale illustration */
+        .legend-scale {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 0;
+        }
+        
+        .scale-line {
+            width: 20px;
+            height: 2px;
+            background: rgba(0, 255, 255, 0.4);
+        }
+        
+        body.nature-theme .scale-line {
+            background: rgba(102, 187, 106, 0.4);
+        }
+        
+        /* Vertical scale for niche/foundational */
+        .legend-vertical-scale {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 0;
+            gap: 4px;
+        }
+        
+        .vertical-line {
+            width: 2px;
+            height: 25px;
+            background: rgba(0, 255, 255, 0.4);
+        }
+        
+        body.nature-theme .vertical-line {
+            background: rgba(102, 187, 106, 0.4);
+        }
+        
+        .vertical-arrow {
+            font-size: 14px;
+            line-height: 1;
+            color: rgba(0, 255, 255, 0.6);
+        }
+        
+        body.nature-theme .vertical-arrow {
+            color: rgba(102, 187, 106, 0.6);
+        }
+        
+        /* 2-column layout for categories */
+        .legend-categories {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 12px;
+            margin-top: 0;
+        }
+        
+        .legend-categories .legend-item {
+            margin: 0;
+            gap: 8px;
         }
         
         .legend-icon {
@@ -1635,6 +1826,13 @@
             height: 20px;
             border-radius: 50%;
             flex-shrink: 0;
+            background: rgba(0, 255, 255, 0.6); /* Default cyan color for tech theme */
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+        }
+        
+        body.nature-theme .legend-icon {
+            background: rgba(102, 187, 106, 0.6); /* Green for nature theme */
+            box-shadow: 0 0 8px rgba(102, 187, 106, 0.4);
         }
         
         .legend-icon.small {
@@ -1652,7 +1850,13 @@
             height: 20px;
         }
         
+        /* Category-specific colors override the default */
         .legend-icon.robotics {
+            background: #FF4500;
+            box-shadow: 0 0 10px #FF4500;
+        }
+        
+        body.nature-theme .legend-icon.robotics {
             background: #FF4500;
             box-shadow: 0 0 10px #FF4500;
         }
@@ -1662,7 +1866,17 @@
             box-shadow: 0 0 10px #4169E1;
         }
         
+        body.nature-theme .legend-icon.programming {
+            background: #4169E1;
+            box-shadow: 0 0 10px #4169E1;
+        }
+        
         .legend-icon.data {
+            background: #32CD32;
+            box-shadow: 0 0 10px #32CD32;
+        }
+        
+        body.nature-theme .legend-icon.data {
             background: #32CD32;
             box-shadow: 0 0 10px #32CD32;
         }
@@ -1677,6 +1891,11 @@
             box-shadow: 0 0 10px #9370DB;
         }
         
+        body.nature-theme .legend-icon.ai {
+            background: #9370DB;
+            box-shadow: 0 0 10px #9370DB;
+        }
+        
         .legend-icon.industrial {
             background: #DC143C;
             box-shadow: 0 0 10px #DC143C;
@@ -1687,21 +1906,31 @@
             box-shadow: 0 0 10px #FF1493;
         }
         
+        body.nature-theme .legend-icon.design {
+            background: #FF1493;
+            box-shadow: 0 0 10px #FF1493;
+        }
+        
         .legend-icon.devops {
+            background: #20B2AA;
+            box-shadow: 0 0 10px #20B2AA;
+        }
+        
+        body.nature-theme .legend-icon.devops {
             background: #20B2AA;
             box-shadow: 0 0 10px #20B2AA;
         }
         
         .legend-text {
             flex: 1;
-            line-height: 1.4;
-            font-size: 13px;
+            line-height: 1.5; /* Increased from 1.4 */
+            font-size: 14px; /* Increased from 13px for better readability */
         }
         
         .legend-divider {
             height: 1px;
             background: rgba(0, 255, 255, 0.2);
-            margin: 10px 0;
+            margin: 12px 0; /* Increased from 10px */
         }
         
         /* Seed of Knowledge Loading Animation */
@@ -2040,48 +2269,60 @@
     
     <!-- Legend Toggle (Collapsible) with integrated dropdown -->
     <div id="legend-toggle-container">
-        <button id="legend-toggle" aria-label="Toggle skill tree key" title="Skill Tree Key">🗺️</button>
+        <button id="legend-toggle" aria-label="Toggle skill tree key" title="Skill Tree Key">ℹ️</button>
         
         <!-- Legend/Key as child of toggle button -->
         <div id="legend">
-            <h4>🗺️ Skill Tree Key</h4>
-            <div class="legend-item">
-                <div class="legend-icon small"></div>
-                <div class="legend-text">Smaller nodes = Less experience</div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-icon large"></div>
-                <div class="legend-text">Larger nodes = More experience</div>
-            </div>
-            <div class="legend-divider"></div>
-            <div class="legend-item">
-                <div class="legend-icon robotics"></div>
-                <div class="legend-text">Robotics & Automation</div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-icon programming"></div>
-                <div class="legend-text">Programming & Development</div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-icon data"></div>
-                <div class="legend-text">Data & Analytics</div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-icon ai"></div>
-                <div class="legend-text">AI & Machine Learning</div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-icon design"></div>
-                <div class="legend-text">Design & Visualization</div>
-            </div>
-            <div class="legend-item">
-                <div class="legend-icon devops"></div>
-                <div class="legend-text">DevOps & Infrastructure</div>
+            <h4>ℹ️ Skill Tree Key</h4>
+            <div style="display: flex; gap: 20px; justify-content: center; align-items: center;">             
+                <!-- Vertical niche/foundational scale -->
+                <div style="flex: 1;">
+                    <div class="legend-vertical-scale">
+                        <div class="legend-text" style="font-size: 11px; margin: 0;">Niche</div>
+                        <div class="vertical-arrow">↑</div>
+                        <div class="vertical-line"></div>
+                        <div class="vertical-arrow">↓</div>
+                        <div class="legend-text" style="font-size: 11px; margin: 0;">Foundational</div>
+                    </div>
+                </div>
+                      <!-- Experience scale -->
+                <div style="flex: 1;">
+                    <div class="legend-scale">
+                        <div class="legend-icon small"></div>
+                        <div class="scale-line"></div>
+                        <div class="legend-icon medium"></div>
+                        <div class="scale-line"></div>
+                        <div class="legend-icon large"></div>
+                    </div>
+                    <div class="legend-text" style="text-align: center; margin: 8px 0 10px 0; font-size: 12px;">Experience</div>
+                </div>
             </div>
             <div class="legend-divider"></div>
-            <div class="legend-text" style="font-size: 11px; font-style: italic; margin-top: 8px;">
-                ↑ Higher = More niche<br>
-                ↓ Lower = More foundational
+            <div class="legend-categories">
+                <div class="legend-item">
+                    <div class="legend-icon robotics"></div>
+                    <div class="legend-text">Robotics</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon programming"></div>
+                    <div class="legend-text">Programming</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon data"></div>
+                    <div class="legend-text">Data</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon ai"></div>
+                    <div class="legend-text">AI/ML</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon design"></div>
+                    <div class="legend-text">Design</div>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-icon devops"></div>
+                    <div class="legend-text">DevOps</div>
+                </div>
             </div>
         </div>
     </div>
@@ -3010,43 +3251,109 @@
         loadProjects();
         
         // ===== BUILD & ANIMATE =====
+        console.log('📌 Version: Instant Load (No Seed Animation) - v3.0');
         const skillTree = new SkillTree3D();
         const seedAnimation = document.getElementById('seed-animation');
         
-        // Start building tree (hidden initially)
-        skillTree.build();
+        // Check if we should enable startup animations (set by recycle/replant)
+        const shouldShowStartupAnimations = sessionStorage.getItem('enableStartupAnimations') === 'true';
         
-        // Seed animation sequence (new timing: 2s seed + 1s + 3s can + 0.5s + 0.75s rain + 1.7s rain duration)
-        setTimeout(() => {
-            // Hide seed animation after all animations complete
-            seedAnimation.classList.add('hidden');
+        if (shouldShowStartupAnimations) {
+            // Clear the flag so it doesn't persist
+            sessionStorage.removeItem('enableStartupAnimations');
             
-            // Show header title after seed animation
-            document.getElementById('header-title').classList.add('visible');
+            console.log('🌱 Startup animations enabled - showing seed sequence');
             
-            // Show experience panel and trunk after seed disappears
+            // Add class to enable animations
+            document.body.classList.add('enable-startup-animations');
+            
+            // Show seed animation
+            if (seedAnimation) {
+                seedAnimation.style.display = 'flex';
+                seedAnimation.style.opacity = '1';
+                seedAnimation.classList.remove('hidden');
+            }
+            
+            // Wait for seed animation to complete (4 seconds)
             setTimeout(() => {
-                document.getElementById('roots-panel').classList.add('loaded');
-                document.getElementById('trunk-ui').classList.add('loaded');
-                
-                // Show legend automatically on desktop only, hide on mobile
-                const legend = document.getElementById('legend');
-                const legendToggle = document.getElementById('legend-toggle');
-                
-                if (!isMobile) {
-                    legend.classList.add('visible');
-                } else {
-                    // Start collapsed on mobile with info icon
-                    legend.classList.add('hidden');
-                    legendToggle.textContent = 'ℹ️';
+                // Hide seed animation with fade
+                if (seedAnimation) {
+                    seedAnimation.classList.add('hidden');
+                    setTimeout(() => {
+                        seedAnimation.style.display = 'none';
+                        // Remove animation class after seed is done
+                        document.body.classList.remove('enable-startup-animations');
+                    }, 800);
                 }
                 
-                // Start tree build animation after roots panel is visible
+                // Show UI elements gradually
                 setTimeout(() => {
+                    document.getElementById('header-title').classList.add('visible');
+                }, 300);
+                
+                setTimeout(() => {
+                    document.getElementById('roots-panel').classList.add('loaded');
+                    document.getElementById('trunk-ui').classList.add('loaded');
+                }, 600);
+                
+                setTimeout(() => {
+                    if (!isMobile) {
+                        document.getElementById('legend').classList.add('visible');
+                    } else {
+                        document.getElementById('legend').classList.add('hidden');
+                    }
+                }, 900);
+                
+                // Start building tree after UI is shown
+                setTimeout(async () => {
+                    try {
+                        console.log('🌱 Starting tree build...');
+                        await skillTree.build();
+                        console.log('✅ Tree build complete, starting animation...');
+                        skillTree.startBuildAnimation();
+                    } catch (error) {
+                        console.error('❌ Error building tree:', error);
+                    }
+                }, 1200);
+                
+            }, 4000); // Match seed animation duration
+            
+        } else {
+            // Instant load - no startup animations (default behavior)
+            console.log('🚀 Instant loading mode - skipping startup animations');
+            
+            // Hide seed animation immediately
+            if (seedAnimation) {
+                seedAnimation.style.display = 'none';
+                seedAnimation.classList.add('hidden');
+            }
+            
+            // Show all UI elements immediately
+            document.getElementById('header-title').classList.add('visible');
+            document.getElementById('roots-panel').classList.add('loaded');
+            document.getElementById('trunk-ui').classList.add('loaded');
+            
+            // Show legend on desktop, hide on mobile
+            if (!isMobile) {
+                document.getElementById('legend').classList.add('visible');
+            } else {
+                document.getElementById('legend').classList.add('hidden');
+            }
+            
+            // Start building tree immediately
+            async function initializeTree() {
+                try {
+                    console.log('🌱 Starting tree build...');
+                    await skillTree.build();
+                    console.log('✅ Tree build complete, starting animation...');
                     skillTree.startBuildAnimation();
-                }, 500); // Additional 0.5s delay after panel loads
-            }, 800); // Wait for seed animation fade out
-        }, 6500); // Total: 2s seed + 1s + 3s can + 0.5s + 0.75s + 1.7s rain duration = ~8.95s, using 6.5s for better UX
+                } catch (error) {
+                    console.error('❌ Error building tree:', error);
+                }
+            }
+            
+            initializeTree();
+        }
         
         // ===== ROOTS PANEL TOGGLE (Mobile) =====
         const rootsToggle = document.getElementById('roots-toggle');
@@ -3944,6 +4251,20 @@
             zoomOut();
         });
         
+        // Click outside detail panel to close (but not on navigation arrows)
+        window.addEventListener('click', (e) => {
+            if (isZoomedIn) {
+                const detailPanel = document.getElementById('skill-detail');
+                const treeNav = document.getElementById('tree-navigation');
+                
+                // Check if click is outside both the detail panel and navigation controls
+                if (!detailPanel.contains(e.target) && !treeNav.contains(e.target)) {
+                    hideNavigationUI();
+                    zoomOut();
+                }
+            }
+        });
+        
         // Only close on ESC key or close button
         window.addEventListener('keydown', (e) => {
             if (e.key === 'Escape' && isZoomedIn) {
@@ -4149,7 +4470,7 @@
             
             // Position axe off-screen initially
             axeGroup.position.set(-15, 5, 0);
-            axeGroup.rotation.z = Math.PI / 4;
+            axeGroup.rotation.z = Math.PI ;
             axeGroup.visible = false;
             
             return axeGroup;
@@ -4223,17 +4544,15 @@
                     scene.add(axe);
                 }
                 
+                // RESET all rotations and positions before animation
+                axe.rotation.set(0, 0, 0);
                 axe.visible = true;
                 const trunkY = -2; // Height of trunk cut
                 
-                // Starting position: right side, ready for horizontal chop
-                axe.position.set(12, trunkY, 0);
-                axe.rotation.z = 0; // Horizontal orientation
-                
                 // Wind-up + swing
-                const swingInDuration = 400;    // Pendulum swing in
-                const windUpDuration = 600;     // Wind-up before chop
-                const swingDuration = 400;      // Fast chop
+                const swingInDuration = 500;    // Pendulum swing in
+                const windUpDuration = 700;     // Wind-up before chop
+                const swingDuration = 500;      // Fast chop
                 const totalDuration = swingInDuration + windUpDuration + swingDuration;
                 const startTime = Date.now();
                 let woodChips = null;
@@ -4243,40 +4562,64 @@
                     const progress = Math.min(elapsed / totalDuration, 1);
                     
                     if (elapsed < swingInDuration) {
-                        // Phase 1: Pendulum swing in from off-screen
+                        // Phase 1: Pendulum swing in from far right off-screen
                         const swingProgress = elapsed / swingInDuration;
                         const swingEased = 1 - Math.pow(1 - swingProgress, 3); // Ease out
                         
-                        // Swing from far right (off-screen) to ready position
-                        axe.position.x = 20 - (8 * swingEased); // 20 -> 12
+                        // Reset all rotations first
+                        axe.rotation.set(0, 90, 0);
                         
-                        // Pendulum rotation as it swings in
-                        axe.rotation.z = Math.sin(swingProgress * Math.PI) * Math.PI / 8; // Swing motion
+                        // Swing from far right (off-screen) to ready position
+                        axe.position.set(
+                            25 - (13 * swingEased), // 25 -> 12 (off-screen to ready)
+                            trunkY,
+                            0
+                        );
+                        
+                        // Subtle pendulum rotation as it swings in
+                        //axe.rotation.z = Math.sin(swingProgress * Math.PI) * (Math.PI / 12); // Small swing
                         
                     } else if (elapsed < swingInDuration + windUpDuration) {
-                        // Phase 2: Wind-up (pull back and rotate)
+                        // Phase 2: Wind-up (pull back and rotate for power)
                         const windProgress = (elapsed - swingInDuration) / windUpDuration;
                         const windEased = Math.sin(windProgress * Math.PI / 2); // Ease out
                         
-                        axe.position.x = 12 + (3 * windEased); // Pull further right
-                        axe.rotation.z = -Math.PI / 6 * windEased; // Rotate back
+                        // Reset Y rotation (no spinning during wind-up)
+                        axe.rotation.y = 90;
                         
+                       //// Pull back to the right and rotate back
+                       axe.position.set(
+                           12 + (4 * windEased), // Pull from 12 to 16
+                           trunkY,
+                           0
+                       );
+                       axe.rotation.z = -Math.PI / 5 * windEased; // Rotate back ~36 degrees
+                       
                     } else {
                         // Phase 3: Fast horizontal chop
                         const swingProgress = (elapsed - swingInDuration - windUpDuration) / swingDuration;
                         const swingEased = 1 - Math.pow(1 - swingProgress, 4); // Fast acceleration
                         
-                        // Horizontal swing from right to center trunk
-                        axe.position.x = 15 - (15 * swingEased);
-                        axe.rotation.z = -Math.PI / 6 + (Math.PI / 6 * swingEased);
+                        // Horizontal swing from right (16) to center/past trunk (0 or negative)
+                        axe.position.set(
+                            16 - (17 * swingEased), // 16 -> -1 (swings past center)
+                            trunkY,
+                            0
+                        );
                         
-                        // Add spinning rotation after impact
+                        // Rotate from wind-up angle back to horizontal as it chops
+                        //axe.rotation.z = -Math.PI / 5 + ((Math.PI / 5) * swingEased); // Back to ~0
+                        
+                        // Add spinning rotation ONLY after impact (after 70% of chop phase)
                         if (swingProgress > 0.7) {
                             const spinProgress = (swingProgress - 0.7) / 0.3; // Last 30% of swing
-                            axe.rotation.y = spinProgress * Math.PI * 4; // Multiple rotations
+                            axe.rotation.x = spinProgress * Math.PI * -0.2
+                            axe.rotation.y = spinProgress  + 90;
+                        } else {
+                            axe.rotation.y = 90; // No Y rotation during chop
                         }
                         
-                        // Create wood chips at impact
+                        // Create wood chips at impact point (around 70%)
                         if (swingProgress > 0.7 && !woodChips) {
                             woodChips = createWoodChips();
                         }
@@ -4302,6 +4645,8 @@
                             if (woodChips) {
                                 woodChips.forEach(chip => scene.remove(chip));
                             }
+                            // Reset axe rotation for next use
+                            axe.rotation.set(0, 0, 0);
                             resolve();
                         }, 400);
                     }
@@ -4669,10 +5014,10 @@
                             
                             <div style="margin-top: 60px; padding-top: 20px; border-top: 2px solid #e0e0e0; text-align: center;">
                                 <p style="color: #999; font-size: 12px; margin: 10px 0;">
-                                    <em>📄 This resume was dynamically generated from JSON data files</em>
+                                    <em>📄 This resume was dynamically generated from my JSON skills and experience files</em>
                                 </p>
                                 <p style="color: #999; font-size: 12px; margin: 5px 0;">
-                                    Place <strong>resume.pdf</strong> in the root directory to display your PDF resume instead
+                                    Latest <strong>resume.pdf</strong> was missing from my root directory...oops!
                                 </p>
                             </div>
                             
@@ -4917,7 +5262,10 @@
             const recycleBtn = document.getElementById('recycle-tree');
             if (recycleBtn) recycleBtn.classList.remove('visible');
             
-            // Full page reload for clean reset
+            // Set flag in sessionStorage to enable startup animations on reload
+            sessionStorage.setItem('enableStartupAnimations', 'true');
+            
+            // Full page reload - will show seed animation due to flag
             window.location.reload();
         }
         
